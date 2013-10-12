@@ -1,0 +1,109 @@
+* as a user, i want ze landingpage, so that jo oiso jo für wosd a landing page hoid brauchst
+* as a user, i want to register an account, so that i can play nemore
+* as a user, i want to be able to login via facebook, so i don't have to register
+* as a user, i want a normal login, because i don't have facebook and want to be part of nemore
+* as a user, i want to choose between different fractions so that i have a bigger variety
+* as a user, i want to choose between different heroes in the chosen fraction so that i have a bigger variety
+* as a user, i want to recruit a crew so that i can fight other people
+* as a user, i want to see a summary of my chosen things if i registered the first time so i can be sure i chose the right things
+* as a user, i want to see an open game list after i have created everything else, so i can start playing a game
+* as a user, i want to be able to predefine rules for my crew so that they fight according to a defined pattern.
+* as a user, i want a summary after each fight, so i can see exactly in details what happened
+* as a user, i want to see a nice interface when i try to sign up for the game nemore so that i don't get detered from the website
+* as a user, i want to get conducted through the setup so i can chosse every thing i need to play the game
+* as a user, i want to have a figure for my fraction/hero i chose so it is remarkable
+* as a user, i want to set a pattern for my crew to fight the enemy so i can choose between several different tactical strategies
+* as a user, i want to see my crew in action when they fight according to my pattern so it's not boring
+* as a user, i want to set different ingame settings (crewmembers, crewnames, fight-pattern) so i can pre-define fights perfectly
+* as a user, i want to see the end of the fight with statistics so i can see what i did wrong
+* as a user, i want to have an appetizing landingpage so i actually want to play the game
+* as a user, i also want to be able to play the game on my mobile devices
+
+
+-- router anlegen
+-- models 
+-- adobe edbe inspect (linux?)
+-- database befüllen mit werten
+
+
+
+
+
+
+
+
+
+
+
+1 hero
+8 crewmembers
+5 people in game (1 hero + 4 crewmembers)
+
+
+
+Crit only on DMG-spells
+Crit multiplikator: 1,5
+HP crew: 500
+HP hero: 1000
+
+Hero 1 (Schilddrohne, Polizist): 
+- Name
+- Atk:
+	Damage: 75,
+	Crit: 	10%,
+	Treff:	60%,
+- Def:
+	Reduction: 20%
+	Armor:	   80%
+- Spec (only Def.):
+	* +20% Armor for whole crew
+	* +100% only hero itself
+	* 80% on player-chosen char
+
+
+Hero 2 (Sniper, Polizist): 
+- Name
+- Atk:
+	Damage: 150,
+	Crit: 	10%,
+	Treff:	80%,
+- Def:
+	Reduction: 80%
+	Armor:	   20%
+- Spec (only Atk.):
+	* +100% Treff (insgesamt 100% halt)
+	* next shot 175 dmg
+	* 50% crit
+
+Hero 3 (Commander, Terrorist): 
+- Name
+- Atk:
+	Damage: 100,
+	Crit: 	10%,
+	Treff:	70%,
+- Def:
+	Reduction: 60%
+	Armor:	   40%
+- Spec (only Atk.):
+	* +10% crit (on all crewmembers)
+	* +20% dmg (on all crewmembers)
+	* +20% treff(on all crewmembers)
+
+Hero 4 (Weaponspecialist, Terrorist): 
+- Name
+- Atk:
+	Damage: 125,
+	Crit: 	10%,
+	Treff:	75%,
+- Def:
+	Reduction: 40%
+	Armor:	   60%
+- Spec (only Atk.):
+	* hits 3 members with 50% dmg
+	* 3 enemies have a 50% chance of not using their special abilities
+	* 3 hits on one member with 50% dmg 
+
+
+
+
+
