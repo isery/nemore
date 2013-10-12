@@ -1,0 +1,25 @@
+<head>
+  <title>Nemore</title>
+</head>
+
+<body>
+</body>
+
+<template name="layout">
+  <div> Layout </div>
+  {{loginButtons}}
+  <a href="{{pathFor 'gamerooms'}}"> Gameroom </a>
+  {{yield}}
+</template>
+
+<template name="loading">
+  <div> Loading </div>
+</template>
+
+<template name="notFound">
+  <div> Not found </div>
+</template>
+
+<template name="home">
+  <div> Home </div>
+</template>

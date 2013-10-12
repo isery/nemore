@@ -1,0 +1,7 @@
+<template name="gamerooms">
+  {{#each currentOpenGames}}
+    {{name}} <input class="joinGame" type="button" value="Join" data-id="{{_id}}"> <br>
+  {{/each}}
+  <input type="text" id="newGameName" placeholder="gameName">
+  <input type="button" id="createGame" value="Create Game">
+</template>
