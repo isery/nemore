@@ -8,7 +8,7 @@ startGame = (_id)->
     @mummy.animations.add "walk"
     @mummy.animations.play "walk", 30, true
   update = ->
-    currentGame = Games.findOne({_id: _id})
+    currentGame = Game.findOne({_id: _id})
     if currentGame
       @mummy.x = currentGame.x
       @mummy.y = currentGame.y
