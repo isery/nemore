@@ -14,3 +14,13 @@ Router.map ->
     waitOn: -> Meteor.subscribe 'allGames',
     data: ->
       game: Game.findOne _id: @params._id
+  @route 'heroeSelection',
+    path: '/heroe_selection'
+    waitOn: -> Meteor.subscribe 'allHeroes',
+    data: ->
+      heroes: Heroe.find()
+  @route 'crewSelection',
+    path: '/crew_selection'
+    waitOn: -> Meteor.subscribe 'allHeroes',
+    data: ->
+      heroes: Heroe.find()
