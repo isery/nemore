@@ -1,7 +1,7 @@
 Router.configure
-  layout: 'layout',
-  notFoundTemplate: 'notFound',
-  loadingTemplate: 'loading'
+	layout: 'layout',
+	notFoundTemplate: 'notFound',
+	loadingTemplate: 'loading'
 
 Router.map ->
   @route 'home', path: '/'

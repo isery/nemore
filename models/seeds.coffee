@@ -9,7 +9,7 @@ if Meteor.isServer
 			commanderId = Heroe.insert name: "Commander", fraction: "Terrorist", live: 1000, damage: 100, crit: 0.1, accuracy: 0.7, armor: 0.4
 			specialistId = Heroe.insert name: "Specialist", fraction: "Terrorist", live: 1000, damage: 125, crit: 0.1, accuracy: 0.75, armor: 0.6
 
-		if SpecialAbility.find().count < 12
+		if SpecialAbility.find().count() < 12
 			SpecialAbility.remove()
 			SpecialAbility.insert heroe_id: droneId, name: "armor all", type: "defence", factor: "0.2", target_count: 5
 			SpecialAbility.insert heroe_id: droneId, name: "armor me", type: "defence", factor: "1.0", target_count: 1
@@ -24,7 +24,7 @@ if Meteor.isServer
 			SpecialAbility.insert heroe_id: specialistId, name: "attack three 50% reset special", type: "attack three", factor: "0.5", target_count: 3
 			SpecialAbility.insert heroe_id: specialistId, name: "increase for three accuracy", type: "attack one tree times", factor: "0.5", target_count: 3
 
-			
+
 
 
 
