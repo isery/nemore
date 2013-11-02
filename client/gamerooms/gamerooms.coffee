@@ -12,6 +12,7 @@ Template.gamerooms.events
       "x": 0,
       "y": 0,
       "player1": Meteor.userId(),
+      "playing": false
       "created_at": new Date()
     Router.go 'games', _id: _id
 
