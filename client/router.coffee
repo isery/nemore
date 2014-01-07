@@ -21,6 +21,16 @@ Router.map ->
       heroes: Heroe.find()
   @route 'crewSelection',
     path: '/crew_selection'
-    waitOn: -> Meteor.subscribe 'allHeroes',
+    waitOn: ->
+      Meteor.subscribe 'allHeroes'
+      Meteor.subscribe 'allCrewmembers'
     data: ->
       heroes: Heroe.find()
+  @route 'summary',
+    waitOn: ->
+      Meteor.subscribe 'allHeroes'
+      Meteor.subscribe 'allCrewmembers'
+      Meteor.subscribe 'userData'
+    data: ->
+      heroe: Meteor.user().heroe,
+      crewmembers: Crewmember.find({userId: Meteor.userId()})
