@@ -1,1 +1,1 @@
-@SpecialAbility = new Meteor.Collection 'specialAbility'
+@SpecialAbilities = new Meteor.Collection 'specialAbility'

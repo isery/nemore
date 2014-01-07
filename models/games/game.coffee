@@ -1,1 +1,1 @@
-@Game = new Meteor.Collection 'game'
+@Games = new Meteor.Collection 'game'

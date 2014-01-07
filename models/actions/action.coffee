@@ -1,1 +1,1 @@
-@Action = new Meteor.Collection 'action'
+@Actions = new Meteor.Collection 'action'
