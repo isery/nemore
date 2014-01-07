@@ -26,6 +26,7 @@ Router.map ->
       Meteor.subscribe 'allCrewmembers'
     data: ->
       heroes: Heroes.find()
+      crewmembers: Crewmember.find()
   @route 'summary',
     waitOn: ->
       Meteor.subscribe 'allHeroes'

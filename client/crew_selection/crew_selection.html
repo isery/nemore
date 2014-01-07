@@ -2,5 +2,14 @@
   {{#each heroes}}
     <div class="crew-selection" id="{{_id}}"> {{name}} </div>
   {{/each}}
+
+  <br><br>
+  <div>
+    <label><b> Selected: </b></label>
+    {{#each crewmembers}}
+      <div class="crew-selected" id="{{_id}}">{{heroe.name}} </div>
+    {{/each}}
+  </div>
+
   <input type="button" value="Ready" id="ready">
 </template>
