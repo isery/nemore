@@ -1,28 +1,28 @@
 
 if Meteor.isServer
 	Meteor.startup ->
-		Action.insert game_id: 1, from: 2, to: 24, special: false, crit: false, hit: true, damage: 100  if Action.find().count() is 0
-		if Heroe.find().count() < 4
-			Heroe.remove()
-			droneId = Heroe.insert name: "Drone", fraction: "Police", live: 1000, damage: 75, crit: 0.1, accuracy: 0.6, armor: 0.8
-			sniperId = Heroe.insert name: "Sniper", fraction: "Police", live: 1000, damage: 150, crit: 0.1, accuracy: 0.8, armor: 0.8
-			commanderId = Heroe.insert name: "Commander", fraction: "Terrorist", live: 1000, damage: 100, crit: 0.1, accuracy: 0.7, armor: 0.4
-			specialistId = Heroe.insert name: "Specialist", fraction: "Terrorist", live: 1000, damage: 125, crit: 0.1, accuracy: 0.75, armor: 0.6
+		Actions.insert game_id: 1, from: 2, to: 24, special: false, crit: false, hit: true, damage: 100  if Actions.find().count() is 0
+		if Heroes.find().count() < 4
+			Heroes.remove()
+			droneId = Heroes.insert name: "Drone", fraction: "Police", live: 1000, damage: 75, crit: 0.1, accuracy: 0.6, armor: 0.8
+			sniperId = Heroes.insert name: "Sniper", fraction: "Police", live: 1000, damage: 150, crit: 0.1, accuracy: 0.8, armor: 0.8
+			commanderId = Heroes.insert name: "Commander", fraction: "Terrorist", live: 1000, damage: 100, crit: 0.1, accuracy: 0.7, armor: 0.4
+			specialistId = Heroes.insert name: "Specialist", fraction: "Terrorist", live: 1000, damage: 125, crit: 0.1, accuracy: 0.75, armor: 0.6
 
-		if SpecialAbility.find().count() < 12
-			SpecialAbility.remove()
-			SpecialAbility.insert heroe_id: droneId, name: "armor all", type: "defence", factor: "0.2", target_count: 5
-			SpecialAbility.insert heroe_id: droneId, name: "armor me", type: "defence", factor: "1.0", target_count: 1
-			SpecialAbility.insert heroe_id: droneId, name: "armor someone", type: "defence", factor: "0.8", target_count: 1
-			SpecialAbility.insert heroe_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1
-			SpecialAbility.insert heroe_id: sniperId, name: "increase damage", type: "improve", factor: "1.1667", target_count: 1
-			SpecialAbility.insert heroe_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1
-			SpecialAbility.insert heroe_id: commanderId, name: "increase for all crit", type: "improve all", factor: "2", target_count: 5
-			SpecialAbility.insert heroe_id: commanderId, name: "increase for all accuracy", type: "improve all", factor: "0.2", target_count: 5
-			SpecialAbility.insert heroe_id: commanderId, name: "increase for all damage", type: "improve all", factor: "2", target_count: 5
-			SpecialAbility.insert heroe_id: specialistId, name: "attack three 50% Damage", type: "attack three", factor: "-0.5", target_count: 3
-			SpecialAbility.insert heroe_id: specialistId, name: "attack three 50% reset special", type: "attack three", factor: "0.5", target_count: 3
-			SpecialAbility.insert heroe_id: specialistId, name: "increase for three accuracy", type: "attack one tree times", factor: "0.5", target_count: 3
+		if SpecialAbilities.find().count() < 12
+			SpecialAbilities.remove()
+			SpecialAbilities.insert heroe_id: droneId, name: "armor all", type: "defence", factor: "0.2", target_count: 5
+			SpecialAbilities.insert heroe_id: droneId, name: "armor me", type: "defence", factor: "1.0", target_count: 1
+			SpecialAbilities.insert heroe_id: droneId, name: "armor someone", type: "defence", factor: "0.8", target_count: 1
+			SpecialAbilities.insert heroe_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1
+			SpecialAbilities.insert heroe_id: sniperId, name: "increase damage", type: "improve", factor: "1.1667", target_count: 1
+			SpecialAbilities.insert heroe_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1
+			SpecialAbilities.insert heroe_id: commanderId, name: "increase for all crit", type: "improve all", factor: "2", target_count: 5
+			SpecialAbilities.insert heroe_id: commanderId, name: "increase for all accuracy", type: "improve all", factor: "0.2", target_count: 5
+			SpecialAbilities.insert heroe_id: commanderId, name: "increase for all damage", type: "improve all", factor: "2", target_count: 5
+			SpecialAbilities.insert heroe_id: specialistId, name: "attack three 50% Damage", type: "attack three", factor: "-0.5", target_count: 3
+			SpecialAbilities.insert heroe_id: specialistId, name: "attack three 50% reset special", type: "attack three", factor: "0.5", target_count: 3
+			SpecialAbilities.insert heroe_id: specialistId, name: "increase for three accuracy", type: "attack one tree times", factor: "0.5", target_count: 3
 
 
 

@@ -8,24 +8,24 @@ Router.map ->
   @route 'gamerooms',
     waitOn: -> Meteor.subscribe 'allGames',
     data: ->
-      currentOpenGames: Game.find().fetch()
+      currentOpenGames: Games.find().fetch()
   @route 'games',
     path: '/games/:_id',
     waitOn: -> Meteor.subscribe 'allGames',
     data: ->
-      game: Game.findOne _id: @params._id
+      game: Games.findOne _id: @params._id
   @route 'heroeSelection',
     path: '/heroe_selection'
     waitOn: -> Meteor.subscribe 'allHeroes',
     data: ->
-      heroes: Heroe.find()
+      heroes: Heroes.find()
   @route 'crewSelection',
     path: '/crew_selection'
     waitOn: ->
       Meteor.subscribe 'allHeroes'
       Meteor.subscribe 'allCrewmembers'
     data: ->
-      heroes: Heroe.find()
+      heroes: Heroes.find()
   @route 'summary',
     waitOn: ->
       Meteor.subscribe 'allHeroes'

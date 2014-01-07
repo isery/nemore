@@ -1,6 +1,6 @@
 startGame = (_id)->
   Meteor.setInterval( ->
-    game = Game.findOne({_id: _id})
+    game = Games.findOne({_id: _id})
     if game
       _id = game._id
       x = game.x + 5
@@ -9,7 +9,7 @@ startGame = (_id)->
   ,200)
 
 Meteor.startup ->
-  Game.find({player1 : {$exists: true}, player2 : {$exists: true}, playing: false}).observe({
+  Games.find({player1 : {$exists: true}, player2 : {$exists: true}, playing: false}).observe({
     added: (game)->
       console.log "Observer: New game initialized at " + new Date()
       Game.update({_id: game._id}, {$set: {playing: true}})

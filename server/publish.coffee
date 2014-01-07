@@ -1,8 +1,8 @@
 Meteor.publish "allGames", ->
-  Game.find()
+  Games.find()
 
 Meteor.publish "allHeroes", ->
-  Heroe.find()
+  Heroes.find()
 
 Meteor.publish "allCrewmembers", ->
   Crewmember.all()

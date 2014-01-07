@@ -1,1 +1,1 @@
-@Heroe = new Meteor.Collection 'heroe'
+@Heroes = new Meteor.Collection 'heroe'
