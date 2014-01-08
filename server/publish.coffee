@@ -2,11 +2,11 @@ Meteor.publish "allGames", ->
   Games.find()
 
 Meteor.publish "allHeroes", ->
-  Heroes.find()
+  Hero.all()
 
 Meteor.publish "allCrewmembers", ->
   Crewmember.all()
 
 Meteor.publish "userData", ->
   Meteor.users.find({_id: this.userId},
-    {fields: {'heroe': 1}});
+    {fields: {'hero': 1}});

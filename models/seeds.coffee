@@ -23,12 +23,3 @@ if Meteor.isServer
 			SpecialAbilities.insert heroe_id: specialistId, name: "attack three 50% Damage", type: "attack three", factor: "-0.5", target_count: 3
 			SpecialAbilities.insert heroe_id: specialistId, name: "attack three 50% reset special", type: "attack three", factor: "0.5", target_count: 3
 			SpecialAbilities.insert heroe_id: specialistId, name: "increase for three accuracy", type: "attack one tree times", factor: "0.5", target_count: 3
-
-
-
-
-
-
-
-
-
