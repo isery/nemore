@@ -1,6 +1,9 @@
 Meteor.publish "allGames", ->
   Games.find()
 
+Meteor.publish "currentGame", (_id) ->
+  Games.find({_id: _id})
+
 Meteor.publish "allHeroes", ->
   Hero.all()
 
