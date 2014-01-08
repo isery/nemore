@@ -4,23 +4,35 @@ Router.configure
 	loadingTemplate: 'loading'
 
 Router.map ->
-  @route 'home', path: '/'
+  @isLoggedIn = ->
+    if !Meteor.user()
+      Router.go 'home'
+
+  @route 'home',
+    path: '/'
+    waitOn: ->
+      Meteor.subscribe 'userData'
   @route 'gamerooms',
-    waitOn: -> Meteor.subscribe 'allGames',
+    before: -> Router.isLoggedIn()
+    waitOn: ->
+      Meteor.subscribe 'allGames'
     data: ->
       currentOpenGames: Games.find().fetch()
   @route 'games',
-    path: '/games/:_id',
-    waitOn: -> Meteor.subscribe 'allGames',
+    path: '/games/:_id'
+    before: -> Router.isLoggedIn()
+    waitOn: -> Meteor.subscribe 'allGames'
     data: ->
       game: Games.findOne _id: @params._id
   @route 'heroSelection',
     path: '/hero_selection'
+    before: -> Router.isLoggedIn()
     waitOn: -> Meteor.subscribe 'allHeroes',
     data: ->
       heroes: Hero.find({})
   @route 'crewSelection',
     path: '/crew_selection'
+    before: -> Router.isLoggedIn()
     waitOn: ->
       Meteor.subscribe 'allHeroes'
       Meteor.subscribe 'allCrewmembers'
@@ -28,6 +40,7 @@ Router.map ->
       heroes: Heroes.find()
       crewmembers: Crewmember.find()
   @route 'summary',
+    before: -> Router.isLoggedIn()
     waitOn: ->
       Meteor.subscribe 'allHeroes'
       Meteor.subscribe 'allCrewmembers'
