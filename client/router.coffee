@@ -11,14 +11,14 @@ Router.map ->
       that.stop()
 
   @hasHero = (that)->
-    if Meteor.user() && ! Meteor.user().hero
+    if Meteor.user() && !Meteor.user().hero && that.ready()
       Router.go 'heroSelection'
       that.stop()
 
   @route 'home',
     path: '/'
     before: ->
-      Router.hasHero(@) if @ready
+      Router.hasHero(@)
     waitOn: ->
       Meteor.subscribe 'userData'
   @route 'gamerooms',
