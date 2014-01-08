@@ -32,8 +32,8 @@ class @Crewmember
       heroId: @heroId
 
   # For Meteor publish
-  @all = ->
-    crewmembers = Crewmembers.find()
+  @all = (userId)->
+    crewmembers = Crewmembers.find({userId: userId})
 
   @findOne = (options = {}) ->
     crewmember = Crewmembers.findOne(options)
