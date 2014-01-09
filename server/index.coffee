@@ -1,3 +1,22 @@
+Accounts.onCreateUser (options, user) ->
+  if (options.profile)
+    options.profile.picture = getFbPicture( user.services.facebook.accessToken )
+
+    # We still want the default hook's 'profile' behavior.
+    user.profile = options.profile;
+  return user
+
+# get user picture from facebook api
+getFbPicture = (accessToken) ->
+  result = Meteor.http.get "https://graph.facebook.com/me",
+    params:
+      access_token: accessToken
+      fields: 'picture'
+  if(result.error)
+    throw result.error
+  return result.data.picture.data.url
+
+
 startGame = (_id)->
   Meteor.setInterval( ->
     game = Games.findOne({_id: _id})
