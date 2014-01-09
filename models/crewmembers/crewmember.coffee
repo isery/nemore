@@ -23,6 +23,9 @@ class @Crewmember
   hero: ->
     Heroes.findOne({_id: @heroId})
 
+  special_abilities: ->
+    SpecialAbilities.find({hero_id: @heroId}).fetch()
+
   save: ->
     @validateSave()
     @_id = Crewmembers.insert

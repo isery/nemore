@@ -28,6 +28,7 @@ Router.map ->
       Meteor.subscribe 'allGames'
     data: ->
       currentOpenGames: Games.find({player2: {$exists: false}}).fetch()
+      users: Meteor.users.find({}).fetch()
   @route 'preSetting',
     path: '/preSetting/:_id'
   @route 'games',

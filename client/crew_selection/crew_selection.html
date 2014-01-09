@@ -1,15 +1,23 @@
 <template name="crewSelection">
-  {{#each heroes}}
-    <div class="crew-selection" id="{{_id}}"> {{name}} </div>
-  {{/each}}
-
-  <br><br>
-  <div>
-    <label><b> Selected: </b></label>
-    {{#each crewmembers}}
-      <div class="crew-selected" id="{{_id}}">{{hero.name}} </div>
-    {{/each}}
+  <div  class="row">
+      {{#each heroes}}
+        <div class="col-md-3">
+            <div class="thumbnail">
+                <img src="img/{{name}}.png" alt="..." class="crew-selection" id="{{_id}}">
+                {{name}}
+            </div>
+        </div>
+      {{/each}}
   </div>
-
-  <input type="button" value="Ready" id="ready">
+  <div class="row">
+    {{#each crewmembers}}
+      <div class="col-md-2">
+          <div class="thumbnail">
+              <img src="img/{{hero.name}}.png" alt="..." class="crew-selected" id="{{_id}}">
+          </div>
+      </div>
+    {{/each}}
+    <input type="button" value="Ready" id="ready" class="btn btn-success btn-lg btn-block">
+      <br>
+  </div>
 </template>

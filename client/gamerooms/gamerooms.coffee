@@ -11,4 +11,8 @@ Template.gamerooms.events
     console.log "created game with id: "+_id
     Router.go 'preSetting', _id: _id
 
+Template.gamerooms.findUser = () ->
+  userId = Game.findById(@_id).player1
+  Meteor.users.findOne({_id: userId}).username
+
 
