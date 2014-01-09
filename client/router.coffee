@@ -27,7 +27,7 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'allGames'
     data: ->
-      currentOpenGames: Games.find({playing: false}).fetch()
+      currentOpenGames: Games.find({player2: {$exists: false}}).fetch()
   @route 'preSetting',
     path: '/preSetting/:_id'
   @route 'games',
