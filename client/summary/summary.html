@@ -1,7 +1,11 @@
 <template name="summary">
-  <div> {{heroe}}</div>
+  <br>
+  <label> Selected Hero: </label>
+  <div> {{hero.name}}</div>
+  <br>
+  <label> Selected Crewmembers: </label>
   {{#each crewmembers}}
-  <div> {{heroe.name}} </div>
+  <div> {{hero.name}} </div>
   {{/each}}
   <input type="button" value="Ready" id="ready">
 </template>

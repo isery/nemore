@@ -1,26 +1,53 @@
 Router.configure
-	layout: 'layout',
+	layoutTemplate: 'layout',
 	notFoundTemplate: 'notFound',
 	loadingTemplate: 'loading'
 
 Router.map ->
-  @route 'home', path: '/'
+  @isLoggedIn = (that)->
+    that.subscribe('userData').wait()
+    if !Meteor.user()
+      Router.go 'home'
+      that.stop()
+
+  @hasHero = (that)->
+    if Meteor.user() && !Meteor.user().hero && that.ready()
+      Router.go 'heroSelection'
+      that.stop()
+
+  @route 'home',
+    path: '/'
+    before: ->
+      Router.hasHero(@)
+    waitOn: ->
+      Meteor.subscribe 'userData'
   @route 'gamerooms',
-    waitOn: -> Meteor.subscribe 'allGames',
+    before: ->
+      Router.isLoggedIn(@) if @ready()
+    waitOn: ->
+      Meteor.subscribe 'allGames'
     data: ->
-      currentOpenGames: Games.find().fetch()
+      currentOpenGames: Games.find({player2: {$exists: false}}).fetch()
+  @route 'preSetting',
+    path: '/preSetting/:_id'
   @route 'games',
-    path: '/games/:_id',
-    waitOn: -> Meteor.subscribe 'allGames',
+    path: '/games/:_id'
+    before: ->
+      Router.isLoggedIn(@) if @ready()
+    waitOn: -> Meteor.subscribe 'allGames'
     data: ->
       game: Games.findOne _id: @params._id
-  @route 'heroeSelection',
-    path: '/heroe_selection'
-    waitOn: -> Meteor.subscribe 'allHeroes',
+  @route 'heroSelection',
+    path: '/hero_selection'
+    before: ->
+      Router.isLoggedIn(@) if @ready()
+    waitOn: -> Meteor.subscribe 'allHeroes'
     data: ->
-      heroes: Heroes.find()
+      heroes: Hero.find({})
   @route 'crewSelection',
     path: '/crew_selection'
+    before: ->
+      Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allHeroes'
       Meteor.subscribe 'allCrewmembers'
@@ -28,10 +55,14 @@ Router.map ->
       heroes: Heroes.find()
       crewmembers: Crewmember.find()
   @route 'summary',
+    before: ->
+      Router.isLoggedIn(@) if @ready()
     waitOn: ->
-      Meteor.subscribe 'allHeroes'
-      Meteor.subscribe 'allCrewmembers'
-      Meteor.subscribe 'userData'
+      [
+        Meteor.subscribe 'allHeroes'
+        Meteor.subscribe 'allCrewmembers'
+        Meteor.subscribe 'userData'
+      ]
     data: ->
-      heroe: Meteor.user().heroe,
+      hero: Hero.findOne({_id: Meteor.user().hero})
       crewmembers: Crewmember.find({userId: Meteor.userId()})

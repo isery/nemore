@@ -5,14 +5,13 @@ class @Crewmember
   _maxCount: 10
   constructor: (options) ->
     @validate options
-    @userId = options.userId
-    @heroeId = options.heroeId
-    @_id = options._id || null
+    for key, value of options
+      @[key] = value
 
   validate: (options) ->
     throw new Meteor.Error 490, 'No options passed' unless options
     throw new Meteor.Error 490, 'Undefined userId' unless options.userId
-    throw new Meteor.Error 490, 'Undefined heroeId' unless options.heroeId
+    throw new Meteor.Error 490, 'Undefined heroId' unless options.heroId
 
   validateSave: ->
     if Crewmembers.find({userId: @userId}).fetch().length + 1 > @_maxCount
@@ -21,18 +20,18 @@ class @Crewmember
   user: ->
     Meteor.users.findOne({_id: @userId})
 
-  heroe: ->
-    Heroes.findOne({_id: @heroeId})
+  hero: ->
+    Heroes.findOne({_id: @heroId})
 
   save: ->
     @validateSave()
     @_id = Crewmembers.insert
       userId: @userId
-      heroeId: @heroeId
+      heroId: @heroId
 
   # For Meteor publish
-  @all = ->
-    crewmembers = Crewmembers.find()
+  @all = (userId)->
+    crewmembers = Crewmembers.find({userId: userId})
 
   @findOne = (options = {}) ->
     crewmember = Crewmembers.findOne(options)

@@ -8,8 +8,9 @@ preserve-inputs
 coffeescript
 jquery
 phaser
-accounts-ui
 accounts-password
 iron-router
 insecure
 accounts-facebook
+bootstrap-3
+accounts-ui-bootstrap-3
