@@ -5,10 +5,8 @@ class @Crewmember
   _maxCount: 10
   constructor: (options) ->
     @validate options
-    @userId = options.userId
-    @heroId = options.heroId
-    @_id = options._id || null
-
+    for key, value of options
+      @[key] = value
 
   validate: (options) ->
     throw new Meteor.Error 490, 'No options passed' unless options
