@@ -1,11 +1,26 @@
 <template name="summary">
-  <br>
-  <label> Selected Hero: </label>
-  <div> {{hero.name}}</div>
-  <br>
-  <label> Selected Crewmembers: </label>
-  {{#each crewmembers}}
-  <div> {{hero.name}} </div>
-  {{/each}}
-  <input type="button" value="Ready" id="ready">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="thumbnail">
+                <img src="img/{{hero.name}}.png" alt="..." class="hero-selection" id="{{_id}}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                {{#each crewmembers}}
+                <div class="col-md-3">
+                <div class="thumbnail">
+                    <img src="img/{{hero.name}}.png" alt="..." class="hero-selection" id="{{_id}}">
+                </div>
+                 </div>
+                {{/each}}
+             </div>
+            <div class="row">
+                <input type="button" value="Ready" id="ready" class="btn btn-success btn-lg btn-block">
+            </div>
+         </div>
+    </div>
+
 </template>
+
+
