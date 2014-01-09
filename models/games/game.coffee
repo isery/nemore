@@ -4,14 +4,8 @@ class @Game
   @_maxCount = 1
   constructor: (options) ->
     @validate options
-    @userId = options.userId
-    @gameName = options.gameName
-    @_id = options._id || null
-    @player1 = options.player1 || null
-    @player2 = options.player2 || null
-    @playing = options.playing || false
-    @player1_ready = options.player1_ready || null
-    @player2_ready = options.player2_ready || null
+    for key, value of options
+      @[key] = value
 
   validate: (options) ->
     throw new Meteor.Error 490, 'No options passed' unless options
