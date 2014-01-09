@@ -9,7 +9,13 @@ startGame = (_id)->
   ,200)
 
 Meteor.startup ->
-  Games.find({player1 : {$exists: true}, player2 : {$exists: true}, playing: false}).observe({
+  Games.find({
+    player1 : {$exists: true},
+    player2 : {$exists: true},
+    player1_ready: true,
+    player2_ready: true,
+    playing: false
+  }).observe({
     added: (game)->
       console.log "Observer: New game initialized at " + new Date()
       Games.update({_id: game._id}, {$set: {playing: true}})
