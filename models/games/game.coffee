@@ -10,6 +10,8 @@ class @Game
     @player1 = options.player1 || null
     @player2 = options.player2 || null
     @playing = options.playing || false
+    @player1_ready = options.player1_ready || null
+    @player2_ready = options.player2_ready || null
 
   validate: (options) ->
     throw new Meteor.Error 490, 'No options passed' unless options
@@ -30,8 +32,14 @@ class @Game
       created_at: new Date()
 
   setPlayer2: (userId)->
+    @player2 = userId
     Games.update({_id: @_id},{$set: {"player2": userId}})
 
+  setReady: (userId)->
+    if userId == @player1
+      Games.update({_id: @_id},{$set: {"player1_ready": true}})
+    else
+      Games.update({_id: @_id},{$set: {"player2_ready": true}})
 
   # For Meteor publish
   @all = ->
