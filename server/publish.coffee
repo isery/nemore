@@ -12,7 +12,7 @@ Meteor.publish "allCrewmembers", ->
 
 Meteor.publish "userData", ->
   Meteor.users.find({},
-    {fields: {'hero': 1,'username':1}});
+    {fields: {'hero': 1,'username':1,profile:1}});
 
 Meteor.publish "allSpecialAbilities", ->
   SpecialAbilities.find({})
