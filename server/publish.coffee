@@ -13,3 +13,6 @@ Meteor.publish "allCrewmembers", ->
 Meteor.publish "userData", ->
   Meteor.users.find({_id: this.userId},
     {fields: {'hero': 1}});
+
+Meteor.publish "allSpecialAbilities", ->
+  SpecialAbilities.find({})

@@ -1,4 +1,13 @@
 <template name="preSetting">
   <div> preSetting adf</div>
+  {{hero.name}}
+  <br><br>
+  {{#each crewmembers}}
+    {{hero.name}}
+    {{#each special_abilities}}
+      ... {{name}} <input type="button" value="Choose" id="choose_ability" data-id="{{_id}}"> <br>
+    {{/each}}
+    <br>
+  {{/each}}
   <input type="button" id="ready" value="Ready">
 </template>
