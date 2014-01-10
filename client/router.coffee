@@ -11,16 +11,17 @@ Router.map ->
       that.stop()
 
   @hasHero = (that)->
-    if Meteor.user() && !Meteor.user().hero && that.ready()
+    if Meteor.userId() && !Team.findOne({userId: Meteor.userId(), hero: true})
       Router.go 'heroSelection'
       that.stop()
 
   @route 'home',
     path: '/'
     before: ->
-      Router.hasHero(@)
+      # Router.hasHero(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'userData'
+      Meteor.subscribe 'allTeams'
   @route 'gamerooms',
     before: ->
       Router.isLoggedIn(@) if @ready()
@@ -42,28 +43,28 @@ Router.map ->
     path: '/hero_selection'
     before: ->
       Router.isLoggedIn(@) if @ready()
-    waitOn: -> Meteor.subscribe 'allHeroes'
+    waitOn: ->
+      Meteor.subscribe 'allUnits'
+      Meteor.subscribe 'allTeams'
     data: ->
-      heroes: Hero.find({})
+      units: Unit.find({})
   @route 'crewSelection',
     path: '/crew_selection'
     before: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
-      Meteor.subscribe 'allHeroes'
-      Meteor.subscribe 'allCrewmembers'
+      Meteor.subscribe 'allUnits'
+      Meteor.subscribe 'allTeams'
     data: ->
-      heroes: Heroes.find()
-      crewmembers: Crewmember.find()
+      units: Unit.find()
+      teams: Team.find({hero: {$exists: false}})
   @route 'summary',
     before: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
-      [
-        Meteor.subscribe 'allHeroes'
-        Meteor.subscribe 'allCrewmembers'
-        Meteor.subscribe 'userData'
-      ]
+      Meteor.subscribe 'allUnits'
+      Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'userData'
     data: ->
-      hero: Hero.findOne({_id: Meteor.user().hero})
-      crewmembers: Crewmember.find({userId: Meteor.userId()})
+      hero: Team.findOne({userId: Meteor.userId(), hero: true})
+      teams: Team.find({hero: {$exists: false}})

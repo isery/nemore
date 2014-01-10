@@ -2,15 +2,15 @@
     <div class="row">
         <div class="col-md-6">
             <div class="thumbnail">
-                <img src="img/{{hero.name}}.png" alt="..." class="hero-selection" id="{{_id}}">
+                <img src="img/{{heroImage}}.png" alt="..." class="hero-selection" id="{{hero.unitId}}">
             </div>
         </div>
         <div class="col-md-6">
             <div class="row">
-                {{#each crewmembers}}
+                {{#each teams}}
                 <div class="col-md-3">
                 <div class="thumbnail">
-                    <img src="img/{{hero.name}}.png" alt="..." class="hero-selection" id="{{_id}}">
+                    <img src="img/{{unit.name}}.png" alt="..." class="hero-selection" id="{{unit._id}}">
                 </div>
                  </div>
                 {{/each}}

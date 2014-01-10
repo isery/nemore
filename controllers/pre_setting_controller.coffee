@@ -13,12 +13,12 @@ class @PreSettingController extends RouteController
         Router.go 'games', _id: _id
   waitOn: ->
     Meteor.subscribe 'currentGame', @params._id
-    Meteor.subscribe 'allHeroes'
-    Meteor.subscribe 'allCrewmembers'
+    Meteor.subscribe 'allUnits'
+    Meteor.subscribe 'allTeams'
     Meteor.subscribe 'allSpecialAbilities'
   data: ->
     currentGame: Game.findById(@params._id),
-    hero: Hero.findOne({_id: Meteor.user().hero})
-    crewmembers: Crewmember.find({userId: Meteor.userId()})
+    hero: Team.findOne({userId: Meteor.userId(), hero: true})
+    teams: Team.find({userId: Meteor.userId()})
 
 
