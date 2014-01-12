@@ -2,11 +2,14 @@
   <div> preSetting adf</div>
   {{hero.unit.name}}
   <br><br>
-  {{#each teams}}
+  {{#each gameTeams}}
     {{unit.name}}
-    {{#each special_abilities}}
-      ... {{name}} <input type="button" value="Choose" id="choose_ability" data-id="{{_id}}"> <br>
-    {{/each}}
+    {{special_ability.name}}
+    <div data-id="{{_id}}">
+      {{#each special_abilities}}
+        ... {{name}} <input type="button" value="Choose" class="choose_ability" data-id="{{_id}}"> <br>
+      {{/each}}
+    </div>
     <br>
   {{/each}}
   <input type="button" id="ready" value="Ready">
