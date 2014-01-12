@@ -1,6 +1,6 @@
 Template.crewSelection.events
   'click .crew-selection': (e)->
-    heroId = $(e.target).prop('id')
+   	heroId = $(e.target).prop('id')
     new Crewmember({userId: Meteor.userId(), heroId: heroId}).save()
 
   'click .crew-selected': (e)->
