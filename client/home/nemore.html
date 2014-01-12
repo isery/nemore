@@ -1,0 +1,59 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nemore</title>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+</head>
+
+<body>
+</body>
+
+<template name="layout">
+    {{yield}}
+</template>
+
+<template name="loading">
+  <div> Loading </div>
+</template>
+
+<template name="notFound">
+  <div> Not found </div>
+</template>
+
+<template name="home">
+<!-- CONTAINER -->
+  <div class="container">
+    <nav id="bt-menu" class="bt-menu">
+      <a href="#" class="bt-menu-trigger"><span>Menu</span></a>
+      <ul>
+        <!--<li><a href="#" class="fa fa-cog fa-2x"></a></li>
+        <li><a href="#" class="fa fa-wrench fa-2x"></a></li>-->
+        <li><a href="{{pathFor 'gamerooms'}}">Rooms</a></li>
+        <li><a href="{{pathFor 'heroSelection'}}">Hero</a></li>
+        <li><a href="{{pathFor 'crewSelection'}}">Crew</a></li>
+        <li>{{ loginButtons }} </li>
+      </ul>
+      <!-- SOCIAL MEDIA SHARE THINGS--> 
+      <ul>
+        
+        <li><a href="" class="bt-icon fa fa-twitter">Twitter</a></li>
+        <li><a href="" class="bt-icon fa fa-facebook">Facebook</a></li>
+        <li><a href="" class="bt-icon fa fa-github">Github</a></li>
+        <li><a href="" class="bt-icon fa fa-google-plus">Google+</a></li>
+      </ul>
+      <!-- /SOCIAL MEDIA SHARE THINGS--> 
+    </nav>
+    
+    <!-- HERO ROW -->
+    <div class="heroRow">
+        <div class="hero" data-detailed=0></div>
+        <div class="hero" data-detailed=0></div>
+        <div class="hero" data-detailed=0></div>
+        <div class="hero" data-detailed=0></div>
+    </div>
+    <!-- /HERO ROW -->
+  </div>
+  <!-- /CONTAINER -->
+
+</template>
