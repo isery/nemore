@@ -18,7 +18,7 @@ Router.map ->
   @route 'home',
     path: '/'
     before: ->
-      # Router.hasHero(@) if @ready()
+      Router.hasHero(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'userData'
       Meteor.subscribe 'allTeams'
