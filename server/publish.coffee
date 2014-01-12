@@ -10,6 +10,9 @@ Meteor.publish "allUnits", ->
 Meteor.publish "allTeams", ->
   Team.all(this.userId)
 
+Meteor.publish "allGameTeams", ->
+  GameTeam.all(this.userId)
+
 Meteor.publish "userData", ->
   Meteor.users.find({},
     {fields: {'username': 1, 'profile': 1}});
