@@ -1,4 +1,4 @@
-@Teams = new Meteor.Collection 'teams'
+Teams = new Meteor.Collection 'teams'
 
 class @Team
   _maxCount: 10
@@ -59,3 +59,5 @@ class @Team
 
   @remove: (_id)->
     Teams.remove({_id: _id}) if _id?
+
+
