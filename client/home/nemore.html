@@ -1,36 +1,16 @@
 <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nemore</title>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Nemore</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{pathFor 'gamerooms'}}"> Gameroom </a></li>
-                    <li><a href="{{pathFor 'heroSelection'}}"> Hero Selection </a></li>
-                    <li><a href="{{pathFor 'crewSelection'}}"> Crew Selection </a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {{ loginButtons }} <!-- here -->
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
 </body>
+
 <template name="layout">
-  <!--<div class = "container">-->
     {{yield}}
-  <!--</div>-->
 </template>
 
 <template name="loading">
@@ -42,22 +22,38 @@
 </template>
 
 <template name="home">
-  <!--<div> Home </div>-->
-  <div class="" style="height:90%; width:100%;">
-      <div class="heroRow" style="height:100%;">
-          <div class="" style="width:25%; margin: 0;background-color: red; height:100%; float:left; overflow:hidden;" data-detailed=0>
-            <img src="img/Drone.png" />
-          </div>
-          <div class="" style="width:25%; margin: 0;background-color: blue; height:100%;float:left;overflow:hidden;" data-detailed=0>
-            <img src="img/Sniper.png" />
-          </div>
-          <div class="" style="width:25%; margin: 0;background-color: yellow; height:100%;float:left;overflow:hidden;" data-detailed=0>
-            <img src="img/Commander.png" />
-          </div>
-          <div class="" style="width:25%; margin: 0;background-color:green; height:100%;float:left;overflow:hidden;" data-detailed=0>
-            <img src="img/Specialist.png" />
-          </div>
-      </div>
+<!-- CONTAINER -->
+  <div class="container">
+    <nav id="bt-menu" class="bt-menu">
+      <a href="#" class="bt-menu-trigger"><span>Menu</span></a>
+      <ul>
+        <!--<li><a href="#" class="fa fa-cog fa-2x"></a></li>
+        <li><a href="#" class="fa fa-wrench fa-2x"></a></li>-->
+        <li><a href="{{pathFor 'gamerooms'}}">Rooms</a></li>
+        <li><a href="{{pathFor 'heroSelection'}}">Hero</a></li>
+        <li><a href="{{pathFor 'crewSelection'}}">Crew</a></li>
+        <li>{{ loginButtons }} </li>
+      </ul>
+      <!-- SOCIAL MEDIA SHARE THINGS--> 
+      <ul>
+        
+        <li><a href="" class="bt-icon fa fa-twitter">Twitter</a></li>
+        <li><a href="" class="bt-icon fa fa-facebook">Facebook</a></li>
+        <li><a href="" class="bt-icon fa fa-github">Github</a></li>
+        <li><a href="" class="bt-icon fa fa-google-plus">Google+</a></li>
+      </ul>
+      <!-- /SOCIAL MEDIA SHARE THINGS--> 
+    </nav>
+    
+    <!-- HERO ROW -->
+    <div class="heroRow">
+        <div class="hero" data-detailed=0></div>
+        <div class="hero" data-detailed=0></div>
+        <div class="hero" data-detailed=0></div>
+        <div class="hero" data-detailed=0></div>
     </div>
+    <!-- /HERO ROW -->
+  </div>
+  <!-- /CONTAINER -->
 
 </template>

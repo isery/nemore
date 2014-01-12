@@ -1,10 +1,4 @@
 /* CSS declarations go here */
-html, body{
-	height: 100%;
-}
-body {
-    padding-top: 65px;
-}
 .border {
     border: 1px solid black;
     padding:5px;
