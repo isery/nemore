@@ -21,7 +21,6 @@ Template.home.events
         left+=25        
         $(element).attr "data-detailed", heroClosed
     else
-      $(".heroRow").prepend $clickedHero
       $clickedHero.animate 
         width:'80%'
         height:'100%'
