@@ -16,6 +16,7 @@ Template.gamerooms.findUser = () ->
 
 Template.gamerooms.findImage = () ->
   userId = Game.findById(@_id).player1
+  console.log Meteor.users.findOne({_id:userId})
   Meteor.users.findOne({_id: userId}).profile.picture
 
 
