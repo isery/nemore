@@ -1,6 +1,6 @@
 <template name="crewSelection">
   <div  class="row">
-      {{#each heroes}}
+      {{#each units}}
         <div class="col-md-3">
             <div class="thumbnail">
                 <img src="img/{{name}}.png" alt="..." class="crew-selection" id="{{_id}}">
@@ -10,10 +10,10 @@
       {{/each}}
   </div>
   <div class="row">
-    {{#each crewmembers}}
+    {{#each teams}}
       <div class="col-md-2">
           <div class="thumbnail">
-              <img src="img/{{hero.name}}.png" alt="..." class="crew-selected" id="{{_id}}">
+              <img src="img/{{unit.name}}.png" alt="..." class="crew-selected" id="{{_id}}">
           </div>
       </div>
     {{/each}}

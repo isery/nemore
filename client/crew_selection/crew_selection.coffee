@@ -1,11 +1,11 @@
 Template.crewSelection.events
   'click .crew-selection': (e)->
-   	heroId = $(e.target).prop('id')
-    new Crewmember({userId: Meteor.userId(), heroId: heroId}).save()
+    unitId = $(e.target).prop('id')
+    new Team({userId: Meteor.userId(), unitId: unitId}).save()
 
   'click .crew-selected': (e)->
     _id = $(e.target).prop('id')
-    Crewmember.remove(_id)
+    Team.remove(_id)
 
   'click #ready': (e)->
     Router.go 'summary'
