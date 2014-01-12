@@ -12,10 +12,10 @@ Template.gamerooms.events
 
 Template.gamerooms.findUser = () ->
   userId = Game.findById(@_id).player1
-  Meteor.users.findOne({_id: userId}).profile.name
+  Meteor.users.findOne({_id: userId}).profile?.name
 
 Template.gamerooms.findImage = () ->
   userId = Game.findById(@_id).player1
-  Meteor.users.findOne({_id: userId}).profile.picture
+  Meteor.users.findOne({_id: userId}).profile?.picture
 
 
