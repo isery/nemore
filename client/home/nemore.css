@@ -41,3 +41,11 @@
 	background:url('/img/detailed/4.png') no-repeat 50% 50%;
 	background-size: auto 100%;
 }
+
+.heroRow .hideHeroOnTop{
+	width: 20%;
+	height: 34%;
+	left: 80%;
+	top: -34%;
+	z-index: 10;
+}
