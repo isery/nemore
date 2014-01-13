@@ -1,0 +1,12 @@
+/*
+	LOGIN BUTTONS
+*/
+
+.dropdown-menu{
+	top:0;
+}
+
+.login-buttons-dropdown-align-right#login-buttons + li .dropdown-menu {
+	left: 0;
+	right:0;
+}

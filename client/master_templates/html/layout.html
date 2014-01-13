@@ -1,0 +1,27 @@
+<template name="layout">	
+	{{> container}}	
+</template>
+
+<template name="container">
+	<!-- CONTAINER -->
+		<div class="container">
+	  	{{> navigation}}
+	  	{{yield}}
+	  </div>
+		<!-- /CONTAINER -->
+</template>
+
+
+<!-- 
+	NOT SUPPORTET YET, EVERY HTML FILE NEEDS ITS OWN HEAD, HEADS IN MULTIPLE HTML FILES ARE CONCATENATED
+-->
+<template name="head">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Nemore</title>
+
+  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+  </head>
+</template>
