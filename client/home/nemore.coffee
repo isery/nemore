@@ -10,7 +10,6 @@ Template.heroes.events
 
     heroOpened = 1
     heroClosed = 0
-    top = 0
     left = 0
 
     if parseInt $clickedHero.attr("data-detailed"), 10 is 1
