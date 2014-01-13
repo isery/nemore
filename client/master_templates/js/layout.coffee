@@ -10,11 +10,19 @@ mobilecheck = ->
 init = ->
   menu = document.getElementById("bt-menu")
   trigger = menu.querySelector("a.bt-menu-trigger")
-  
+  $row = $(".heroRow")
+
   eventtype = (if mobilecheck() then "touchstart" else "click")
   resetMenu = ->
     $(menu).removeClass "bt-menu-open"
     $(menu).addClass "bt-menu-close"
+    $row.delay(50).animate
+      width: "+=80px",
+      height: "+=40px",
+      left:"0px",
+      bottom: "0px"
+    ,
+      duration: 150
 
   closeClickFn = (ev) ->
     resetMenu()
@@ -31,6 +39,13 @@ init = ->
     else
       $(menu).removeClass "bt-menu-close"
       $(menu).addClass "bt-menu-open"
+      $row.delay(50).animate
+        width: "-=80px",
+        height: "-=40px",
+        left:"80px",
+        bottom: "40px"
+      ,
+        duration: 150
       overlay.addEventListener eventtype, closeClickFn
 
 Template.home.rendered = ->
