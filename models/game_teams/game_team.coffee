@@ -13,6 +13,7 @@ class @GameTeam
         userId: member.userId
         unitId: member.unitId
         hero: member.hero
+        live: @initLive(member)
 
   special_abilities: ->
     SpecialAbilities.find({unit_id: @unitId}).fetch()
@@ -27,8 +28,13 @@ class @GameTeam
   unit: ->
     Units.findOne({_id: @unitId})
 
-  @all = (userId) ->
-    GameTeams.find({userId: userId})
+  initLive: (member) ->
+    live = member.unit().live
+    if member.hero then live else (live * 0.75)
+
+
+  @all = (gameId) ->
+    GameTeams.find({gameId: gameId})
 
   @find = (options = {})->
     teams = GameTeams.find(options).fetch()
