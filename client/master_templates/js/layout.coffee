@@ -48,5 +48,12 @@ init = ->
         duration: 150
       overlay.addEventListener eventtype, closeClickFn
 
-Template.home.rendered = ->
-  init()
+#this is needed so that the template only renders once (if it renders twice the menu won't work anymore)
+templateCreated = false;
+Template.container.created = ->
+  templateCreated = true;
+
+Template.container.rendered = ->
+  if templateCreated  
+    templateCreated = false
+    init()
