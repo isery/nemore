@@ -36,9 +36,12 @@ Router.map ->
     path: '/games/:_id'
     before: ->
       Router.isLoggedIn(@) if @ready()
-    waitOn: -> Meteor.subscribe 'allGames'
+    waitOn: ->
+      Meteor.subscribe 'allGames'
+      Meteor.subscribe 'allGameTeams', @params._id
     data: ->
-      game: Games.findOne _id: @params._id
+      game: Game.findOne _id: @params._id
+      gameTeams: GameTeam.find gameId: @params._id
   @route 'heroSelection',
     path: '/hero_selection'
     before: ->
