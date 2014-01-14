@@ -8,13 +8,12 @@ startGame = (_id)->
     @mummy.animations.add "walk"
     @mummy.animations.play "walk", 30, true
   update = ->
-    currentGame = Games.findOne({_id: _id})
+    currentGame = Router.getData().game
     if currentGame
       @mummy.x = currentGame.x
       @mummy.y = currentGame.y
   @logo = undefined
   @mummy = undefined
-  console.log "HOW MANY TIMES ?"
   @game = new Phaser.Game(800, 600, Phaser.AUTO, "",
     preload: preload
     create: create
