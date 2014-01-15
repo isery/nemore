@@ -2,11 +2,9 @@
 	HERO ROW 
 */
 .heroRow{
-	position:absolute;
 	height: 100%;
 	width:	100%;
 	margin-left: 0;
-	overflow:hidden;
 }
 
 .heroRow .hero{
