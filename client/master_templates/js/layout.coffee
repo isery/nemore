@@ -6,9 +6,9 @@ mobilecheck = ->
   ) navigator.userAgent or navigator.vendor or window.opera
   check
 
-closeMenu = (menu, $row)->
+closeMenu = (menu, $container)->
   $(menu).toggleClass("bt-menu-open")
-  $row.delay(50).animate
+  $container?.delay(50).animate
     width: "+=80px",
     height: "+=40px",
     left:"0px",
@@ -16,9 +16,10 @@ closeMenu = (menu, $row)->
   ,
     duration: 150
 
-openMenu = (menu, $row)->
+openMenu = (menu, $container)->
+  console.log ("??")
   $(menu).toggleClass("bt-menu-open")
-  $row.delay(50).animate
+  $container?.delay(50).animate
     width: "-=80px",
     height: "-=40px",
     left:"80px",
@@ -30,10 +31,10 @@ Template.container.events
   'click #bt-menu > .bt-menu-trigger': (e) ->
     $overlay = $('.bt-overlay')
     menu = document.getElementById("bt-menu")
-    $row = $(".heroRow")
+    $container = $(".heroRow")
     if $('#bt-menu').hasClass('bt-menu-open')
-      closeMenu(menu, $row)
-      $overlay.off()
+      closeMenu(menu, $container)
+      $overlay.closeMenu(menu, $container)
     else
-      openMenu(menu, $row)
+      openMenu(menu, $container)
       $overlay.click closeMenu
