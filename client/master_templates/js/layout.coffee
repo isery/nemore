@@ -10,13 +10,12 @@ mobilecheck = ->
 init = ->
   menu = document.getElementById("bt-menu")
   trigger = menu.querySelector("a.bt-menu-trigger")
-  $row = $(".heroRow")
-
+  
   eventtype = (if mobilecheck() then "touchstart" else "click")
   resetMenu = ->
     $(menu).removeClass "bt-menu-open"
     $(menu).addClass "bt-menu-close"
-    $row.delay(50).animate
+    $(".heroRow")?.delay(50).animate
       width: "+=80px",
       height: "+=40px",
       left:"0px",
@@ -31,7 +30,12 @@ init = ->
   overlay = document.createElement("div")
   overlay.className = "bt-overlay"
   menu.appendChild overlay
+  console.log eventtype
+  console.log "before trigger"
+  console.log trigger
+  
   trigger.addEventListener eventtype, (ev) ->
+    console.log "trigger"
     ev.stopPropagation()
     ev.preventDefault()
     if $(menu).hasClass "bt-menu-open"
@@ -39,7 +43,7 @@ init = ->
     else
       $(menu).removeClass "bt-menu-close"
       $(menu).addClass "bt-menu-open"
-      $row.delay(50).animate
+      $(".heroRow")?.delay(50).animate
         width: "-=80px",
         height: "-=40px",
         left:"80px",
@@ -54,6 +58,7 @@ Template.container.created = ->
   templateCreated = true;
 
 Template.container.rendered = ->
-  if templateCreated  
+  if templateCreated
+
     templateCreated = false
     init()
