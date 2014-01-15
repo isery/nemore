@@ -36,4 +36,4 @@ Template.container.events
       $overlay.off()
     else
       openMenu(menu, $row)
-      $overlay.click closeMenu
+      $overlay.click( -> closeMenu(menu, $row))
