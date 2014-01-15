@@ -37,4 +37,4 @@ Template.container.events
       $overlay.closeMenu(menu, $container)
     else
       openMenu(menu, $container)
-      $overlay.click closeMenu
+      $overlay.click( -> closeMenu(menu, $container))
