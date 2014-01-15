@@ -6,54 +6,34 @@ mobilecheck = ->
   ) navigator.userAgent or navigator.vendor or window.opera
   check
 
-#Function called when template rendered
-init = ->
-  menu = document.getElementById("bt-menu")
-  trigger = menu.querySelector("a.bt-menu-trigger")
-  $row = $(".heroRow")
+closeMenu = (menu, $row)->
+  $(menu).toggleClass("bt-menu-open")
+  $row.delay(50).animate
+    width: "+=80px",
+    height: "+=40px",
+    left:"0px",
+    bottom: "0px"
+  ,
+    duration: 150
 
-  eventtype = (if mobilecheck() then "touchstart" else "click")
-  resetMenu = ->
-    $(menu).removeClass "bt-menu-open"
-    $(menu).addClass "bt-menu-close"
-    $row.delay(50).animate
-      width: "+=80px",
-      height: "+=40px",
-      left:"0px",
-      bottom: "0px"
-    ,
-      duration: 150
+openMenu = (menu, $row)->
+  $(menu).toggleClass("bt-menu-open")
+  $row.delay(50).animate
+    width: "-=80px",
+    height: "-=40px",
+    left:"80px",
+    bottom: "40px"
+  ,
+    duration: 150
 
-  closeClickFn = (ev) ->
-    resetMenu()
-    overlay.removeEventListener eventtype, closeClickFn
-
-  overlay = document.createElement("div")
-  overlay.className = "bt-overlay"
-  menu.appendChild overlay
-  trigger.addEventListener eventtype, (ev) ->
-    ev.stopPropagation()
-    ev.preventDefault()
-    if $(menu).hasClass "bt-menu-open"
-      resetMenu()
+Template.container.events
+  'click #bt-menu > .bt-menu-trigger': (e) ->
+    $overlay = $('.bt-overlay')
+    menu = document.getElementById("bt-menu")
+    $row = $(".heroRow")
+    if $('#bt-menu').hasClass('bt-menu-open')
+      closeMenu(menu, $row)
+      $overlay.off()
     else
-      $(menu).removeClass "bt-menu-close"
-      $(menu).addClass "bt-menu-open"
-      $row.delay(50).animate
-        width: "-=80px",
-        height: "-=40px",
-        left:"80px",
-        bottom: "40px"
-      ,
-        duration: 150
-      overlay.addEventListener eventtype, closeClickFn
-
-#this is needed so that the template only renders once (if it renders twice the menu won't work anymore)
-templateCreated = false;
-Template.container.created = ->
-  templateCreated = true;
-
-Template.container.rendered = ->
-  if templateCreated  
-    templateCreated = false
-    init()
+      openMenu(menu, $row)
+      $overlay.click closeMenu
