@@ -8,6 +8,7 @@ mobilecheck = ->
 
 #Function called when template rendered
 init = ->
+  console.log "here"
   menu = document.getElementById("bt-menu")
   trigger = menu.querySelector("a.bt-menu-trigger")
   $row = $(".heroRow")
@@ -25,6 +26,7 @@ init = ->
       duration: 150
 
   closeClickFn = (ev) ->
+    console.log "in close event"
     resetMenu()
     overlay.removeEventListener eventtype, closeClickFn
 
@@ -32,6 +34,7 @@ init = ->
   overlay.className = "bt-overlay"
   menu.appendChild overlay
   trigger.addEventListener eventtype, (ev) ->
+    console.log "in event"
     ev.stopPropagation()
     ev.preventDefault()
     if $(menu).hasClass "bt-menu-open"
@@ -47,6 +50,7 @@ init = ->
       ,
         duration: 150
       overlay.addEventListener eventtype, closeClickFn
+  console.log trigger
 
 #this is needed so that the template only renders once (if it renders twice the menu won't work anymore)
 templateCreated = false;

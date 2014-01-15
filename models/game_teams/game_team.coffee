@@ -40,6 +40,10 @@ class @GameTeam
     teams = GameTeams.find(options).fetch()
     new GameTeam(team) for team in teams
 
+  @findOne = (options = {})->
+    team = GameTeams.findOne(options)
+    new GameTeam(team)
+
   @update = (_id, options) ->
     GameTeams.update
       _id: _id
