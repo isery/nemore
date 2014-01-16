@@ -40,8 +40,10 @@ Router.map ->
       Meteor.subscribe 'allGames'
       Meteor.subscribe 'allGameTeams', @params._id
       Meteor.subscribe 'allUnits'
+      Meteor.subscribe 'currentActions', @params._id
     data: ->
       game: Game.findOne _id: @params._id
+      actions: Action.find()
       gameTeamOne: GameTeam.find userId: Meteor.userId(), gameId: @params._id, hero: {$exists: false}
       gameTeamTwo: GameTeam.find userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: {$exists: false}
       heroOne: GameTeam.findOne userId: Meteor.userId(), gameId: @params._id, hero: true

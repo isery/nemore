@@ -1,4 +1,4 @@
-GameTeams = new Meteor.Collection 'gameTeams'
+@GameTeams = new Meteor.Collection 'gameTeams'
 
 class @GameTeam
   constructor: (options) ->

@@ -8,6 +8,8 @@ class @BaseGame
       hero: data.heroTwo
       team: data.gameTeamTwo
 
+    @actions = data.actions
+
     @game = new Phaser.Game(1024, 768, Phaser.AUTO, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
@@ -32,8 +34,8 @@ class @BaseGame
   update: ->
     # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
     if @game.input.keyboard.isDown(Phaser.Keyboard.ENTER)
-      @[@playerOne.hero._id].fireSpecialAbility(@[@playerTwo.hero._id].getCoordinates())
-      @[@playerTwo.hero._id].fireSpecialAbility(@[@playerOne.hero._id].getCoordinates())
+      #@[@playerOne.hero._id].fireSpecialAbility(@[@playerTwo.hero._id].getCoordinates())
+      @[@actions[0].from].fireSpecialAbility(@[@actions[0].to].getCoordinates())
 
   preloadTeam: (player) ->
     for member in player.team
