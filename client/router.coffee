@@ -39,12 +39,13 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'allGames'
       Meteor.subscribe 'allGameTeams', @params._id
+      Meteor.subscribe 'allUnits'
     data: ->
       game: Game.findOne _id: @params._id
       gameTeamOne: GameTeam.find userId: Meteor.userId(), gameId: @params._id, hero: {$exists: false}
       gameTeamTwo: GameTeam.find userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: {$exists: false}
-      heroOne: GameTeam.findOne userId: Meteor.userId(), gameId: @params._id, hero: true 
-      heroTwo: GameTeam.findOne userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: true 
+      heroOne: GameTeam.findOne userId: Meteor.userId(), gameId: @params._id, hero: true
+      heroTwo: GameTeam.findOne userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: true
   @route 'heroSelection',
     path: '/hero_selection'
     before: ->
