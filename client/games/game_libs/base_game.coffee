@@ -1,5 +1,6 @@
 class @BaseGame
   constructor: (data) ->
+    @_id = data.game._id
     @playerOne =
       hero: data.heroOne
       team: data.gameTeamOne
@@ -9,7 +10,6 @@ class @BaseGame
       team: data.gameTeamTwo
 
     @actions = data.actions
-
     @game = new Phaser.Game(1024, 768, Phaser.AUTO, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
@@ -29,7 +29,16 @@ class @BaseGame
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
 
+    @initObserver()
 
+  initObserver: ->
+    that = @
+    Actions.find({gameId: @_id, playerOnePlayed: false, playerTwoPlayed: false}).observe({
+      added: (action) ->
+        console.log action
+        that[action.from].fireSpecialAbility(that[action.to].getCoordinates())
+        Actions.update({_id: action._id},{$set: {playerOnePlayed: true, playerTwoPlayed: true}})
+    })
 
   update: ->
     # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
