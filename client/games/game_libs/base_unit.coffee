@@ -39,15 +39,30 @@ class @BaseUnit
   fireSpecialAbility: (target)->
     if @_game.time.now > @_shootTime
       #For later use (after shooting animation shot goes blah)
-      #@_unit.events.onAnimationComplete.add completedUnitAnimation, @
+      #@_unit.events.onAnimationComplete.add @test, @
       @_shootTime = @_game.time.now + 250
       shot = @_shots.getFirstExists(false)
       if shot
         shot.reset @_unit.x + 6, @_unit.y + 8
 
-        directionVector = @calculateTargetCoordinates(target)
-        shot.velocity.x = directionVector.x
-        shot.velocity.y = directionVector.y
+        # directionVector = @calculateTargetCoordinates(target)
+        # shot.velocity.x = directionVector.x
+        # shot.velocity.y = directionVector.y
+
+        tween = @_game.add.tween(shot).to({ x: target.x, y: target.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false);
+        tween.onComplete.add (tween)->
+          @tweenComplete(target)
+          tween.kill()
+        , @
+
+  tweenComplete: (target)->
+    explode = @_game.add.sprite(target.x - (Math.abs(@_unit.width) * 2), target.y - (@_unit.height), "explode")
+    explode.animations.add "exploding"
+    explode.animations.play "exploding", 10, false
+    explode.events.onAnimationComplete.add @completedExplode , @
+
+  completedExplode: (explode, animation)->
+    explode.kill()
 
   setCoordinates: (coordsX, coordsY) ->
     @_posX = coordsX

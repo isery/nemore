@@ -18,16 +18,33 @@ getFbPicture = (accessToken) ->
 
 
 startGame = (_id)->
-  Meteor.setInterval( ->
-    game = Games.findOne({_id: _id})
-    if game
-      _id = game._id
-      x = game.x + 5
-      y = game.y + 0
-      Games.update({_id: _id},{$set: {"x": x, "y": y}})
-  ,200)
+  flag = true
+  Actions.find({
+    gameId: _id},{playerOnePlayed: true, playerTwoPlayed: true
+  }).observe({
+    changed: (newDoc, oldDoc) ->
+      flag = !flag
+      game = Game.findOne({_id: _id})
+      playerOne = game.player1
+      playerTwo = game.player2
+      playerOneUnit = GameTeams.find({gameId: _id, userId: playerOne}).fetch()
+      playerTwoUnit = GameTeams.find({gameId: _id, userId: playerTwo}).fetch()
+      Actions.insert
+        gameId: "1"
+        from: if flag then playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id else playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id
+        to: if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
+        special: false
+        hit: true
+        damage: 200
+        playerOnePlayed: false
+        playerTwoPlayed: false
+
+  })
 
 Meteor.startup ->
+  # TODO REMOVE startGame here
+  startGame("1")
+
   Games.find({
     player1 : {$exists: true},
     player2 : {$exists: true},
