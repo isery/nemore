@@ -44,9 +44,9 @@ Router.map ->
     data: ->
       game: Game.findOne _id: @params._id
       actions: Action.find()
-      gameTeamOne: GameTeam.find userId: Meteor.userId(), gameId: @params._id, hero: {$exists: false}
+      gameTeamOne: GameTeam.find userId: Game.findOne(_id: @params._id).player1, hero: {$exists: false}
       gameTeamTwo: GameTeam.find userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: {$exists: false}
-      heroOne: GameTeam.findOne userId: Meteor.userId(), gameId: @params._id, hero: true
+      heroOne: GameTeam.findOne userId: Game.findOne(_id: @params._id).player1, hero: true
       heroTwo: GameTeam.findOne userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: true
   @route 'heroSelection',
     path: '/hero_selection'
