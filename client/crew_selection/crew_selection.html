@@ -1,23 +1,73 @@
 <template name="crewSelection">
-  <div  class="row">
-      {{#each units}}
-        <div class="col-md-3">
-            <div class="thumbnail">
-                <img src="img/{{name}}.png" alt="..." class="crew-selection" id="{{_id}}">
-                {{name}}
-            </div>
-        </div>
-      {{/each}}
-  </div>
-  <div class="row">
-    {{#each teams}}
-      <div class="col-md-2">
-          <div class="thumbnail">
-              <img src="img/{{unit.name}}.png" alt="..." class="crew-selected" id="{{_id}}">
-          </div>
+    <div class="containerLeft">
+      {{> showSelectedCrewLeft}}
+    </div>
+        
+    <div class="containerRight">
+      {{> showCrewSelectionRight}}
+    </div>
+    <div style="clear:both;"></div>
+
+</template>
+
+<template name="showSelectedCrewLeft">
+  <div class="selectedContainer" style="position: relative">
+    <div class="innerContainer">
+      <div class="selectedHeroContainer">
+        <div class="selectedHero"></div>
       </div>
+      {{#each teams}}
+      <div class="selectedCrewMember" style="background:url('/img/{{unit.name}}.png') no-repeat 50% 50%;background-size: auto 100%;">
+        <div class="removeCrewMember" id="{{_id}}">
+          <div class="fa fa-times fa-2x"></div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+      <input type="button" value="Done" id="ready" class="btn btn-default btn-lg btn-block">
+  </div>
+</template>
+
+
+<template name="showCrewSelectionRight">
+  <div class="containerCrewMember">
+    {{#each units}}
+    <div class="crewMember">
+      <div class="crewMemberData">
+        <table class="table">
+          <tr><th colspan="2">Name</th></tr>
+          <tr>
+            <td>Fraction</td>
+            <td>{{fraction}}</td>
+          </tr>
+          <tr>
+            <td>Live</td>
+            <td>{{live}}</td>
+          </tr>
+          <tr>
+            <td>Damage</td>
+            <td>{{damage}}</td>
+          </tr>
+        </table>
+        <table class="table">
+          <tr><th colspan="2">{{name}}</th></tr>
+          <tr>
+            <td>Critical</td>
+            <td>{{crit}}</td>
+          </tr>
+          <tr>
+            <td>Accuracy</td>
+            <td>{{accuracy}}</td>
+          </tr>
+          <tr>
+            <td>Armor</td>
+            <td>{{armor}}</td>
+          </tr>
+        </table>
+      </div>
+      <div id="{{_id}}" class="crewMemberAvatar"></div>
+      <div style="clear:both;"></div>
+    </div>
     {{/each}}
-    <input type="button" value="Done" id="ready" class="btn btn-default btn-lg btn-block">
-      <br>
   </div>
 </template>

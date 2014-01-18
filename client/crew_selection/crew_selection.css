@@ -1,0 +1,101 @@
+.outerContainer .containerLeft{
+	width: 60%; 
+	height: inherit; 
+	float: left;
+	background-color: #706744;
+}
+
+.outerContainer .containerLeft .selectedContainer{
+	background-color: orange;
+	width: 100%;
+	height: inherit;
+	padding: 20px 90px;
+}
+
+.outerContainer .containerLeft .selectedContainer .innerContainer{
+	height: 90%;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer{
+	float:left;
+	margin: 10px;
+	width: 40%;
+	height: 100%;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero{
+	background-color: greenyellow;
+	height: 40%;
+}
+
+
+.outerContainer .containerLeft .selectedContainer .selectedCrewMember{
+	background-color: greenyellow;
+	position:relative;
+	width: 17%;
+	height: 17%;
+	float: left;
+	margin: 10px;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedCrewMember .removeCrewMember{
+	position: absolute;
+  top: -4px;
+  right: 0px;
+  color: red;
+}
+
+.outerContainer .containerRight{
+	width: 40%;
+	height: inherit;
+	float: left;
+	background-color: #333;
+	overflow: hidden;
+}
+
+.outerContainer .containerRight .containerCrewMember{
+	width: 90%;
+	height: inherit;
+	margin: 20px auto;
+}
+
+.outerContainer .containerRight .containerCrewMember .crewMember{
+	height: 22%;
+	background-color: red;
+}
+.outerContainer .containerRight .containerCrewMember .crewMember:not(:first-of-type){
+	margin-top: 4%;
+}
+
+.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData{
+	width: 70%;
+	height: 100%;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	padding-right: 10px
+}
+
+
+.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table{
+	width: 50%; 
+	height: 100%; 
+	float: left;
+	margin-bottom: 0;
+}
+
+.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table th:first-child{
+	border-top: 0px;
+}
+.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table th{
+	text-align: center;
+	vertical-align: middle;
+}
+
+.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberAvatar{
+	width: 30%;
+	height: 100%;
+	float: right;
+	background:url('/img/detailed/2.png') no-repeat 50% 50%;
+	background-size: auto 100%;
+}

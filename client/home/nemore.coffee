@@ -34,13 +34,7 @@ Template.heroes.events
     else if parseInt $clickedHero.attr("data-switch"), 10 is 1
       #hero which is currently in detailed view
       $heroToSwap = $(".hero[data-detailed=1]")
-
-      #properties of clicked hero in side-navigation
-      #clickedHeroWidth = $clickedHero.css "width"
-      #clickedHeroHeight = $clickedHero.css "height"
-      #clickedHeroTop = $clickedHero.css "top"
-      #clickedHeroLeft = $clickedHero.css "left"
-
+      
       #setting correct z-index
       setZIndex $clickedHero, 5
       setZIndex $otherHeroes, 0
@@ -155,7 +149,3 @@ resetToDefault = (obj, attr, opt) ->
 setZIndex = ($obj, value) ->
   $obj.each (index, element) =>
     $(element).css 'z-index': value.toString()
-
-
-
-
