@@ -1,11 +1,15 @@
 Template.crewSelection.events
-  'click .crew-selection': (e)->
+  'click .crewMemberAvatar': (e)->
     unitId = $(e.target).prop('id')
     new Team({userId: Meteor.userId(), unitId: unitId}).save()
 
-  'click .crew-selected': (e)->
-    _id = $(e.target).prop('id')
+  'click .removeCrewMember': (e)->
+    _id = $(e.currentTarget).prop('id')
     Team.remove(_id)
 
   'click #ready': (e)->
     Router.go 'summary'
+
+Template.crewSelection.rendered = ->
+	$('.crewMemberData').perfectScrollbar
+		suppressScrollX: true
