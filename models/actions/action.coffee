@@ -1,4 +1,3 @@
-@DoneActions = new Meteor.Collection 'doneActions'
 @Actions = new Meteor.Collection 'actions'
 
 class @Action

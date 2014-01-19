@@ -23,21 +23,21 @@ startGame = (_id)->
   playerTwo = game.player2
   playerTwoUnit = GameTeams.find({gameId: _id, userId: playerTwo}).fetch()
   playerOneUnit = GameTeams.find({gameId: _id, userId: playerOne}).fetch()
-  DoneActions.find({
-    gameId: _id
+  Actions.find({
+    gameId: _id, player1: true, player2: true
   }).observe({
-    added: (doneAction) ->
+    added: (doc) ->
       console.log "ADDED at: " + new Date()
       flag = !flag
-      Actions.insert
+      actionId = Actions.insert
         gameId: "1"
         from: if flag then playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id else playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id
         to: if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
         special: false
         hit: true
         damage: 200
-        playerOnePlayed: false
-        playerTwoPlayed: false
+        player1: false
+        player2: false
   })
 
 Meteor.startup ->

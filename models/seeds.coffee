@@ -1,6 +1,13 @@
 
 if Meteor.isServer
 	Meteor.startup ->
+		if Units.find().count() < 4
+			Units.remove()
+			droneId = Units.insert name: "Drone", fraction: "Police", live: 1000, damage: 75, crit: 0.1, accuracy: 0.6, armor: 0.8
+			sniperId = Units.insert name: "Sniper", fraction: "Police", live: 1000, damage: 150, crit: 0.1, accuracy: 0.8, armor: 0.8
+			commanderId = Units.insert name: "Commander", fraction: "Terrorist", live: 1000, damage: 100, crit: 0.1, accuracy: 0.7, armor: 0.4
+			specialistId = Units.insert name: "Specialist", fraction: "Terrorist", live: 1000, damage: 125, crit: 0.1, accuracy: 0.75, armor: 0.6
+
 		christoph = "Christoph Altmann"
 		michael = "Michael Hettegger"
 		gameId = "1"
@@ -12,12 +19,6 @@ if Meteor.isServer
 		specialistId = Units.findOne(name: "Specialist")._id
 
 		Games.insert _id: "1", gameName: "testingGame", player1: michaelId, player2: christophId, player2_ready:true, player1_ready:true, playing:true  if Games.find({_id:"1"}).count() is 0
-		if Units.find().count() < 4
-			Units.remove()
-			droneId = Units.insert name: "Drone", fraction: "Police", live: 1000, damage: 75, crit: 0.1, accuracy: 0.6, armor: 0.8
-			sniperId = Units.insert name: "Sniper", fraction: "Police", live: 1000, damage: 150, crit: 0.1, accuracy: 0.8, armor: 0.8
-			commanderId = Units.insert name: "Commander", fraction: "Terrorist", live: 1000, damage: 100, crit: 0.1, accuracy: 0.7, armor: 0.4
-			specialistId = Units.insert name: "Specialist", fraction: "Terrorist", live: 1000, damage: 125, crit: 0.1, accuracy: 0.75, armor: 0.6
 
 		if SpecialAbilities.find().count() < 16
 			SpecialAbilities.remove()
