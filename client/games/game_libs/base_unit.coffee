@@ -49,7 +49,6 @@ class @BaseUnit
   #     shot = @_shots.getFirstExists(false)
   #     if shot
   #       shot.reset @_unit.x + 6, @_unit.y + 8
-
   #       # shot.velocity.x = directionVector.x
   #       # shot.velocity.y = directionVector.y
 
