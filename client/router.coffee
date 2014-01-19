@@ -41,6 +41,8 @@ Router.map ->
       Meteor.subscribe 'allGameTeams', @params._id
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
+      Meteor.subscribe 'doneActions', @params._id
+      Meteor.subscribe 'allSpecialAbilities'
     data: ->
       game: Game.findOne _id: @params._id
       actions: Action.find()
