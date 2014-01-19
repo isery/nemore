@@ -7,6 +7,9 @@ Meteor.publish "currentGame", (_id) ->
 Meteor.publish "currentActions", (gameId) ->
   Actions.find({gameId: gameId})
 
+Meteor.publish "doneActions", (gameId) ->
+  DoneActions.find({gameId: gameId})
+
 Meteor.publish "allUnits", ->
   Unit.all()
 

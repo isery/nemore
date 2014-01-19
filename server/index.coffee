@@ -16,19 +16,19 @@ getFbPicture = (accessToken) ->
     throw result.error
   return result.data.picture.data.url
 
-
 startGame = (_id)->
   flag = true
-  Actions.find({
-    gameId: _id},{playerOnePlayed: true, playerTwoPlayed: true
+  game = Game.findOne({_id: _id})
+  playerOne = game.player1
+  playerTwo = game.player2
+  playerTwoUnit = GameTeams.find({gameId: _id, userId: playerTwo}).fetch()
+  playerOneUnit = GameTeams.find({gameId: _id, userId: playerOne}).fetch()
+  DoneActions.find({
+    gameId: _id
   }).observe({
-    changed: (newDoc, oldDoc) ->
+    added: (doneAction) ->
+      console.log "ADDED at: " + new Date()
       flag = !flag
-      game = Game.findOne({_id: _id})
-      playerOne = game.player1
-      playerTwo = game.player2
-      playerOneUnit = GameTeams.find({gameId: _id, userId: playerOne}).fetch()
-      playerTwoUnit = GameTeams.find({gameId: _id, userId: playerTwo}).fetch()
       Actions.insert
         gameId: "1"
         from: if flag then playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id else playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id
@@ -38,7 +38,6 @@ startGame = (_id)->
         damage: 200
         playerOnePlayed: false
         playerTwoPlayed: false
-
   })
 
 Meteor.startup ->

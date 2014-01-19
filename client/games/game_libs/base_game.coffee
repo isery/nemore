@@ -35,11 +35,12 @@ class @BaseGame
 
   initObserver: ->
     that = @
-    Actions.find({gameId: @_id, playerOnePlayed: false, playerTwoPlayed: false}).observe({
+    Actions.find({gameId: @_id}).observe({
       added: (action) ->
         action.name = 'autoattack'
         that[action.from][action.name].activate(that[action.to].getCoordinates())
-        Actions.update({_id: action._id},{$set: {playerOnePlayed: true, playerTwoPlayed: true}})
+        DoneActions.insert({actionId: action._id, gameId: action.gameId})
+        console.log "Inserted at: " + new Date()
     })
 
   # update: ->
