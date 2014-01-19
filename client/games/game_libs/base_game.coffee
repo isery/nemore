@@ -13,15 +13,17 @@ class @BaseGame
     @game = new Phaser.Game(1024, 768, Phaser.AUTO, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
-      update: @update.bind(@)
+      # update: @update.bind(@)
     )
 
   preload: ->
     @preloadTeam(@playerOne)
     @preloadTeam(@playerTwo)
 
-    @game.load.spritesheet "mummy", "/sprites/metalslug_monster39x40.png", 39, 40,10
+    @game.load.atlasJSONHash("autoattack", "/sprites/autoattack.png", "/sprites/autoattack.json");
+
     @game.load.image "ball", "/sprites/aqua_ball.png"
+    @game.load.spritesheet "mummy", "/sprites/metalslug_monster39x40.png", 39, 40,10
     @game.load.image "healthbar", "/sprites/healthbar.png"
     @game.load.spritesheet "explode", "/sprites/explode1.png", 128, 128, 16
 
@@ -35,24 +37,26 @@ class @BaseGame
     that = @
     Actions.find({gameId: @_id, playerOnePlayed: false, playerTwoPlayed: false}).observe({
       added: (action) ->
-        console.log action
-        that[action.from].fireSpecialAbility(that[action.to].getCoordinates())
+        action.name = 'autoattack'
+        that[action.from][action.name].activate(that[action.to].getCoordinates())
         Actions.update({_id: action._id},{$set: {playerOnePlayed: true, playerTwoPlayed: true}})
     })
 
-  update: ->
-    # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
-    if @game.input.keyboard.isDown(Phaser.Keyboard.ENTER)
-      #@[@playerOne.hero._id].fireSpecialAbility(@[@playerTwo.hero._id].getCoordinates())
-      @[@actions[0].from].fireSpecialAbility(@[@actions[0].to].getCoordinates())
+  # update: ->
+    # # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
+    # if @game.input.keyboard.isDown(Phaser.Keyboard.ENTER)
+    #   #@[@playerOne.hero._id].activateAbility(@[@playerTwo.hero._id].getCoordinates())
+    #   @[@actions[0].from].activateAbility(@[@actions[0].to].getCoordinates(), @actions[0].abilityId)
 
   preloadTeam: (player) ->
     for member in player.team
       name = member.unit().name
-      @[member._id] = BaseUnit.create(name, @game)
+      unitId = member.unit()._id
+      @[member._id] = BaseUnit.create(name, unitId, @game)
 
     name = player.hero.unit().name
-    @[player.hero._id] = BaseUnit.create(name, @game)
+    unitId = player.hero.unit()._id
+    @[player.hero._id] = BaseUnit.create(name, unitId, @game)
 
   createTeam: (player) ->
     isPlayerOne = (Meteor.userId() == player.hero.userId)
@@ -60,15 +64,15 @@ class @BaseGame
     for member, i in player.team
       @[member._id].addSprite(xPos, 50 * i)
       @[member._id].addAnimation("standing", 30, true)
-      @[member._id].initShots()
       @[member._id].setCoordinates(xPos, 50 * i)
+      @[member._id].initAbilities()
 
     heroXPos = if isPlayerOne then -100 else 100
 
     @[player.hero._id].addSprite(xPos + heroXPos, 100)
     @[player.hero._id].addAnimation("standing", 30, true)
-    @[player.hero._id].initShots()
     @[player.hero._id].setCoordinates(xPos + heroXPos, 100)
+    @[player.hero._id].initAbilities()
 
 
   # collisionHandler = (mummy, ball) ->
