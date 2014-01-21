@@ -6,34 +6,31 @@
 }
 
 .outerContainer .containerLeft .selectedContainer{
-	background-color: orange;
 	width: 100%;
 	height: inherit;
 	padding: 20px 90px;
 }
 
 .outerContainer .containerLeft .selectedContainer .innerContainer{
-	height: 90%;
+	height: 85%;
 }
 
 .outerContainer .containerLeft .selectedContainer .selectedHeroContainer{
 	float:left;
 	margin: 10px;
 	width: 40%;
-	height: 100%;
+	height: 50%;
 }
 
 .outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero{
-	background-color: greenyellow;
-	height: 40%;
+	height: 100%;
 }
 
 
 .outerContainer .containerLeft .selectedContainer .selectedCrewMember{
-	background-color: greenyellow;
 	position:relative;
-	width: 17%;
-	height: 17%;
+	width: 15%;
+	height: 23%;
 	float: left;
 	margin: 10px;
 }
@@ -43,6 +40,7 @@
   top: -4px;
   right: 0px;
   color: red;
+  cursor:pointer;
 }
 
 .outerContainer .containerRight{
@@ -56,12 +54,13 @@
 .outerContainer .containerRight .containerCrewMember{
 	width: 90%;
 	height: inherit;
-	margin: 20px auto;
+	margin: 0px auto;
+	padding: 20px 0px;
 }
 
 .outerContainer .containerRight .containerCrewMember .crewMember{
 	height: 22%;
-	background-color: red;
+	background-color: lightgoldenrodyellow;
 }
 .outerContainer .containerRight .containerCrewMember .crewMember:not(:first-of-type){
 	margin-top: 4%;
@@ -87,6 +86,9 @@
 .outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table th:first-child{
 	border-top: 0px;
 }
+.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table:first-child tr:not(:first-child){
+	border-right: 1px solid #dddddd;
+}
 .outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table th{
 	text-align: center;
 	vertical-align: middle;
@@ -98,4 +100,86 @@
 	float: right;
 	background:url('/img/detailed/2.png') no-repeat 50% 50%;
 	background-size: auto 100%;
+}
+
+
+.btnReady{
+	border: none;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	background: none;
+	cursor: pointer;
+	padding: 5px 15px;
+	display: inline-block;
+	margin: 15px 30px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	float: right;
+	border-radius: 50px;
+	border: 2px solid lightgoldenrodyellow;
+	color: lightgoldenrodyellow;
+	overflow: hidden;
+
+}
+
+.btnReady:focus{
+	color: lightgoldenrodyellow;
+}
+
+.btnReady:after {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btnReady:before,
+{
+	position: absolute;
+	height: 100%;
+	font-size: 125%;
+	line-height: 3.5;
+	color: lightgoldenrodyellow;
+	left: 70%;
+	opacity: 0;
+	top: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+}
+
+
+.btnReady:active {
+	border-color: #17954c;
+	color: #17954c;
+}
+
+.btnReady:hover {
+	background: #24b662;
+}
+
+.btnReady:active:before {
+	color: #17954c;
+}
+
+.btnReady:hover:before {
+	left: 80%;
+	opacity: 1;
 }
