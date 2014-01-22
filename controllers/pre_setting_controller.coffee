@@ -6,10 +6,12 @@ class @PreSettingController extends RouteController
       _id = @params._id
       currentGame = @getData().currentGame
       userId = Meteor.userId()
-      if currentGame and !currentGame.player2 and userId is not currentGame.player1
-        currentGame.setPlayer2(userId)
 
-      if currentGame and currentGame.player1_ready and currentGame.player2_ready
+      # TODO: Set player 2 if he joins through the url
+      # if currentGame and !currentGame.player2 and userId is not currentGame.player1
+      #   currentGame.setPlayer2(userId)
+
+      if currentGame.state == "ready"
         Router.go 'games', _id: _id
 
       if currentGame && !GameTeam.find({userId: Meteor.userId(), gameId: currentGame._id}).length > 0
@@ -21,9 +23,9 @@ class @PreSettingController extends RouteController
     Meteor.subscribe 'allTeams'
     Meteor.subscribe 'allSpecialAbilities'
     Meteor.subscribe 'allGameTeams', @params._id
+    Meteor.subscribe 'allGamePlayers'
   data: ->
     currentGame: Game.findById(@params._id),
-    hero: Team.findOne({userId: Meteor.userId(), hero: true})
     gameTeams: GameTeam.find({userId: Meteor.userId()})
 
 

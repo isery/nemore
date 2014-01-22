@@ -35,20 +35,18 @@ class @BaseGame
 
   initObserver: ->
     that = @
-    if Meteor.userId() == @playerOne.hero.userId
-      Actions.find({gameId: @_id, player1: false}).observe({
-        added: (action) ->
-          console.log action
+    Actions.find({gameId: @_id}).observe({
+      added: (action) ->
+        player = GamePlayers.findOne({gameId: action.gameId, userId: Meteor.userId()})
+        if action.createdAt > player.lastActionAt
+          GamePlayers.update
+            _id: player._id
+          ,
+            $set:
+              state: "animating"
           action.name = 'autoattack'
           that[action.from][action.name].activate(that[action.to].getCoordinates(), action)
-      })
-    else
-      Actions.find({gameId: @_id, player2: false}).observe({
-        added: (action) ->
-          console.log action
-          action.name = 'autoattack'
-          that[action.from][action.name].activate(that[action.to].getCoordinates(), action)
-      })
+    })
   # update: ->
     # # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
     # if @game.input.keyboard.isDown(Phaser.Keyboard.ENTER)
