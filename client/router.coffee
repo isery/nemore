@@ -69,6 +69,7 @@ Router.map ->
     data: ->
       units: Unit.find()
       teams: Team.find({hero: {$exists: false}})
+      hero: Team.findOne({userId: Meteor.userId(), hero: true})
   @route 'summary',
     before: ->
       Router.isLoggedIn(@) if @ready()
