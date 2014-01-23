@@ -38,13 +38,14 @@ class @BaseGame
     Actions.find({gameId: @_id}).observe({
       added: (action) ->
         player = GamePlayers.findOne({gameId: action.gameId, userId: Meteor.userId()})
-        if action.createdAt > player.lastActionAt
+        if action.index > player.lastIndex
           GamePlayers.update
             _id: player._id
           ,
             $set:
               state: "animating"
           action.name = 'autoattack'
+          console.log "Activated Action with id: " + action._id
           that[action.from][action.name].activate(that[action.to].getCoordinates(), action)
     })
   # update: ->

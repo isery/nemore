@@ -19,13 +19,14 @@ class @Game
     @validateSave()
     @_id = Games.insert
       created_at: new Date()
+      state: "createdGame"
 
     GamePlayers.insert
       gameId: @_id
       userId: Meteor.userId()
       state: "creating"
       player: "1"
-      lastActionAt: new Date()
+      lastIndex: 0
 
     @_id
 
@@ -35,7 +36,7 @@ class @Game
       userId: userId
       state: "joining"
       player: "2"
-      lastActionAt: new Date()
+      lastIndex: 0
 
     players = GamePlayers.find({gameId: @_id}).fetch()
 

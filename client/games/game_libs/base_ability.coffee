@@ -34,7 +34,7 @@ class @BaseAbility
     ,
       $set:
         state: 'waiting'
-        lastActionAt: @_action.createdAt
+        lastIndex: @_action.index
 
     console.log "Updated at: " + new Date()
 
