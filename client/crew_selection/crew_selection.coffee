@@ -10,6 +10,16 @@ Template.crewSelection.events
   'click #ready': (e)->
     Router.go 'summary'
 
+  'click .btn-8g': (e)->
+    console.log "hi"
+    $(e.currentTarget).addClass 'btn-success3d'
+    #setTimeout (->
+    #  $(e.currentTarget).removeClass 'btn-success3d'
+    #), 1000
+
 Template.crewSelection.rendered = ->
 	$('.crewMemberData').perfectScrollbar
 		suppressScrollX: true
+
+Template.showSelectedCrewLeft.heroImage = ->
+  Router.getData().hero?.unit().name

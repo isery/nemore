@@ -14,7 +14,7 @@
   <div class="selectedContainer" style="position: relative">
     <div class="innerContainer">
       <div class="selectedHeroContainer">
-        <div class="selectedHero"></div>
+        <div class="selectedHero" style="background:url('/img/{{heroImage}}.png') no-repeat 50% 50%;background-size: auto 100%;"></div>
       </div>
       {{#each teams}}
       <div class="selectedCrewMember" style="background:url('/img/{{unit.name}}.png') no-repeat 50% 50%;background-size: auto 100%;">
@@ -24,7 +24,8 @@
       </div>
       {{/each}}
     </div>
-      <input type="button" value="Done" id="ready" class="btn btn-default btn-lg btn-block">
+      <!--<input type="button" value="Done" id="ready" class="btn btn-default btn-lg btn-block">-->
+      <button class="btnReady" id="ready">Continue</button>
   </div>
 </template>
 
