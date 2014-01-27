@@ -27,8 +27,9 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
+      Meteor.subscribe 'allGamePlayers'
     data: ->
-      currentOpenGames: Games.find({player2: {$exists: false}}).fetch()
+      currentOpenGames: Games.find({state: 'createdGame'}).fetch()
       users: Meteor.users.find({}).fetch()
   @route 'preSetting',
     path: '/preSetting/:_id'
@@ -39,17 +40,17 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'allGames'
       Meteor.subscribe 'allGameTeams', @params._id
+      Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
-      Meteor.subscribe 'doneActions', @params._id
       Meteor.subscribe 'allSpecialAbilities'
     data: ->
       game: Game.findOne _id: @params._id
       actions: Action.find()
-      gameTeamOne: GameTeam.find userId: Game.findOne(_id: @params._id).player1, hero: {$exists: false}
-      gameTeamTwo: GameTeam.find userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: {$exists: false}
-      heroOne: GameTeam.findOne userId: Game.findOne(_id: @params._id).player1, hero: true
-      heroTwo: GameTeam.findOne userId: Game.findOne(_id: @params._id).player2, gameId: @params._id, hero: true
+      gameTeamOne: GameTeam.find userId: GamePlayers.findOne({gameId: @params._id, player: "1"}).userId, hero: {$exists: false}
+      gameTeamTwo: GameTeam.find userId: GamePlayers.findOne({gameId: @params._id, player: "2"}).userId, gameId: @params._id, hero: {$exists: false}
+      heroOne: GameTeam.findOne userId: GamePlayers.findOne({gameId: @params._id, player: "1"}).userId, hero: true
+      heroTwo: GameTeam.findOne userId: GamePlayers.findOne({gameId: @params._id, player: "2"}).userId, gameId: @params._id, hero: true
   @route 'heroSelection',
     path: '/hero_selection'
     before: ->

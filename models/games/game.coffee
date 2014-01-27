@@ -18,22 +18,42 @@ class @Game
   save: ->
     @validateSave()
     @_id = Games.insert
-      gameName: @gameName,
-      x: 0,
-      y: 0,
-      player1: @userId,
-      playing: false
       created_at: new Date()
+      state: "createdGame"
+
+    GamePlayers.insert
+      gameId: @_id
+      userId: Meteor.userId()
+      state: "creating"
+      player: "1"
+      lastIndex: 0
+
+    @_id
 
   setPlayer2: (userId)->
-    @player2 = userId
-    Games.update({_id: @_id},{$set: {"player2": userId}})
+    GamePlayers.insert
+      gameId: @_id
+      userId: userId
+      state: "joining"
+      player: "2"
+      lastIndex: 0
 
-  setReady: (userId)->
-    if userId == @player1
-      Games.update({_id: @_id},{$set: {"player1_ready": true}})
-    else
-      Games.update({_id: @_id},{$set: {"player2_ready": true}})
+    players = GamePlayers.find({gameId: @_id}).fetch()
+
+    for player in players
+      GamePlayers.update
+        _id: player._id
+      ,
+        $set:
+          state: "waiting"
+
+  setReady: ->
+    Games.update
+      _id: @_id
+    ,
+      $set:
+        state: "ready"
+
 
   # For Meteor publish
   @all = ->

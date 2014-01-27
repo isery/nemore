@@ -17,42 +17,40 @@ getFbPicture = (accessToken) ->
   return result.data.picture.data.url
 
 startGame = (_id)->
-  flag = true
-  game = Game.findOne({_id: _id})
-  playerOne = game.player1
-  playerTwo = game.player2
-  playerTwoUnit = GameTeams.find({gameId: _id, userId: playerTwo}).fetch()
-  playerOneUnit = GameTeams.find({gameId: _id, userId: playerOne}).fetch()
-  Actions.find({
-    gameId: _id, player1: true, player2: true
+  console.log "Started Game with id: " + _id
+
+  GamePlayers.find({
+    gameId: _id
+    state: "waiting"
   }).observe({
     added: (doc) ->
-      console.log "ADDED at: " + new Date()
-      flag = !flag
-      actionId = Actions.insert
-        gameId: "1"
-        from: if flag then playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id else playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id
-        to: if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
-        special: false
-        hit: true
-        damage: 200
-        player1: false
-        player2: false
+      players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: doc.lastIndex}).fetch()
+      actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}})
+      unless actions && players.length < 2
+        player1 = GamePlayers.findOne({gameId: doc.gameId, player: "1"}).userId
+        player2 = GamePlayers.findOne({gameId: doc.gameId, player: "2"}).userId
+        player1Units = GameTeam.find({gameId: doc.gameId, userId: player1})
+        player2Units = GameTeam.find({gameId: doc.gameId, userId: player2})
+        actionId = Actions.insert
+          gameId: doc.gameId
+          from: player1Units[Math.floor(Math.random() * player1Units.length)]._id
+          to: player2Units[Math.floor(Math.random() * player2Units.length)]._id
+          special: false
+          hit: true
+          damage: 200
+          index: parseInt(doc.lastIndex) + 1
+        console.log "Added Actions with id: " + actionId
+    # if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
   })
 
 Meteor.startup ->
-  # TODO REMOVE startGame here
-  startGame("1")
-
   Games.find({
-    player1 : {$exists: true},
-    player2 : {$exists: true},
-    player1_ready: true,
-    player2_ready: true,
-    playing: false
+    state: "ready"
   }).observe({
-    added: (game)->
+    added: (game) ->
       console.log "Observer: New game initialized at " + new Date()
-      Games.update({_id: game._id}, {$set: {playing: true}})
       startGame(game._id)
+      Games.update({_id: game._id},{$set: {state: "playing"}})
   })
+
+  # TODO Continue games with state playing on server restart

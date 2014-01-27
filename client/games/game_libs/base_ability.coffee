@@ -26,10 +26,15 @@ class @BaseAbility
     @finishAction()
 
   finishAction: ->
-    if Game.findOne({_id: @_action.gameId}).player1 == Meteor.userId()
-      Actions.update({_id: @_action._id},{$set:{player1: true}})
-    else
-      Actions.update({_id: @_action._id},{$set:{player2: true}})
+    player = GamePlayers.findOne
+      gameId: @_action.gameId
+      userId: Meteor.userId()
+    GamePlayers.update
+      _id: player._id
+    ,
+      $set:
+        state: 'waiting'
+        lastIndex: @_action.index
 
     console.log "Updated at: " + new Date()
 

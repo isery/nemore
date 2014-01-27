@@ -6,16 +6,16 @@ Template.gamerooms.events
     Router.go 'preSetting', _id: _id
 
   'click #createGame': ->
-    _id = new Game({userId: Meteor.userId(),gameName: Meteor.userId()}).save()
+    _id = new Game({userId: Meteor.userId(),gameName: Meteor.userId(), state: "createdGame"}).save()
     console.log "created game with id: "+_id
     Router.go 'preSetting', _id: _id
 
 Template.gamerooms.findUser = () ->
-  userId = Game.findById(@_id).player1
-  Meteor.users.findOne({_id: userId}).profile?.name
+  userId = GamePlayers.findOne({gameId: @_id, player: "1"})?.userId
+  Meteor.users.findOne({_id: userId})?.profile?.name
 
 Template.gamerooms.findImage = () ->
-  userId = Game.findById(@_id).player1
-  Meteor.users.findOne({_id: userId}).profile?.picture
+  userId = GamePlayers.findOne({gameId: @_id, player: "1"})?.userId
+  Meteor.users.findOne({_id: userId})?.profile?.picture
 
 
