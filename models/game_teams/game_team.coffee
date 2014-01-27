@@ -8,6 +8,8 @@ class @GameTeam
 
   init: ->
     team = Team.find({userId: Meteor.userId()})
+    console.log "team.find "+Meteor.userId()
+    console.log team
     for member in team
       GameTeams.insert
         gameId: @gameId

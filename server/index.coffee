@@ -24,7 +24,8 @@ startGame = (_id)->
     state: "waiting"
   }).observe({
     added: (doc) ->
-      players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: doc.lastIndex}).fetch()
+      lastAction = Actions.find({gameId: doc.gameId}, {sort: {index:-1},limit:1}).fetch()[0]?.index or 0
+      players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: lastAction}).fetch()
       actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}})
       unless actions && players.length < 2
         player1 = GamePlayers.findOne({gameId: doc.gameId, player: "1"}).userId

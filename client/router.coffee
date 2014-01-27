@@ -28,6 +28,8 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'allGames'
       Meteor.subscribe 'allGamePlayers'
+      Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'allUnits'
     data: ->
       currentOpenGames: Games.find({state: 'createdGame'}).fetch()
       users: Meteor.users.find({}).fetch()

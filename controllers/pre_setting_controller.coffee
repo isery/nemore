@@ -14,9 +14,6 @@ class @PreSettingController extends RouteController
       if currentGame.state == "ready"
         Router.go 'games', _id: _id
 
-      if currentGame && !GameTeam.find({userId: Meteor.userId(), gameId: currentGame._id}).length > 0
-        new GameTeam({gameId: currentGame._id}).init()
-
   waitOn: ->
     Meteor.subscribe 'currentGame', @params._id
     Meteor.subscribe 'allUnits'
