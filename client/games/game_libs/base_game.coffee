@@ -46,7 +46,11 @@ class @BaseGame
               state: "animating"
           action.name = 'autoattack'
           console.log "Activated Action with id: " + action._id
-          that[action.from][action.name].activate(that[action.to].getCoordinates(), action)
+          actionArr = []
+          actionArr.push(action)
+          actionArr.push(action)
+          actionArr.push(action)
+          that[action.from][action.name].startAnimation(that[action.to].getCoordinates(), actionArr)
     })
   # update: ->
     # # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
