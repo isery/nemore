@@ -15,23 +15,23 @@ if Meteor.isServer
 
 		if SpecialAbilities.find().count() < 16
 			SpecialAbilities.remove()
-			SpecialAbilities.insert unit_id: droneId, name: "autoattack", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: droneId, name: "defence", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: droneId, name: "armor all", type: "defence", factor: "0.2", target_count: 5
-			SpecialAbilities.insert unit_id: droneId, name: "armor me", type: "defence", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: droneId, name: "armor someone", type: "defence", factor: "0.8", target_count: 1
-			SpecialAbilities.insert unit_id: sniperId, name: "autoattack", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: sniperId, name: "defence", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1
-			SpecialAbilities.insert unit_id: sniperId, name: "increase damage", type: "improve", factor: "1.1667", target_count: 1
-			SpecialAbilities.insert unit_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1
-			SpecialAbilities.insert unit_id: commanderId, name: "autoattack", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: commanderId, name: "defence", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: commanderId, name: "increase for all crit", type: "improve all", factor: "2", target_count: 5
-			SpecialAbilities.insert unit_id: commanderId, name: "increase for all accuracy", type: "improve all", factor: "0.2", target_count: 5
-			SpecialAbilities.insert unit_id: commanderId, name: "increase for all damage", type: "improve all", factor: "2", target_count: 5
-			SpecialAbilities.insert unit_id: specialistId, name: "autoattack", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: specialistId, name: "defence", type: "attack", factor: "1.0", target_count: 1
-			SpecialAbilities.insert unit_id: specialistId, name: "attack three 50% Damage", type: "attack three", factor: "-0.5", target_count: 3
-			SpecialAbilities.insert unit_id: specialistId, name: "attack three 50% reset special", type: "attack three", factor: "0.5", target_count: 3
-			SpecialAbilities.insert unit_id: specialistId, name: "increase for three accuracy", type: "attack one tree times", factor: "0.5", target_count: 3
+			SpecialAbilities.insert unit_id: droneId, name: "autoattack_drone", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: droneId, name: "defence", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: droneId, name: "armor all", type: "defence", factor: "0.2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: droneId, name: "armor me", type: "defence", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: droneId, name: "armor someone", type: "defence", factor: "0.8", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: sniperId, name: "autoattack_sniper", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: sniperId, name: "defence", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: sniperId, name: "increase damage", type: "improve", factor: "1.1667", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: sniperId, name: "increase accuracy", type: "improve", factor: "1.25", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: commanderId, name: "autoattack_commander", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: commanderId, name: "defence", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: commanderId, name: "increase for all crit", type: "improve all", factor: "2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: commanderId, name: "increase for all accuracy", type: "improve all", factor: "0.2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: commanderId, name: "increase for all damage", type: "improve all", factor: "2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: specialistId, name: "autoattack_specialist", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: specialistId, name: "defence", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: specialistId, name: "attack three 50% Damage", type: "attack three", factor: "-0.5", target_count: 3, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: specialistId, name: "attack three 50% reset special", type: "attack three", factor: "0.5", target_count: 3, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: specialistId, name: "increase for three accuracy", type: "attack one tree times", factor: "0.5", target_count: 3, states: ["pullweapon", "shoot", "downweapon"]
