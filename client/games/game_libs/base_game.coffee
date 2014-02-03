@@ -20,7 +20,10 @@ class @BaseGame
     @preloadTeam(@playerOne)
     @preloadTeam(@playerTwo)
 
-    @game.load.atlasJSONHash("autoattack", "/sprites/autoattack.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("autoattack_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("autoattack_sniper", "/sprites/autoattack_sniper.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("autoattack_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("autoattack_drone", "/sprites/autoattack_drone.png", "/sprites/autoattack.json");
 
     @game.load.image "ball", "/sprites/aqua_ball.png"
     @game.load.spritesheet "mummy", "/sprites/metalslug_monster39x40.png", 39, 40,10
@@ -44,9 +47,8 @@ class @BaseGame
           ,
             $set:
               state: "animating"
-          action.name = 'autoattack'
-          console.log "Activated Action with id: " + action._id
-          that[action.from][action.name].activate(that[action.to].getCoordinates(), action)
+          #that[action.from][action.name].startAnimation(that[action.to].getCoordinates(), actionArr)
+          new BaseAbility({action: action, baseGame: that}).play()
     })
   # update: ->
     # # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
@@ -71,14 +73,14 @@ class @BaseGame
       @[member._id].addSprite(xPos, 50 * i)
       @[member._id].addAnimation("standing", 30, true)
       @[member._id].setCoordinates(xPos, 50 * i)
-      @[member._id].initAbilities()
+      # @[member._id].initAbilities()
 
     heroXPos = if isPlayerOne then -100 else 100
 
     @[player.hero._id].addSprite(xPos + heroXPos, 100)
     @[player.hero._id].addAnimation("standing", 30, true)
     @[player.hero._id].setCoordinates(xPos + heroXPos, 100)
-    @[player.hero._id].initAbilities()
+    # @[player.hero._id].initAbilities()
 
 
   # collisionHandler = (mummy, ball) ->

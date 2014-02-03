@@ -13,7 +13,7 @@ class @Team
     throw new Meteor.Error 490, 'Undefined unitId' unless options.unitId
 
   validateSave: ->
-    if Teams.find({userId: @userId}).fetch().length + 1 > @_maxCount
+    if Teams.find({userId: @userId}).fetch().length + 1 > @_maxCount && !@hero
       throw new Meteor.Error 490, 'Already enough units'
 
   user: ->
