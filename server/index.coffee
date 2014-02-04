@@ -27,6 +27,7 @@ startGame = (_id)->
       lastAction = Actions.find({gameId: doc.gameId}, {sort: {index:-1},limit:1}).fetch()[0]?.index or 0
       players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: lastAction}).fetch()
       actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}})
+      
       unless actions && players.length < 2
         player1 = GamePlayers.findOne({gameId: doc.gameId, player: "1"}).userId
         player2 = GamePlayers.findOne({gameId: doc.gameId, player: "2"}).userId
@@ -34,6 +35,7 @@ startGame = (_id)->
         player2Units = GameTeam.find({gameId: doc.gameId, userId: player2})
 
         targets = []
+        #ability relevanz hier!
         targets.push {hit: true, gameTeamId: player2Units[Math.floor(Math.random() * player2Units.length)]._id, damage: 100}
         targets.push {hit: true, gameTeamId: player2Units[Math.floor(Math.random() * player2Units.length)]._id, damage: 100}
 
