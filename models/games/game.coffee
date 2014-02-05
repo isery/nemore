@@ -48,6 +48,7 @@ class @Game
           state: "waiting"
 
   setReady: ->
+    console.log "about to setReady"
     Games.update
       _id: @_id
     ,

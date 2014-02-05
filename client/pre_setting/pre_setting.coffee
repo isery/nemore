@@ -1,5 +1,7 @@
 Template.preSetting.events
   'click #ready': (e)->
+    console.log "clicked: ready"
+    GameTeam.find(gameTeamId)
     Router.getData().currentGame.setReady(Meteor.userId())
 
   'click .choose_ability': (e)->

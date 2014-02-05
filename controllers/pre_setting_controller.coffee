@@ -1,6 +1,7 @@
 class @PreSettingController extends RouteController
 
   before: ->
+    console.log "PreSettingController before"
     if @getData().currentGame
       Router.isLoggedIn(@)
       _id = @params._id
@@ -15,6 +16,7 @@ class @PreSettingController extends RouteController
         Router.go 'games', _id: _id
 
   waitOn: ->
+    console.log "PreSettingController waitOn"
     Meteor.subscribe 'currentGame', @params._id
     Meteor.subscribe 'allUnits'
     Meteor.subscribe 'allTeams'
@@ -22,6 +24,7 @@ class @PreSettingController extends RouteController
     Meteor.subscribe 'allGameTeams', @params._id
     Meteor.subscribe 'allGamePlayers'
   data: ->
+    console.log "PreSettingController data"
     currentGame: Game.findById(@params._id),
     gameTeams: GameTeam.find({userId: Meteor.userId()})
 
