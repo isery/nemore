@@ -15,7 +15,7 @@ if Meteor.isServer
 
 		if SpecialAbilities.find().count() < 16
 			SpecialAbilities.remove()
-			SpecialAbilities.insert unit_id: droneId, name: "autoattack_drone", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: droneId, name: "autoattack_drone", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unit_id: droneId, name: "defense_drone", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: droneId, name: "armorAll_drone", type: "defence", factor: "0.2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: droneId, name: "armorSelf_drone", type: "defence", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
@@ -25,7 +25,7 @@ if Meteor.isServer
 			SpecialAbilities.insert unit_id: sniperId, name: "buffAccuracy_sniper", type: "improve", factor: "1.25", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: sniperId, name: "buffDamage_sniper", type: "improve", factor: "1.1667", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: sniperId, name: "buffCrit_sniper", type: "improve", factor: "1.25", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unit_id: commanderId, name: "autoattack_commander", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: commanderId, name: "autoattack_commander", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unit_id: commanderId, name: "defense_commander", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: commanderId, name: "buffAllCrit_commander", type: "improve all", factor: "2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: commanderId, name: "buffAllAccuracy_commander", type: "improve all", factor: "0.2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]

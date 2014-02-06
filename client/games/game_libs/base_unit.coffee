@@ -10,7 +10,8 @@ class @BaseUnit
     @initSprites()
 
   initSprites: ->
-    @_game.load.atlasJSONHash(@_name, @_image, @_json)
+    @_game.load.atlas(@_name, @_image, @_json)
+    #@_game.load.atlasJSONHash(@_name, @_image, @_json)
 
   initAbilities: ->
     abilities = SpecialAbilities.find({unit_id: @_unitId}).fetch()
@@ -18,11 +19,18 @@ class @BaseUnit
       @[ability.name] = new BaseAbility({baseUnit: @, ability: ability})
 
   addSprite: (x,y) ->
-    @_unit = @_game.add.sprite(x, y, @_name)
+    # @_unit = @_game.add.sprite(x, y, @_name, "a.png")
+    console.log @_name
+    @_unit = @_game.add.sprite(x, y, @_name, "a.png")
 
   addAnimation: (name, frames, isLoop) ->
     @_unit.animations.add "idle"
-    @_unit.animations.play "idle", 20, true
+    @_unit.animations.add("pullweapon", ["a.png", "b.png", "c.png"], 50, false, false)
+    @_unit.animations.add("downweapon", ["c.png", "b.png", "a.png"], 50, false, false)
+
+    # @_unit.animations.add "downweapon", [2, 1, 0]
+
+    #@_unit.animations.play "idle", 20, true
 
   # initShots: () ->
   #   @_shots = @_game.add.group(null, "shots")
