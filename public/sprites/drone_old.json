@@ -1,0 +1,52 @@
+{"frames": {
+
+"0.png":
+{
+	"frame": {"x":2,"y":2,"w":56,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":56,"h":44},
+	"sourceSize": {"w":56,"h":44}
+},
+"1.png":
+{
+	"frame": {"x":60,"y":2,"w":65,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":44},
+	"sourceSize": {"w":65,"h":44}
+},
+"2.png":
+{
+	"frame": {"x":2,"y":48,"w":65,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":44},
+	"sourceSize": {"w":65,"h":44}
+},
+"3.png":
+{
+	"frame": {"x":2,"y":94,"w":81,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":44},
+	"sourceSize": {"w":81,"h":44}
+},
+"4.png":
+{
+	"frame": {"x":2,"y":140,"w":73,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":73,"h":44},
+	"sourceSize": {"w":73,"h":44}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "drone.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":256},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:a9ef358d0630e1f462e2f410c9fde31b:74c9bd2242681635f7a617d296f467eb:f560fd4d737d2038c010f449481185da$"
+}
+}
