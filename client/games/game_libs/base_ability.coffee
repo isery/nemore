@@ -17,19 +17,21 @@ class @BaseAbility
       @_targets.push target
 
   play: ->
+    console.log "Play"
     if @_statesArr[0]
       @[@_statesArr[0]]()
     else
       @finishAnimation()
 
   finishPart: ->
+    console.log "finishPart"
     if @_parts == @_doneParts
       @_doneParts = 0
       @_statesArr.shift()
       @play()
 
   finishAnimation: ->
-    # console.log "Finish Animation"
+    console.log "Finish Animation"
     player = GamePlayers.findOne
       gameId: @_action.gameId
       userId: Meteor.userId()
@@ -43,33 +45,40 @@ class @BaseAbility
     console.log "Updated at: " + new Date()
 
   pullweapon: ->
-    # console.log "Pullweapon"
+    console.log "Pullweapon"
     @_parts = 1
-    @_doneParts++
-    @finishPart()
+    @_baseUnit._unit.animations.play "pullweapon", 20, false
+    @_baseUnit._unit.events.onAnimationComplete.add (anim)->
+      @_baseUnit._unit.events.onAnimationComplete.removeAll()
+      @_doneParts++
+      @finishPart()
+    , @
 
   downweapon: ->
-    # console.log "Downeweapon"
+    console.log "Downweapon"
     @_parts = 1
-    @_doneParts++
-    @finishPart()
+    @_baseUnit._unit.animations.play "downweapon", 20, false
+    @_baseUnit._unit.events.onAnimationComplete.add (anim)->
+      @_baseUnit._unit.events.onAnimationComplete.removeAll()
+      @_doneParts++
+      @finishPart()
+    , @
 
   shoot: ->
-    # console.log "Shoot"
+    console.log "Shoot"
     @_parts = @_targets.length
     for target, index in @_targets
       ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
       ability.animations.add("shooting_" + index)
       ability.animations.play("shooting_" + index, 20, true)
       tween = @_game.add.tween(ability).to({x: target.gameTeam.getCoordinates().x, y: target.gameTeam.getCoordinates().y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
-      tween.index = index
       tween.onComplete.add (tween)->
         @hit({x: tween.x, y: tween.y})
         tween.kill()
       , @
 
   hit: (target)->
-    # console.log "Hit"
+    console.log "Hit"
     explode = @_game.add.sprite(target.x - (Math.abs(@_baseUnit._unit.width)), target.y - (@_baseUnit._unit.height), "explode")
     explode.animations.add "exploding"
     explode.animations.play "exploding", 10, false
@@ -80,15 +89,14 @@ class @BaseAbility
     , @
 
   buff: ->
-    # console.log "Buff"
+    console.log "Buff"
     @_parts = @_targets.length
     for target, index in @_targets
-      ability = @_game.add.sprite(target.gameTeam.getCoordinates().x, target.gameTeam.getCoordinates().y, @_abilityData.name)
-      ability.animations.add("shooting_" + index)
-      ability.animations.play("shooting_" + index, 20, true)
-      ability.onAnimationComplete.add (ability)->
+      ability = @_game.add.sprite(target.gameTeam.getCoordinates().x, target.gameTeam.getCoordinates().y - 20, "buff")
+      tween = @_game.add.tween(ability).to({x: target.gameTeam.getCoordinates().x, y: target.gameTeam.getCoordinates().y + 20}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween.onComplete.add (tween)->
         @_doneParts++
-        explode.kill()
+        tween.kill()
         @finishPart()
       , @
 
