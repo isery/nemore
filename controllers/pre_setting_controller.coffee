@@ -11,9 +11,6 @@ class @PreSettingController extends RouteController
         unless gamePlayers[0].userId is userId
           currentGame.setPlayer2(userId)
           newTeam = new GameTeam({gameId: currentGame._id}).init()
-          console.log "just set player2"
-      console.log "currentGameState is : "+ currentGame.state
-
       if currentGame.state == "ready"
         Router.go 'games', _id: _id
 
