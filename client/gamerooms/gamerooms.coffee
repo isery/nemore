@@ -1,9 +1,6 @@
 Template.gamerooms.events
   'click .joinGame': (e)->
     _id = $(e.target).data("id")
-    currentGame = Game.findById(_id)
-    currentGame.setPlayer2 Meteor.userId()
-    newTeam = new GameTeam({gameId: currentGame._id}).init()
     Router.go 'preSetting', _id: _id
 
   'click #createGame': ->
@@ -18,5 +15,3 @@ Template.gamerooms.findUser = () ->
 Template.gamerooms.findImage = () ->
   userId = GamePlayers.findOne({gameId: @_id, player: "1"})?.userId
   Meteor.users.findOne({_id: userId})?.profile?.picture
-
-

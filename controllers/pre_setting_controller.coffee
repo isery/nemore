@@ -1,22 +1,23 @@
 class @PreSettingController extends RouteController
 
   before: ->
-    console.log "PreSettingController before"
     if @getData().currentGame
       Router.isLoggedIn(@)
       _id = @params._id
       currentGame = @getData().currentGame
       userId = Meteor.userId()
-
-      # TODO: Set player 2 if he joins through the url
-      # if currentGame and !currentGame.player2 and userId is not currentGame.player1
-      #   currentGame.setPlayer2(userId)
+      gamePlayers = GamePlayer.find({gameId: currentGame._id})
+      if gamePlayers.length <= 1
+        unless gamePlayers[0].userId is userId
+          currentGame.setPlayer2(userId)
+          newTeam = new GameTeam({gameId: currentGame._id}).init()
+          console.log "just set player2"
+      console.log "currentGameState is : "+ currentGame.state
 
       if currentGame.state == "ready"
         Router.go 'games', _id: _id
 
   waitOn: ->
-    console.log "PreSettingController waitOn"
     Meteor.subscribe 'currentGame', @params._id
     Meteor.subscribe 'allUnits'
     Meteor.subscribe 'allTeams'
@@ -24,7 +25,7 @@ class @PreSettingController extends RouteController
     Meteor.subscribe 'allGameTeams', @params._id
     Meteor.subscribe 'allGamePlayers'
   data: ->
-    console.log "PreSettingController data"
+    gamePlayers: GamePlayer.find({userId: Meteor.userId()})
     currentGame: Game.findById(@params._id),
     gameTeams: GameTeam.find({userId: Meteor.userId()})
 

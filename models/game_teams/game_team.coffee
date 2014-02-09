@@ -1,4 +1,3 @@
-@GamePlayers = new Meteor.Collection 'gamePlayers'
 @GameTeams = new Meteor.Collection 'gameTeams'
 
 class @GameTeam

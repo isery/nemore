@@ -34,18 +34,9 @@ class @Game
     GamePlayers.insert
       gameId: @_id
       userId: userId
-      state: "joining"
+      state: "creating"
       player: "2"
       lastIndex: 0
-
-    players = GamePlayers.find({gameId: @_id}).fetch()
-
-    for player in players
-      GamePlayers.update
-        _id: player._id
-      ,
-        $set:
-          state: "waiting"
 
   setReady: ->
     console.log "about to setReady"
@@ -54,9 +45,6 @@ class @Game
     ,
       $set:
         state: "ready"
-
-
-  # For Meteor publish
   @all = ->
     games = Games.find({})
 
