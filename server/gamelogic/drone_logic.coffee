@@ -1,10 +1,10 @@
 class @DroneLogic extends BaseLogic
-	
+
 	constructor: (data)->
 		super(data)
-		
-		@_unit = Units.findOne(name:"Drone")
-		
+
+		@_unit = Units.findOne({name:"Drone"})
+
 		@_unitLife = @_unit.live
 		@_unitArmor = @_unit.armor
 		@_unitBaseDamage = @_unit.damage
@@ -12,7 +12,7 @@ class @DroneLogic extends BaseLogic
 		@_unitHitChance = @_unit.accuracy
 
 		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
-	
+
 
 	autoattack_drone: (data) ->
 

@@ -18,6 +18,7 @@ getFbPicture = (accessToken) ->
 
 startGame = (_id)->
   console.log "Started Game with id: " + _id
+  ###
   GamePlayers.find({
     gameId: _id
     state: "waiting"
@@ -47,6 +48,13 @@ startGame = (_id)->
         console.log "Added Actions with id: " + actionId
     # if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
   })
+  Actions.find({}).ovserve({
+    added: (doc) ->
+
+  })
+  ###
+
+  new BaseLogic(_id)
 
 Meteor.startup ->
   Games.find({
