@@ -39,6 +39,8 @@ startGame = (_id)->
         targets.push {hit: true, gameTeamId: player2Units[Math.floor(Math.random() * player2Units.length)]._id, damage: 100}
 
         abilities = SpecialAbilities.find({name: {$in: ['autoattack_drone', 'autoattack_sniper', 'autoattack_commander', 'autoattack_specialist']}}).fetch()
+        console.log "in index.coffee"
+        console.log abilities
         actionId = Actions.insert
           gameId: doc.gameId
           from: player1Units[Math.floor(Math.random() * player1Units.length)]._id
