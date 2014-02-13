@@ -1,6 +1,5 @@
-class @CommanderLogic extends BaseLogic
+class @CommanderLogic
 	constructor: (data)->
-		super(data)
 		@_unit = Units.findOne({name:"Commander"})
 
 		@_unitLife = @_unit.live
@@ -8,6 +7,7 @@ class @CommanderLogic extends BaseLogic
 		@_unitBaseDamage = @_unit.damage
 		@_unitCritChance = @_unit.crit
 		@_unitHitChance = @_unit.accuracy
+		@_unitCritFactor = 1.75
 		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
 
 

@@ -1,7 +1,5 @@
-class @SpecialistLogic extends BaseLogic
-
+class @SpecialistLogic
 	constructor: (data)->
-		super(data)
 
 		@_unit = Units.findOne({name:"Specialist"})
 
@@ -10,6 +8,7 @@ class @SpecialistLogic extends BaseLogic
 		@_unitBaseDamage = @_unit.damage
 		@_unitCritChance = @_unit.crit
 		@_unitHitChance = @_unit.accuracy
+		@_unitCritFactor = 1.75
 
 		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
 

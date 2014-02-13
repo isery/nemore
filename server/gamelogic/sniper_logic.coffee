@@ -1,6 +1,5 @@
-class @SniperLogic extends BaseLogic
+class @SniperLogic extends ActionDatabase
 	constructor: (data)->
-		super(data)
 
 		@_unit = Units.findOne({name:"Sniper"})
 		@_unitLife = @_unit.live
@@ -8,23 +7,40 @@ class @SniperLogic extends BaseLogic
 		@_unitBaseDamage = @_unit.damage
 		@_unitCritChance = @_unit.crit
 		@_unitHitChance = @_unit.accuracy
+		@_unitCritFactor = 1.75
 
-		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
-		#@_targets = data.targets
+		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id}).fetch()
 
-	autoattack_sniper: (data) ->
+		@_target = new Targets()
+
+	autoattack_sniper: (doc) ->
 		#if @_targets.length == @_specialAbilities.target_count
-		@_ability = SpecialAbilities.findOne({name: "autoattack_sniper"})
+		ability = SpecialAbilities.findOne({name: "autoattack_sniper"})
+		damageFactor = ability.factor
+		didHit = false
 
-		@_damageFactor = @_ability.factor
-
-		@_damageToTargetWithoutArmor = parseFloat(@_damageFactor) * @_unitBaseDamage
+		damageToTargetWithoutArmor = parseFloat(damageFactor) * @_unitBaseDamage
 		if Math.random() <= @_unitCritChance
-			@_damageToTargetWithoutArmor = @_damageToTargetWithoutArmor * @_critFactor
+			didHit = true
+			damageToTargetWithoutArmor = damageToTargetWithoutArmor * @_unitCritFactor
 
-		#@_damageToTarget = Math.floor(@_damageToTargetWithoutArmor * @_targets.armor)
+		#damageToTarget = Math.floor(damageToTargetWithoutArmor * @_targets.armor)
 
-		#@_targets.life -= @_damageToTarget
+		damageToTarget = Math.floor(damageToTargetWithoutArmor)
+
+		targetTo = @_target.generateTo
+			gameId: doc.gameId
+			numTargets: 1
+			damage: damageToTarget
+			hit: didHit
+
+		@add({
+			gameId: doc.gameId
+			from: @_target.generateFrom(doc.gameId)
+			to:	targetTo
+			abilityId:
+			index:
+		})
 
 	defense_sniper: (data) ->
 

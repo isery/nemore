@@ -1,17 +1,10 @@
 class @BaseLogic
 	constructor: (gameID)->
     @_gameID = gameID
-    @_critFactor = 1.75
 
-    @initializingObserver()
 
-    ###
-		@_targets = []
-    for target in data.actions.to
-      target.gameTeam = data.baseGame[target.gameTeamId]
-      @_targets.push target
-		###
-
+    #@initializingObserver()
+    #@test()
 
   initializingObserver: ->
     GamePlayers.find({
@@ -23,6 +16,8 @@ class @BaseLogic
         players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: lastAction}).fetch()
         actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}}).fetch()
 
+
+        #if !actions and players.length < 2
         unless actions && players.length < 2
           player1 = GamePlayers.findOne({gameId: doc.gameId, player: "1"}).userId
           player2 = GamePlayers.findOne({gameId: doc.gameId, player: "2"}).userId
@@ -44,4 +39,13 @@ class @BaseLogic
       # if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
     })
 
-
+  test: ->
+    GamePlayers.find({
+      gameId: @_gameID
+      state: "waiting"
+    }).observe({
+      added: (doc) ->
+        lastAction = Actions.find({gameId: doc.gameId}, {sort: {index:-1},limit:1}).fetch()[0]?.index or 0
+        players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: lastAction}).fetch()
+        actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}}).fetch()
+    })
