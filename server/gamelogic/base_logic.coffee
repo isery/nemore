@@ -3,7 +3,7 @@ class @BaseLogic
     @_gameID = gameID
 
 
-    #@initializingObserver()
+    @initializingObserver()
     #@test()
 
   initializingObserver: ->

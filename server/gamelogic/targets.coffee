@@ -8,6 +8,13 @@ class @Targets
     @_hitTarget = data.hit
     @_targets = []
 
+    ###
+      TODO
+        random target generation needs to be used twice (unit itself + armor)
+        random number for target needs to be done first
+        return all targets + targets armor afterwards (another function?)
+    ###
+
     for i in [0...@_numberOfTargets]
       @_targets.push {hit: @_hitTarget, gameTeamId: @_player2Units[Math.floor(Math.random() * @_player2Units.length)]._id, damage: @_damageToTarget}
 

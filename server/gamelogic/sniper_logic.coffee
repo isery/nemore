@@ -28,19 +28,26 @@ class @SniperLogic extends ActionDatabase
 
 		damageToTarget = Math.floor(damageToTargetWithoutArmor)
 
+		###
+			LT Altmann: ans Game alles draufhängen --> würde man sich das zu übergebene zeug sparen
+			wat?
+		###
+
 		targetTo = @_target.generateTo
 			gameId: doc.gameId
 			numTargets: 1
 			damage: damageToTarget
 			hit: didHit
 
+		###
 		@add({
 			gameId: doc.gameId
 			from: @_target.generateFrom(doc.gameId)
 			to:	targetTo
-			abilityId:
-			index:
+			abilityId: 1
+			index: 1
 		})
+		###
 
 	defense_sniper: (data) ->
 
