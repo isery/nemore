@@ -50,7 +50,7 @@ class @BaseUnitLogic
   add: (targets, abilityId, doc) ->
     actionId = Actions.insert
       gameId: @_game._gameId
-      from: doc.gameTeamId
+      from: doc.gameTeam._id
       to: targets
       abilityId: abilityId
       index: parseInt(doc.lastIndex) + 1
