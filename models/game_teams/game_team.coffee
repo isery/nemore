@@ -14,7 +14,6 @@ class @GameTeam
         unitId: member.unitId
         hero: member.hero
         life: @initLife(member)
-        armor: member.unit().armor
 
   special_abilities: ->
     SpecialAbilities.find({unit_id: @unitId}).fetch()

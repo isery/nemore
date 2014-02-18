@@ -1,22 +1,29 @@
-class @CommanderLogic
-	constructor: (data)->
+class @CommanderLogic extends BaseUnitLogic
+	constructor: (game)->
 		@_unit = Units.findOne({name:"Commander"})
 
-		@_unitLife = @_unit.life
-		@_unitArmor = @_unit.armor
-		@_unitBaseDamage = @_unit.damage
-		@_unitCritChance = @_unit.crit
-		@_unitHitChance = @_unit.accuracy
-		@_unitCritFactor = 1.75
-		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
+		options =
+			unit: @_unit
+			game: game
 
+		super(options)
 
-	autoattack_commander: (data) ->
+	autoattack_commander: (doc) ->
+		ability = SpecialAbilities.findOne({name: "autoattack_commander"})
+		@baseAutoAttack(ability, doc)
 
-	defense_commander: (data) ->
+	defense_commander: (doc) ->
+		ability = SpecialAbilities.findOne({name: "defense_sniper"})
+		@baseDefense(ability, doc)
 
-	buffAllCrit_commander: (data) ->
+	buffAllCrit_commander: (doc) ->
+		ability = SpecialAbilities.findOne({name: "buffAllCrit_commander"})
+		@baseBuffFunction(ability, doc)
 
-	buffAllAccuracy_commander: (data) ->
+	buffAllAccuracy_commander: (doc) ->
+		ability = SpecialAbilities.findOne({name: "buffAllAccuracy_commander"})
+		@baseBuffFunction(ability, doc)
 
-	buffAllDamage_commander: (data) ->
+	buffAllDamage_commander: (doc) ->
+		ability = SpecialAbilities.findOne({name: "buffAllDamage_commander"})
+		@baseBuffFunction(ability, doc)
