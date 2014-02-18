@@ -1,25 +1,29 @@
-class @DroneLogic
-	constructor: (data)->
-
+class @DroneLogic extends BaseUnitLogic
+	constructor: (game)->
 		@_unit = Units.findOne({name:"Drone"})
 
-		@_unitLife = @_unit.life
-		@_unitArmor = @_unit.armor
-		@_unitBaseDamage = @_unit.damage
-		@_unitCritChance = @_unit.crit
-		@_unitCritFactor = 1.75
+		options =
+			unit: @_unit
+			game: game
 
-		@_unitHitChance = @_unit.accuracy
+		super(options)
 
-		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
+	autoattack_drone: (doc) ->
+		ability = SpecialAbilities.findOne({name: "autoattack_drone"})
+		@baseAutoAttack(ability, doc)
 
+	defense_drone: (doc) ->
+		ability = SpecialAbilities.findOne({name: "defense_drone"})
+		@baseDefense(ability, doc)
 
-	autoattack_drone: (data) ->
+	armorAll_drone: (doc) ->
+		ability = SpecialAbilities.findOne({name: "armorAll_drone"})
+		@baseBuffFunction(ability, doc)
 
-	defense_drone: (data) ->
+	armorSelf_drone: (doc) ->
+		ability = SpecialAbilities.findOne({name: "armorSelf_drone"})
+		@baseDefense(ability, doc)
 
-	armorAll_drone: (data) ->
-
-	armorSelf_drone: (data) ->
-
-	armorTarget_drone: (data) ->
+	armorTarget_drone: (doc) ->
+		ability = SpecialAbilities.findOne({name: "armorTarget_drone"})
+		@baseBuffFunction(ability, doc)

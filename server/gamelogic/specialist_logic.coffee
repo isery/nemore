@@ -1,24 +1,53 @@
-class @SpecialistLogic
-	constructor: (data)->
+class @SpecialistLogic extends BaseUnitLogic
+  constructor: (game)->
+    @_unit = Units.findOne({name:"Specialist"})
 
-		@_unit = Units.findOne({name:"Specialist"})
+    options =
+      unit: @_unit
+      game: game
+    super(options)
 
-		@_unitLife = @_unit.life
-		@_unitArmor = @_unit.armor
-		@_unitBaseDamage = @_unit.damage
-		@_unitCritChance = @_unit.crit
-		@_unitHitChance = @_unit.accuracy
-		@_unitCritFactor = 1.75
+  autoattack_specialist: (doc) ->
+    ability = SpecialAbilities.findOne({name: "autoattack_specialist"})
+    @baseAutoAttack(ability, doc)
 
-		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
+  defense_specialist: (doc) ->
+    ability = SpecialAbilities.findOne({name: "defense_specialist"})
+    @baseDefense(ability, doc)
 
+  multiShot_specialist: (doc) ->
+    ability = SpecialAbilities.findOne({name: "multiShot_specialist"})
+    @baseAutoAttack(ability, doc)
 
-	autoattack_specialist: (data) ->
+  burstShot_specialist: (doc) ->
+    ability = SpecialAbilities.findOne({name: "burstShot_specialist"})
 
-	defense_specialist: (data) ->
+    damageFactor = parseFloat(ability.factor)
+    targetTo = @_targets.generateTo(ability.target_count)
 
-	multiShot_specialist: (data) ->
+    targetClone = targetTo[0]
 
-	burstShot_specialist: (data) ->
+    targetTo.push(targetTo[0])
+    targetTo.push(targetTo[0])
 
-	disableSpecialAbility_specialist: (data) ->
+    console.log targetTo
+
+    for target in targetTo
+      if Math.random() <= @_unitHitChance
+        didHit = true
+        damageToTarget = damageFactor * @_unitBaseDamage * target.armor
+        if Math.random() <= @_unitCritChance
+          damageToTarget = damageToTarget * @_unitCritFactor
+      else
+        didHit = false
+        damageToTarget = 0
+
+      target.damage = damageToTarget
+      target.hit = didHit
+      @updateLifeOfTarget(target.gameTeamId, damageToTarget)
+
+    @add(targetTo, ability._id, doc)
+
+  disableSpecialAbility_specialist: (doc) ->
+    ability = SpecialAbilities.findOne({name: "disableSpecialAbility_specialist"})
+    @baseBuffFunction(ability, doc)

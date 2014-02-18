@@ -32,6 +32,6 @@ if Meteor.isServer
 			SpecialAbilities.insert unit_id: commanderId, name: "buffAllDamage_commander", type: "improve all", factor: "2", target_count: 5, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: specialistId, name: "autoattack_specialist", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: specialistId, name: "defense_specialist", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unit_id: specialistId, name: "multiShot_specialist", type: "attack three", factor: "-0.5", target_count: 3, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unit_id: specialistId, name: "burstShot_specialist", type: "attack three", factor: "0.5", target_count: 3, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: specialistId, name: "multiShot_specialist", type: "attack three", factor: "0.5", target_count: 3, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unit_id: specialistId, name: "burstShot_specialist", type: "attack three", factor: "0.5", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: specialistId, name: "disableSpecialAbility_specialist", type: "attack one tree times", factor: "0.5", target_count: 3, states: ["pullweapon", "shoot", "downweapon"]

@@ -13,15 +13,16 @@ class @SniperLogic extends BaseUnitLogic
 
 	defense_sniper: (doc) ->
 		ability = SpecialAbilities.findOne({name: "defense_sniper"})
-
+		@baseDefense(ability, doc)
 
 	buffAccuracy_sniper: (doc) ->
 		ability = SpecialAbilities.findOne({name: "buffAccuracy_sniper"})
-
+		@baseBuffFunction(ability, doc)
 
 	buffDamage_sniper: (doc) ->
 		ability = SpecialAbilities.findOne({name: "buffDamage_sniper"})
-
+		@baseBuffFunction(ability, doc)
 
 	buffCrit_sniper: (doc) ->
 		ability = SpecialAbilities.findOne({name: "buffCrit_sniper"})
+		@baseBuffFunction(ability, doc)
