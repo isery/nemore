@@ -73,7 +73,14 @@ class @BaseAbility
       ability.animations.play("shooting_" + index, 20, true)
       tween = @_game.add.tween(ability).to({x: target.gameTeam.getCoordinates().x, y: target.gameTeam.getCoordinates().y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
-        @hit({x: tween.x, y: tween.y})
+        target.x = tween.x
+        target.y = tween.y
+        @displayText(target)
+        if target.hit
+          @hit({x: tween.x, y: tween.y, damage: target.damage, hit: target.hit})
+        else
+          @_doneParts++
+          @finishPart()
         tween.kill()
       , @
 
@@ -100,3 +107,20 @@ class @BaseAbility
         @finishPart()
       , @
 
+  displayText: (target) ->
+    console.log "displayText"
+    text = if target.hit then target.damage.toString() else "Miss!"
+    style =
+      font: "20px Arial bold"
+      fill: "#ff0044"
+      align: "center"
+
+    t = @_game.add.text(target.x,  target.y, text, style);
+
+    tween = @_game.add.tween(t).to({x: target.x, y: target.y - 50}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+    tween.onComplete.add (tween) ->
+      setTimeout ->
+        tween.text = ""
+        tween.destroy()
+      , 2000
+    , @
