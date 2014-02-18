@@ -1,10 +1,16 @@
 class @BaseLogic
-	constructor: (gameID)->
-    @_gameID = gameID
+  constructor: (data) ->
+    @_gameId = data
 
+    @_targets = new Targets(@_gameId)
 
-    @initializingObserver()
-    #@test()
+    @_sniper = new SniperLogic(@)
+    @_drone = new DroneLogic(@)
+    @_commander = new CommanderLogic(@)
+    @_specialist = new SpecialistLogic(@)
+
+    #@initializingObserver()
+    @test()
 
   initializingObserver: ->
     GamePlayers.find({
@@ -41,11 +47,15 @@ class @BaseLogic
 
   test: ->
     GamePlayers.find({
-      gameId: @_gameID
+      gameId: @_gameId
       state: "waiting"
     }).observe({
-      added: (doc) ->
+      added: (doc) =>
         lastAction = Actions.find({gameId: doc.gameId}, {sort: {index:-1},limit:1}).fetch()[0]?.index or 0
         players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: lastAction}).fetch()
         actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}}).fetch()
+
+        unless actions && players.length < 2
+          @_sniper.autoattack_sniper(doc)
+
     })

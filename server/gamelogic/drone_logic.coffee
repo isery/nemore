@@ -3,7 +3,7 @@ class @DroneLogic
 
 		@_unit = Units.findOne({name:"Drone"})
 
-		@_unitLife = @_unit.live
+		@_unitLife = @_unit.life
 		@_unitArmor = @_unit.armor
 		@_unitBaseDamage = @_unit.damage
 		@_unitCritChance = @_unit.crit

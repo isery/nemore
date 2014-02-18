@@ -3,10 +3,10 @@ if Meteor.isServer
 	Meteor.startup ->
 		if Units.find().count() < 4
 			Units.remove()
-			droneId = Units.insert name: "Drone", fraction: "Police", live: 1000, damage: 75, crit: 0.1, accuracy: 0.6, armor: 0.8
-			sniperId = Units.insert name: "Sniper", fraction: "Police", live: 1000, damage: 150, crit: 0.1, accuracy: 0.8, armor: 0.8
-			commanderId = Units.insert name: "Commander", fraction: "Terrorist", live: 1000, damage: 100, crit: 0.1, accuracy: 0.7, armor: 0.4
-			specialistId = Units.insert name: "Specialist", fraction: "Terrorist", live: 1000, damage: 125, crit: 0.1, accuracy: 0.75, armor: 0.6
+			droneId = Units.insert name: "Drone", fraction: "Police", life: 1000, damage: 75, crit: 0.1, accuracy: 0.6, armor: 0.8
+			sniperId = Units.insert name: "Sniper", fraction: "Police", life: 1000, damage: 150, crit: 0.1, accuracy: 0.8, armor: 0.8
+			commanderId = Units.insert name: "Commander", fraction: "Terrorist", life: 1000, damage: 100, crit: 0.1, accuracy: 0.7, armor: 0.4
+			specialistId = Units.insert name: "Specialist", fraction: "Terrorist", life: 1000, damage: 125, crit: 0.1, accuracy: 0.75, armor: 0.6
 
 		droneId = Units.findOne(name: "Drone")._id
 		sniperId = Units.findOne(name: "Sniper")._id

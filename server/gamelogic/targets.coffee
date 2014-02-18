@@ -1,27 +1,34 @@
 class @Targets
-  @generateTo: (data) ->
-    @_player2 = GamePlayers.findOne({gameId: data.gameId, player: "2"}).userId
-    @_player2Units = GameTeam.find({gameId: data.gameId, userId: @_player2})
+  _flag = false
+  constructor: (data) ->
+    @_id = data
 
-    @_numberOfTargets = data.numTargets
-    @_damageToTarget = data.damage
-    @_hitTarget = data.hit
+  generateTo: (numTargets) ->
+
+    _playerNumber = if @_flag then "2" else "1"
+
+    @_player2 = GamePlayers.findOne({gameId: @_id, player: _playerNumber}).userId
+    @_player2Units = GameTeam.find({gameId: @_id, userId: @_player2})
+
+    @_numberOfTargets = numTargets
     @_targets = []
 
-    ###
-      TODO
-        random target generation needs to be used twice (unit itself + armor)
-        random number for target needs to be done first
-        return all targets + targets armor afterwards (another function?)
-    ###
+    @_randomTarget = Math.floor(Math.random() * (@_player2Units.length-1 ))
 
     for i in [0...@_numberOfTargets]
-      @_targets.push {hit: @_hitTarget, gameTeamId: @_player2Units[Math.floor(Math.random() * @_player2Units.length)]._id, damage: @_damageToTarget}
+      @_targets.push
+        gameTeamId: @_player2Units[@_randomTarget]._id
+        armor: @_player2Units[@_randomTarget].armor
 
     @_targets
 
-  @generateFrom: (_gameId) ->
-    @_player1 = GamePlayers.findOne({gameId: _gameId, player: "1"}).userId
-    @_player1Units = GameTeam.find({gameId: _gameId, userId: @_player1})
+  generateFrom: () ->
 
-    @_player1Units[Math.floor(Math.random() * @_player1Units.length)]._id
+    _playerNumber = if @_flag then "1" else "2"
+
+    @_flag = !@_flag
+
+    @_player = GamePlayers.findOne({gameId: @_id, player: _playerNumber}).userId
+    @_playerUnits = GameTeam.find({gameId: @_id, userId: @_player})
+
+    @_playerUnits[Math.floor(Math.random() * @_playerUnits.length)]._id

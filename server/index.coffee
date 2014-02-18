@@ -50,10 +50,6 @@ startGame = (_id)->
         console.log "Added Actions with id: " + actionId
     # if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
   })
-  Actions.find({}).ovserve({
-    added: (doc) ->
-
-  })
   ###
 
   new BaseLogic(_id)
@@ -67,5 +63,6 @@ Meteor.startup ->
       startGame(game._id)
       Games.update({_id: game._id},{$set: {state: "playing"}})
   })
+
 
   # TODO Continue games with state playing on server restart
