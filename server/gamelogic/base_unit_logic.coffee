@@ -12,17 +12,14 @@ class @BaseUnitLogic
 
     @_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id}).fetch()
 
-
   baseAutoAttack: (ability, doc) ->
-    damageFactor = ability.factor
+    damageFactor = parseFloat(ability.factor)
     targetTo = @_targets.generateTo(ability.target_count)
-
-
 
     for target in targetTo
       if Math.random() <= @_unitHitChance
         didHit = true
-        damageToTarget = parseFloat(damageFactor) * @_unitBaseDamage * target.armor
+        damageToTarget = damageFactor * @_unitBaseDamage * target.armor
         if Math.random() <= @_unitCritChance
           damageToTarget = damageToTarget * @_unitCritFactor
       else
@@ -35,10 +32,25 @@ class @BaseUnitLogic
 
     @add(targetTo, ability._id, doc)
 
+  baseDefense: (ability, doc) ->
+    buffFactor = ability.factor
+    targetTo = [
+      gameTeamId: doc.gameTeam._id
+      armor: doc.gameTeam.unit().armor
+    ]
+
+    @add(targetTo, ability._id, doc)
+
+  baseBuffFunction: (action, doc) ->
+    buffFactor = ability.factor
+    targetTo = @_targets.generateTo(ability.target_count)
+
+    @add(targetTo, ability._id, doc)
+
   add: (targets, abilityId, doc) ->
     actionId = Actions.insert
       gameId: @_game._gameId
-      from: @_targets.generateFrom()
+      from: doc.gameTeamId
       to: targets
       abilityId: abilityId
       index: parseInt(doc.lastIndex) + 1
@@ -55,4 +67,5 @@ class @BaseUnitLogic
 
     GameTeam.update(gameTeamId, options)
 
-
+  generateRandomAbility: ->
+    @_specialAbilities[Math.floor(Math.random() * @_specialAbilities.length)]
