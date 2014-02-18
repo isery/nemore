@@ -1,0 +1,58 @@
+class @BaseUnitLogic
+  constructor: (options)->
+    @_game = options.game
+    @_targets = @_game._targets
+    @_unit = options.unit
+    @_unitLife = @_unit.life
+    @_unitArmor = @_unit.armor
+    @_unitBaseDamage = @_unit.damage
+    @_unitCritChance = @_unit.crit
+    @_unitHitChance = @_unit.accuracy
+    @_unitCritFactor = 1.75
+
+    @_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id}).fetch()
+
+
+  baseAutoAttack: (ability, doc) ->
+    damageFactor = ability.factor
+    targetTo = @_targets.generateTo(ability.target_count)
+
+
+
+    for target in targetTo
+      if Math.random() <= @_unitHitChance
+        didHit = true
+        damageToTarget = parseFloat(damageFactor) * @_unitBaseDamage * target.armor
+        if Math.random() <= @_unitCritChance
+          damageToTarget = damageToTarget * @_unitCritFactor
+      else
+        didHit = false
+        damageToTarget = 0
+
+      target.damage = damageToTarget
+      target.hit = didHit
+      @updateLifeOfTarget(target.gameTeamId, damageToTarget)
+
+    @add(targetTo, ability._id, doc)
+
+  add: (targets, abilityId, doc) ->
+    actionId = Actions.insert
+      gameId: @_game._gameId
+      from: @_targets.generateFrom()
+      to: targets
+      abilityId: abilityId
+      index: parseInt(doc.lastIndex) + 1
+    console.log "Added Actions with id: " + actionId
+
+  updateLifeOfTarget: (gameTeamId, damageToTarget) ->
+    curLife = GameTeam.findOne({_id: gameTeamId}).life
+
+    calcLife = curLife - damageToTarget
+    updateLife = if calcLife < 0 then 0 else calcLife
+
+    options =
+      life: updateLife
+
+    GameTeam.update(gameTeamId, options)
+
+

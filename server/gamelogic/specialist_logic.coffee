@@ -1,18 +1,17 @@
-class @SpecialistLogic extends BaseLogic
-	
+class @SpecialistLogic
 	constructor: (data)->
-		super(data)
-		
-		@_unit = Units.findOne(name:"Specialist")
-		
-		@_unitLife = @_unit.live
+
+		@_unit = Units.findOne({name:"Specialist"})
+
+		@_unitLife = @_unit.life
 		@_unitArmor = @_unit.armor
 		@_unitBaseDamage = @_unit.damage
 		@_unitCritChance = @_unit.crit
 		@_unitHitChance = @_unit.accuracy
+		@_unitCritFactor = 1.75
 
 		@_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id})
-		
+
 
 	autoattack_specialist: (data) ->
 

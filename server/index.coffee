@@ -18,6 +18,7 @@ getFbPicture = (accessToken) ->
 
 startGame = (_id)->
   console.log "Started Game with id: " + _id
+  ###
   GamePlayers.find({
     gameId: _id
     state: "waiting"
@@ -49,6 +50,9 @@ startGame = (_id)->
         console.log "Added Actions with id: " + actionId
     # if flag then playerTwoUnit[Math.floor(Math.random() * playerTwoUnit.length)]._id else playerOneUnit[Math.floor(Math.random() * playerOneUnit.length)]._id
   })
+  ###
+
+  new BaseLogic(_id)
 
 Meteor.startup ->
   Games.find({
@@ -59,5 +63,6 @@ Meteor.startup ->
       startGame(game._id)
       Games.update({_id: game._id},{$set: {state: "playing"}})
   })
+
 
   # TODO Continue games with state playing on server restart
