@@ -25,12 +25,8 @@ class @SpecialistLogic extends BaseUnitLogic
     damageFactor = parseFloat(ability.factor)
     targetTo = @_targets.generateTo(ability.target_count)
 
-    targetClone = targetTo[0]
-
     targetTo.push(targetTo[0])
     targetTo.push(targetTo[0])
-
-    console.log targetTo
 
     for target in targetTo
       if Math.random() <= @_unitHitChance

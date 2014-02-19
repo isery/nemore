@@ -4,7 +4,6 @@ class @Targets
     @_id = data
 
   generateTo: (numTargets) ->
-
     _playerNumber = if @_flag then "2" else "1"
 
     @_player = GamePlayers.findOne({gameId: @_id, player: _playerNumber}).userId
@@ -24,10 +23,8 @@ class @Targets
     @_targets
 
   generateFrom: () ->
-
-    _playerNumber = if @_flag then "1" else "2"
-
     @_flag = !@_flag
+    _playerNumber = if @_flag then "1" else "2"
 
     @_player = GamePlayers.findOne({gameId: @_id, player: _playerNumber}).userId
     @_playerUnits = GameTeam.find({gameId: @_id, userId: @_player})
