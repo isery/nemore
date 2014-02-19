@@ -35,15 +35,19 @@ class @SpecialistLogic extends BaseUnitLogic
     for target in targetTo
       if Math.random() <= @_unitHitChance
         didHit = true
+        didCrit = false
         damageToTarget = damageFactor * @_unitBaseDamage * target.armor
         if Math.random() <= @_unitCritChance
+          didCri = true
           damageToTarget = damageToTarget * @_unitCritFactor
       else
+        didCrit = false
         didHit = false
         damageToTarget = 0
 
       target.damage = damageToTarget
       target.hit = didHit
+      target.crit = didCrit
       @updateLifeOfTarget(target.gameTeamId, damageToTarget)
 
     @add(targetTo, ability._id, doc)

@@ -19,15 +19,19 @@ class @BaseUnitLogic
     for target in targetTo
       if Math.random() <= @_unitHitChance
         didHit = true
+        didCrit = false
         damageToTarget = damageFactor * @_unitBaseDamage * target.armor
         if Math.random() <= @_unitCritChance
+          didCrit = true
           damageToTarget = damageToTarget * @_unitCritFactor
       else
         didHit = false
+        didCrit = false
         damageToTarget = 0
 
       target.damage = damageToTarget
       target.hit = didHit
+      target.crit = didCrit
       @updateLifeOfTarget(target.gameTeamId, damageToTarget)
 
     @add(targetTo, ability._id, doc)
@@ -41,7 +45,7 @@ class @BaseUnitLogic
 
     @add(targetTo, ability._id, doc)
 
-  baseBuffFunction: (action, doc) ->
+  baseBuffFunction: (ability, doc) ->
     buffFactor = ability.factor
     targetTo = @_targets.generateTo(ability.target_count)
 
