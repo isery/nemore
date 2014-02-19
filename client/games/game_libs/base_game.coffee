@@ -50,6 +50,7 @@ class @BaseGame
     @game.load.spritesheet "explode", "/sprites/explode1.png", 128, 128, 16
 
   create: ->
+    @game.stage.backgroundColor = '#124184'
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
 
@@ -89,19 +90,21 @@ class @BaseGame
     isPlayerOne = (Meteor.userId() == player.hero.userId)
     xPos = if isPlayerOne then 200 else 650
     for member, i in player.team
-      @[member._id].addSprite(xPos, 75 * i)
+      @[member._id].addSprite(xPos, (100 * i) + 100)
       @[member._id].addAnimation("standing", 30, true)
-      @[member._id].setCoordinates(xPos, 50 * i)
-      @[member._id]._unit.scale.setTo(-1, 1) unless isPlayerOne
+      @[member._id].setCoordinates(xPos, (100 * i) + 100)
+      @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
+      @[member._id]._unit.scale.x *= -1 unless isPlayerOne
       # @[member._id].initAbilities()
 
     heroXPos = if isPlayerOne then -100 else 100
 
-    @[player.hero._id].addSprite(xPos + heroXPos, 100)
+    @[player.hero._id].addSprite(xPos + heroXPos, 200)
     @[player.hero._id].addAnimation("standing", 30, true)
-    @[player.hero._id].setCoordinates(xPos + heroXPos, 100)
-    @[player.hero._id]._unit.scale.setTo(1.1, 1.1)
-    @[player.hero._id]._unit.scale.setTo(- 1.1, 1.1) unless isPlayerOne
+    @[player.hero._id].setCoordinates(xPos + heroXPos, 200)
+
+    @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
+    @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne
     # @[player.hero._id].initAbilities()
 
 
