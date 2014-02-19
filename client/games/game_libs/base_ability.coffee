@@ -77,7 +77,7 @@ class @BaseAbility
         target.y = tween.y
         @displayText(target)
         if target.hit
-          @hit({x: tween.x, y: tween.y, damage: target.damage, hit: target.hit})
+          @hit({x: tween.x, y: tween.y, damage: target.damage, hit: target.hit, crit: target.crit})
         else
           @_doneParts++
           @finishPart()
@@ -110,6 +110,7 @@ class @BaseAbility
   displayText: (target) ->
     console.log "displayText"
     text = if target.hit then target.damage.toString() else "Miss!"
+    text += " " + "Crit!" if target.crit
     style =
       font: "20px Arial bold"
       fill: "#ff0044"
