@@ -65,19 +65,18 @@ class @BaseAbility
     , @
 
   shoot: ->
-    console.log "Shoot"
     @_parts = @_targets.length
     for target, index in @_targets
       ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
       ability.animations.add("shooting_" + index)
       ability.animations.play("shooting_" + index, 20, true)
-      tween = @_game.add.tween(ability).to({x: target.gameTeam.getCoordinates().x, y: target.gameTeam.getCoordinates().y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
         target.x = tween.x
         target.y = tween.y
         @displayText(target)
         if target.hit
-          @hit({x: tween.x, y: tween.y, damage: target.damage, hit: target.hit, crit: target.crit})
+          @hit({x: tween.x, y: tween.y, damage: target.damage, hit: target.hit, crit: target.crit, gameTeam: target.gameTeam})
         else
           @_doneParts++
           @finishPart()
@@ -85,8 +84,7 @@ class @BaseAbility
       , @
 
   hit: (target)->
-    console.log "Hit"
-    explode = @_game.add.sprite(target.x - (Math.abs(@_baseUnit._unit.width)), target.y - (@_baseUnit._unit.height), "explode")
+    explode = @_game.add.sprite(target.gameTeam.getCoordinates().x - 25, target.gameTeam.getCoordinates().y - 20, "explode")
     explode.animations.add "exploding"
     explode.animations.play "exploding", 10, false
     explode.events.onAnimationComplete.add (explode)->
@@ -96,10 +94,9 @@ class @BaseAbility
     , @
 
   buff: ->
-    console.log "Buff"
     @_parts = @_targets.length
     for target, index in @_targets
-      ability = @_game.add.sprite(target.gameTeam.getCoordinates().x, target.gameTeam.getCoordinates().y - 20, "buff")
+      ability = @_game.add.sprite(target.gameTeam.getCoordinates().x, target.gameTeam.getCoordinates().y, "buff")
       tween = @_game.add.tween(ability).to({x: target.gameTeam.getCoordinates().x, y: target.gameTeam.getCoordinates().y + 20}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
         @_doneParts++
@@ -112,13 +109,13 @@ class @BaseAbility
     text = if target.hit then target.damage.toString() else "Miss!"
     text += " " + "Crit!" if target.crit
     style =
-      font: "20px Arial bold"
+      font: "28px Arial bold"
       fill: "#ff0044"
       align: "center"
 
-    t = @_game.add.text(target.x,  target.y, text, style);
+    t = @_game.add.text(target.gameTeam._unit.center.x - 15,  target.gameTeam._unit.center.y, text, style);
 
-    tween = @_game.add.tween(t).to({x: target.x, y: target.y - 50}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+    tween = @_game.add.tween(t).to({x: target.gameTeam._unit.center.x - 15, y: target.gameTeam._unit.center.y - 75}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
     tween.onComplete.add (tween) ->
       setTimeout ->
         tween.text = ""
