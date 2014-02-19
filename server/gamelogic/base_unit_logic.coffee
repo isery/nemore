@@ -45,7 +45,7 @@ class @BaseUnitLogic
 
     @add(targetTo, ability._id, doc)
 
-  baseBuffFunction: (action, doc) ->
+  baseBuffFunction: (ability, doc) ->
     buffFactor = ability.factor
     targetTo = @_targets.generateTo(ability.target_count)
 
