@@ -15,7 +15,7 @@ if Meteor.isServer
 
 		if SpecialAbilities.find().count() < 16
 			SpecialAbilities.remove()
-			SpecialAbilities.insert unit_id: droneId, name: "autoattack_drone", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "buff", "downweapon"]
+			SpecialAbilities.insert unit_id: droneId, name: "autoattack_drone", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unit_id: droneId, name: "defense_drone", type: "attack", factor: "1.0", target_count: 1, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unit_id: droneId, name: "armorAll_drone", type: "defence", factor: "0.2", target_count: 5, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unit_id: droneId, name: "armorSelf_drone", type: "defence", factor: "1.0", target_count: 1, states: ["pullweapon", "buff", "downweapon"]
