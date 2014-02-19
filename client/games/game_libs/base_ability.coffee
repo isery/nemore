@@ -17,21 +17,18 @@ class @BaseAbility
       @_targets.push target
 
   play: ->
-    console.log "Play"
     if @_statesArr[0]
       @[@_statesArr[0]]()
     else
       @finishAnimation()
 
   finishPart: ->
-    console.log "finishPart"
     if @_parts == @_doneParts
       @_doneParts = 0
       @_statesArr.shift()
       @play()
 
   finishAnimation: ->
-    console.log "Finish Animation"
     player = GamePlayers.findOne
       gameId: @_action.gameId
       userId: Meteor.userId()
@@ -42,10 +39,7 @@ class @BaseAbility
         state: 'waiting'
         lastIndex: @_action.index
 
-    console.log "Updated at: " + new Date()
-
   pullweapon: ->
-    console.log "Pullweapon"
     @_parts = 1
     @_baseUnit._unit.animations.play "pullweapon", 20, false
     @_baseUnit._unit.events.onAnimationComplete.add (anim)->
@@ -55,7 +49,6 @@ class @BaseAbility
     , @
 
   downweapon: ->
-    console.log "Downweapon"
     @_parts = 1
     @_baseUnit._unit.animations.play "downweapon", 20, false
     @_baseUnit._unit.events.onAnimationComplete.add (anim)->
@@ -72,16 +65,14 @@ class @BaseAbility
       ability.animations.play("shooting_" + index, 20, true)
       tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
-        target.x = tween.x
-        target.y = tween.y
-        @displayText(target)
-        if target.hit
-          @hit({x: tween.x, y: tween.y, damage: target.damage, hit: target.hit, crit: target.crit, gameTeam: target.gameTeam})
+        this.scope.displayText(this.target)
+        if this.target.hit
+          this.scope.hit(this.target)
         else
-          @_doneParts++
-          @finishPart()
+          this.scope._doneParts++
+          this.scope.finishPart()
         tween.kill()
-      , @
+      , {target: target, scope: @}
 
   hit: (target)->
     explode = @_game.add.sprite(target.gameTeam.getCoordinates().x - 25, target.gameTeam.getCoordinates().y - 20, "explode")
@@ -105,7 +96,6 @@ class @BaseAbility
       , @
 
   displayText: (target) ->
-    console.log "displayText"
     text = if target.hit then target.damage.toString() else "Miss!"
     text += " " + "Crit!" if target.crit
     style =
@@ -120,5 +110,5 @@ class @BaseAbility
       setTimeout ->
         tween.text = ""
         tween.destroy()
-      , 2000
+      , 1500
     , @
