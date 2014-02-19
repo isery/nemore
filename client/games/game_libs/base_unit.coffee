@@ -20,7 +20,6 @@ class @BaseUnit
 
   addSprite: (x,y) ->
     # @_unit = @_game.add.sprite(x, y, @_name, "a.png")
-    console.log @_name
     @_unit = @_game.add.sprite(x, y, @_name, "a.png")
 
   addAnimation: (name, frames, isLoop) ->
