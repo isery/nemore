@@ -4,25 +4,19 @@ class @SniperLogic extends BaseUnitLogic
 
 		options =
 			unit: @_unit
-			game: game
-		super(options)
+		super(options, game)
 
-	autoattack_sniper: (doc) ->
-		ability = SpecialAbilities.findOne({name: "autoattack_sniper"})
-		@baseAutoAttack(ability, doc)
+	autoattack_sniper: (ability, targets) ->
+		@baseAttack(ability, targets)
 
-	defense_sniper: (doc) ->
-		ability = SpecialAbilities.findOne({name: "defense_sniper"})
-		@baseDefense(ability, doc)
+	defense_sniper: (ability, targets) ->
+		@baseDefense(ability, targets)
 
-	buffAccuracy_sniper: (doc) ->
-		ability = SpecialAbilities.findOne({name: "buffAccuracy_sniper"})
-		@baseBuffFunction(ability, doc)
+	buffAccuracy_sniper: (ability, targets) ->
+		@baseBuffFunction(ability, targets)
 
-	buffDamage_sniper: (doc) ->
-		ability = SpecialAbilities.findOne({name: "buffDamage_sniper"})
-		@baseBuffFunction(ability, doc)
+	buffDamage_sniper: (ability, targets) ->
+		@baseBuffFunction(ability, targets)
 
-	buffCrit_sniper: (doc) ->
-		ability = SpecialAbilities.findOne({name: "buffCrit_sniper"})
-		@baseBuffFunction(ability, doc)
+	buffCrit_sniper: (ability, targets) ->
+		@baseBuffFunction(ability, targets)

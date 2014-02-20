@@ -24,8 +24,8 @@ Meteor.startup ->
   }).observe({
     added: (game) ->
       console.log "Observer: New game initialized at " + new Date()
-      startGame(game._id)
       Games.update({_id: game._id},{$set: {state: "playing"}})
+      startGame(game._id)
   })
 
 

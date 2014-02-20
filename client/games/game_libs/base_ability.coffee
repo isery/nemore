@@ -75,7 +75,7 @@ class @BaseAbility
       , {target: target, scope: @}
 
   hit: (target)->
-    explode = @_game.add.sprite(target.gameTeam.getCoordinates().x - 25, target.gameTeam.getCoordinates().y - 20, "explode")
+    explode = @_game.add.sprite(target.gameTeam.getCoordinates().x - 35, target.gameTeam.getCoordinates().y - 20, "explode")
     explode.animations.add "exploding"
     explode.animations.play "exploding", 10, false
     explode.events.onAnimationComplete.add (explode)->

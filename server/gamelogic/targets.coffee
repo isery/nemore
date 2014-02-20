@@ -12,7 +12,6 @@ class @Targets
     @_numberOfTargets = numTargets
     @_targets = []
 
-
     for i in [0...@_numberOfTargets]
       @_randomTarget = Math.floor(Math.random() * @_playerUnits.length)
 
