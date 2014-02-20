@@ -1,5 +1,5 @@
 class @Targets
-  _flag = false
+  _flag: false
   constructor: (data) ->
     @_id = data
 
