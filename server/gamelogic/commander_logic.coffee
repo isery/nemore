@@ -4,26 +4,19 @@ class @CommanderLogic extends BaseUnitLogic
 
 		options =
 			unit: @_unit
-			game: game
+		super(options, game)
 
-		super(options)
+	autoattack_commander: (ability, targets) ->
+		@baseAttack(ability, targets)
 
-	autoattack_commander: (doc) ->
-		ability = SpecialAbilities.findOne({name: "autoattack_commander"})
-		@baseAutoAttack(ability, doc)
+	defense_commander: (ability, targets) ->
+		@baseDefense(ability, targets)
 
-	defense_commander: (doc) ->
-		ability = SpecialAbilities.findOne({name: "defense_sniper"})
-		@baseDefense(ability, doc)
+	buffAllCrit_commander: (ability, targets) ->
+		@baseBuffFunction(ability,targets)
 
-	buffAllCrit_commander: (doc) ->
-		ability = SpecialAbilities.findOne({name: "buffAllCrit_commander"})
-		@baseBuffFunction(ability, doc)
+	buffAllAccuracy_commander: (ability, targets) ->
+		@baseBuffFunction(ability, targets)
 
-	buffAllAccuracy_commander: (doc) ->
-		ability = SpecialAbilities.findOne({name: "buffAllAccuracy_commander"})
-		@baseBuffFunction(ability, doc)
-
-	buffAllDamage_commander: (doc) ->
-		ability = SpecialAbilities.findOne({name: "buffAllDamage_commander"})
-		@baseBuffFunction(ability, doc)
+	buffAllDamage_commander: (ability, targets) ->
+		@baseBuffFunction(ability,targets)

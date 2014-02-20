@@ -29,6 +29,9 @@ class @BaseUnit
       color = 0xffbb00
     else if life >= 100
       color = 0xff0011
+
+    console.log color
+    console.log life
     @_unitLife = @_game.add.graphics(0, 0)
     @_unitLife.beginFill(color)
     @_unitLife.lineStyle(10, color, 1)

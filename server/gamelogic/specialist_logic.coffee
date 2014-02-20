@@ -4,50 +4,19 @@ class @SpecialistLogic extends BaseUnitLogic
 
     options =
       unit: @_unit
-      game: game
-    super(options)
+    super(options, game)
 
-  autoattack_specialist: (doc) ->
-    ability = SpecialAbilities.findOne({name: "autoattack_specialist"})
-    @baseAutoAttack(ability, doc)
+  autoattack_specialist: (ability, targets) ->
+    @baseAttack(ability, targets)
 
-  defense_specialist: (doc) ->
-    ability = SpecialAbilities.findOne({name: "defense_specialist"})
-    @baseDefense(ability, doc)
+  defense_specialist: (ability, targets) ->
+    @baseDefense(ability, targets)
 
-  multiShot_specialist: (doc) ->
-    ability = SpecialAbilities.findOne({name: "multiShot_specialist"})
-    @baseAutoAttack(ability, doc)
+  multiShot_specialist: (ability, targets) ->
+    @baseAttack(ability, targets)
 
-  burstShot_specialist: (doc) ->
-    ability = SpecialAbilities.findOne({name: "burstShot_specialist"})
+  burstShot_specialist: (ability, targets) ->
+    @baseAttack(ability, targets)
 
-    damageFactor = parseFloat(ability.factor)
-    targetTo = @_targets.generateTo(ability.target_count)
-
-    targetTo.push(targetTo[0])
-    targetTo.push(targetTo[0])
-
-    for target in targetTo
-      if Math.random() <= @_unitHitChance
-        didHit = true
-        didCrit = false
-        damageToTarget = damageFactor * @_unitBaseDamage * target.armor
-        if Math.random() <= @_unitCritChance
-          didCri = true
-          damageToTarget = damageToTarget * @_unitCritFactor
-      else
-        didCrit = false
-        didHit = false
-        damageToTarget = 0
-
-      target.damage = damageToTarget
-      target.hit = didHit
-      target.crit = didCrit
-      @updateLifeOfTarget(target, damageToTarget)
-
-    @add(targetTo, ability._id, doc)
-
-  disableSpecialAbility_specialist: (doc) ->
-    ability = SpecialAbilities.findOne({name: "disableSpecialAbility_specialist"})
-    @baseBuffFunction(ability, doc)
+  disableSpecialAbility_specialist: (ability, targets) ->
+    @baseBuffFunction(ability, targets)
