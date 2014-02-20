@@ -1,17 +1,18 @@
-class @BaseLogic
+class @BaseGameLogic
   constructor: (data) ->
     @_gameId = data
 
     @_targets = new Targets(@_gameId)
 
-    @_sniper = new SniperLogic(@)
-    @_drone = new DroneLogic(@)
-    @_commander = new CommanderLogic(@)
-    @_specialist = new SpecialistLogic(@)
+    #@_sniper = new SniperLogic(@)
+    #@_drone = new DroneLogic(@)
+    #@_commander = new CommanderLogic(@)
+    #@_specialist = new SpecialistLogic(@)
 
-    @init()
+    @initGameTeam()
+    @initGame()
 
-  init: ->
+  initGame: ->
     GamePlayers.find({
       gameId: @_gameId
       state: "waiting"
@@ -28,3 +29,9 @@ class @BaseLogic
           randomAbility = @[gameUnitName].generateRandomAbility()
           @[gameUnitName][randomAbility.name](doc)
     })
+
+
+  ###
+    Jede Unit einzeln Instanzieren
+  ###
+  initGameTeam: ->
