@@ -2,13 +2,6 @@ class @BaseGameLogic
   constructor: (data) ->
     @_gameId = data
 
-    @_targets = new Targets(@_gameId)
-
-    #@_sniper = new SniperLogic(@)
-    #@_drone = new DroneLogic(@)
-    #@_commander = new CommanderLogic(@)
-    #@_specialist = new SpecialistLogic(@)
-
     @initGameTeam()
     @initGame()
 
@@ -23,15 +16,14 @@ class @BaseGameLogic
         actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}}).fetch()
 
         unless actions && players.length < 2
-          gameUnit = @_targets.generateFrom()
-          doc.gameTeam = gameUnit
-          gameUnitName = "_"+gameUnit.unit().name.toLowerCase()
-          randomAbility = @[gameUnitName].generateRandomAbility()
-          @[gameUnitName][randomAbility.name](doc)
+          new Action(@, doc)
+
     })
 
 
-  ###
-    Jede Unit einzeln Instanzieren
-  ###
   initGameTeam: ->
+    @_gameTeams = GameTeam.find({gameId: @_gameId})
+
+    for member in @_gameTeams
+      name = member.unit().name + "Logic"
+      @[member._id] = new global[name]({game: @, gameTeamId: member._id})

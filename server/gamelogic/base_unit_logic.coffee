@@ -1,7 +1,8 @@
 class @BaseUnitLogic
-  constructor: (options)->
-    @_game = options.game
-    @_targets = @_game._targets
+  constructor: (options, base)->
+
+    @_game = base.game
+    @_gameTeamId = @_game.gameTeamId
     @_unit = options.unit
     @_unitLife = @_unit.life
     @_unitArmor = @_unit.armor
@@ -12,11 +13,10 @@ class @BaseUnitLogic
 
     @_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id}).fetch()
 
-  baseAutoAttack: (ability, doc) ->
+  baseAttack: (ability, targets) ->
     damageFactor = parseFloat(ability.factor)
-    targetTo = @_targets.generateTo(ability.target_count)
 
-    for target in targetTo
+    for target in targets
       if Math.random() <= @_unitHitChance
         didHit = true
         didCrit = false
@@ -32,50 +32,22 @@ class @BaseUnitLogic
       target.damage = damageToTarget
       target.hit = didHit
       target.crit = didCrit
-      @updateLifeOfTarget(target, damageToTarget)
 
-    @add(targetTo, ability._id, doc)
+      @_game[target.gameTeamId].updateLife(damageToTarget)
 
-  baseDefense: (ability, doc) ->
+      target.life = @_game[target.gameTeamId]._unitLife
+
+  baseDefense: (ability, targets) ->
     buffFactor = ability.factor
-    targetTo = [
-      gameTeamId: doc.gameTeam._id
-      armor: doc.gameTeam.unit().armor
-    ]
 
-    @add(targetTo, ability._id, doc)
-
-  baseBuffFunction: (ability, doc) ->
+  baseBuffFunction: (ability, targets) ->
     buffFactor = ability.factor
-    targetTo = @_targets.generateTo(ability.target_count)
 
-    @add(targetTo, ability._id, doc)
-
-  add: (targets, abilityId, doc) ->
-    actionId = Actions.insert
-      gameId: @_game._gameId
-      from: doc.gameTeam._id
-      to: targets
-      abilityId: abilityId
-      index: parseInt(doc.lastIndex) + 1
-    console.log "Added Actions with id: " + actionId
-
-  updateLifeOfTarget: (target, damageToTarget) ->
-    gameTeamId = target.gameTeamId
-    #curLife = GameTeam.findOne({_id: gameTeamId}).life
-    curLife=  @_unitLife
-
-    calcLife = curLife - damageToTarget
-    updateLife = if calcLife < 0 then 0 else calcLife
-
-    target.life = @_unitLife = updateLife
-
-    options =
-      life: updateLife
-
-    GameTeam.update(gameTeamId, options)
-
-    updateLife: () ->
+  updateLife: (damage) ->
+    @_unitLife -= damage
+    console.log damage
+    console.log @_unitLife
+    GameTeam.update(@_gameTeamId, {life: @_unitLife})
 
   generateRandomAbility: ->
     @_specialAbilities[Math.floor(Math.random() * @_specialAbilities.length)]
