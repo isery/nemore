@@ -60,6 +60,8 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'allSpecialAbilities'
+      Meteor.subscribe 'allConditions'
     data: ->
       units: Unit.find({})
   @route 'crewSelection',
@@ -69,6 +71,8 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'allSpecialAbilities'
+      Meteor.subscribe 'allConditions'
     data: ->
       units: Unit.find()
       teams: Team.find({hero: {$exists: false}})

@@ -20,14 +20,15 @@ class @Team
     Meteor.users.findOne({_id: @userId})
 
   unit: ->
-    Units.findOne({_id: @unitId})
+    Unit.findOne({_id: @unitId})
 
   special_abilities: ->
-    SpecialAbilities.find({unit_id: @unitId}).fetch()
+    SpecialAbilities.find({unitId: @unitId}).fetch()
 
   save: ->
     @validateSave()
     @_id = Team.findOne({userId: @userId, hero: true})?._id
+    priority = Team.find({userId: @userId}).length
     if @hero && @_id
       Teams.update
         _id: @_id
@@ -36,11 +37,15 @@ class @Team
           userId: @userId
           unitId: @unitId
           hero: @hero
+          priority: @priority
     else
       @_id = Teams.insert
         userId: @userId
         unitId: @unitId
         hero: @hero
+        priority: priority
+
+      new AbilityPriority({team: @}).init()
 
   # For Meteor publish
   @all = (userId)->

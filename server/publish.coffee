@@ -25,3 +25,6 @@ Meteor.publish "userData", ->
 
 Meteor.publish "allSpecialAbilities", ->
   SpecialAbilities.find({})
+
+Meteor.publish "allConditions", ->
+  Conditions.find({})

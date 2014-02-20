@@ -13,7 +13,7 @@ class @BaseUnit
     @_game.load.atlas(@_name, @_image, @_json)
 
   initAbilities: ->
-    abilities = SpecialAbilities.find({unit_id: @_unitId}).fetch()
+    abilities = SpecialAbilities.find({unitId: @_unitId}).fetch()
     for ability in abilities
       @[ability.name] = new BaseAbility({baseUnit: @, ability: ability})
 

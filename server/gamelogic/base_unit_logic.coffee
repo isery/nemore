@@ -10,7 +10,7 @@ class @BaseUnitLogic
     @_unitHitChance = @_unit.accuracy
     @_unitCritFactor = 1.75
 
-    @_specialAbilities = SpecialAbilities.find({unit_id: @_unit._id}).fetch()
+    @_specialAbilities = SpecialAbilities.find({unitId: @_unit._id}).fetch()
 
   baseAutoAttack: (ability, doc) ->
     damageFactor = parseFloat(ability.factor)
