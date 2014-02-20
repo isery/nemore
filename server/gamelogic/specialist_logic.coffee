@@ -44,7 +44,7 @@ class @SpecialistLogic extends BaseUnitLogic
       target.damage = damageToTarget
       target.hit = didHit
       target.crit = didCrit
-      @updateLifeOfTarget(target.gameTeamId, damageToTarget)
+      @updateLifeOfTarget(target, damageToTarget)
 
     @add(targetTo, ability._id, doc)
 
