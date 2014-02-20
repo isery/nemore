@@ -32,7 +32,7 @@ class @BaseUnitLogic
       target.damage = damageToTarget
       target.hit = didHit
       target.crit = didCrit
-      @updateLifeOfTarget(target.gameTeamId, damageToTarget)
+      @updateLifeOfTarget(target, damageToTarget)
 
     @add(targetTo, ability._id, doc)
 
@@ -60,11 +60,14 @@ class @BaseUnitLogic
       index: parseInt(doc.lastIndex) + 1
     console.log "Added Actions with id: " + actionId
 
-  updateLifeOfTarget: (gameTeamId, damageToTarget) ->
+  updateLifeOfTarget: (target, damageToTarget) ->
+    gameTeamId = target.gameTeamId
     curLife = GameTeam.findOne({_id: gameTeamId}).life
 
     calcLife = curLife - damageToTarget
     updateLife = if calcLife < 0 then 0 else calcLife
+
+    target.life = updateLife
 
     options =
       life: updateLife
