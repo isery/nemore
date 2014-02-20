@@ -65,6 +65,8 @@ class @BaseAbility
       ability.animations.play("shooting_" + index, 20, true)
       tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
+        this.target.gameTeam._unitLife.destroy()
+        this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y,100)
         this.scope.displayText(this.target)
         if this.target.hit
           this.scope.hit(this.target)

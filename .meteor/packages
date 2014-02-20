@@ -7,10 +7,10 @@ standard-app-packages
 preserve-inputs
 coffeescript
 jquery
-phaser
 accounts-password
 iron-router
 insecure
 accounts-facebook
 bootstrap-3
 accounts-ui-bootstrap-3
+phaser
