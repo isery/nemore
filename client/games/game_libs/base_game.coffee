@@ -91,6 +91,7 @@ class @BaseGame
     xPos = if isPlayerOne then 200 else 650
     for member, i in player.team
       @[member._id].addSprite(xPos, (100 * i) + 100)
+      @[member._id].setLifeLine(xPos, (100 * i) + 100, 750)
       @[member._id].addAnimation("standing", 30, true)
       @[member._id].setCoordinates(xPos, (100 * i) + 100)
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
@@ -102,7 +103,7 @@ class @BaseGame
     @[player.hero._id].addSprite(xPos + heroXPos, 200)
     @[player.hero._id].addAnimation("standing", 30, true)
     @[player.hero._id].setCoordinates(xPos + heroXPos, 200)
-
+    @[player.hero._id].setLifeLine(xPos + heroXPos, 200, 1000)
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
     @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne
     # @[player.hero._id].initAbilities()

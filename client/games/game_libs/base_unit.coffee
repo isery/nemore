@@ -22,6 +22,20 @@ class @BaseUnit
     # @_unit = @_game.add.sprite(x, y, @_name, "a.png")
     @_unit = @_game.add.sprite(x, y, @_name, "a.png")
 
+  setLifeLine: (x, y, life) ->
+    if life >= 700
+      color = 0x39bd22
+    else if life >= 400
+      color = 0xffbb00
+    else if life >= 100
+      color = 0xff0011
+    @_unitLife = @_game.add.graphics(0, 0)
+    @_unitLife.beginFill(color)
+    @_unitLife.lineStyle(10, color, 1)
+    @_unitLife.moveTo(x + 10, y - 10)
+    @_unitLife.lineTo(x + 50, y - 10)
+    @_unitLife.endFill()
+
   addAnimation: (name, frames, isLoop) ->
     @_unit.animations.add "idle"
     @_unit.animations.add("pullweapon", ["a.png", "b.png", "c.png"], 50, false, false)
