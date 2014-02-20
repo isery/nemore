@@ -62,17 +62,20 @@ class @BaseUnitLogic
 
   updateLifeOfTarget: (target, damageToTarget) ->
     gameTeamId = target.gameTeamId
-    curLife = GameTeam.findOne({_id: gameTeamId}).life
+    #curLife = GameTeam.findOne({_id: gameTeamId}).life
+    curLife=  @_unitLife
 
     calcLife = curLife - damageToTarget
     updateLife = if calcLife < 0 then 0 else calcLife
 
-    target.life = updateLife
+    target.life = @_unitLife = updateLife
 
     options =
       life: updateLife
 
     GameTeam.update(gameTeamId, options)
+
+    updateLife: () ->
 
   generateRandomAbility: ->
     @_specialAbilities[Math.floor(Math.random() * @_specialAbilities.length)]
