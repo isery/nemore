@@ -10,7 +10,6 @@ class @BaseAbility
     @_statesArr = @_abilityData.states
     @_from = data.action.from
 
-    # init targets here
     @_targets = []
     for target in data.action.to
       target.gameTeam = data.baseGame[target.gameTeamId]
@@ -65,11 +64,10 @@ class @BaseAbility
       ability.animations.play("shooting_" + index, 20, true)
       tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
-        this.target.gameTeam._unitLife.destroy()
-        this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y,100)
         this.scope.displayText(this.target)
         if this.target.hit
           this.scope.hit(this.target)
+          this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
         else
           this.scope._doneParts++
           this.scope.finishPart()

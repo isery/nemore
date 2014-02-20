@@ -4,10 +4,10 @@ class @BaseGameLogic
 
     @_targets = new Targets(@_gameId)
 
-    #@_sniper = new SniperLogic(@)
-    #@_drone = new DroneLogic(@)
-    #@_commander = new CommanderLogic(@)
-    #@_specialist = new SpecialistLogic(@)
+    @_sniper = new SniperLogic(@)
+    @_drone = new DroneLogic(@)
+    @_commander = new CommanderLogic(@)
+    @_specialist = new SpecialistLogic(@)
 
     @initGameTeam()
     @initGame()
