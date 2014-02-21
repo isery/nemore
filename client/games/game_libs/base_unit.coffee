@@ -36,13 +36,19 @@ class @BaseUnit
     percent = life/@_maxLife
     @_unitLife.destroy() if @_unitLife
 
-    if life >= 700
-      color = 0x39bd22
-    else if life >= 400
-      color = 0xffbb00
-    else if life >= 100
-      color = 0xff0011
+    if percent >= 80
+      color = 0x1ADE00
+    else if percent >= 60
+      color = 0x73DE00
+    else if percent >= 40
+      color = 0xFFE100
+    else if percent >= 20
+      color = 0xFF7700
+    else if percent >= 0
+      color = 0xFF0000
 
+    if life < 0
+      @_lifeBackground.destroy()
     unless life <= 0
       @_unitLife = @_game.add.graphics(0, 0)
       @_unitLife.beginFill(color)
