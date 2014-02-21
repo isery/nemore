@@ -1,6 +1,9 @@
 class @BaseGameLogic
   constructor: (data) ->
     @_gameId = data
+
+    @_playerFlag = false
+
     @initGameTeam()
     @initGame()
 
@@ -14,7 +17,11 @@ class @BaseGameLogic
         players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: lastAction}).fetch()
         actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}}).fetch()
 
+
         unless actions && players.length < 2
+          @_lastPriority = {}
+          @_lastPriority[players[0]._id] = undefined
+          @_lastPriority[players[1]._id] = undefined
           new Action(@, doc)
 
     })

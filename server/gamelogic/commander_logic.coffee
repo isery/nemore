@@ -1,10 +1,7 @@
 class @CommanderLogic extends BaseUnitLogic
-	constructor: (game)->
+	constructor: (options)->
 		@_unit = Units.findOne({name:"Commander"})
-
-		options =
-			unit: @_unit
-		super(options, game)
+		super(@_unit, options)
 
 	autoattack_commander: (ability, targets) ->
 		@baseAttack(ability, targets)

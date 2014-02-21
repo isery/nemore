@@ -1,10 +1,7 @@
 class @SpecialistLogic extends BaseUnitLogic
-  constructor: (game)->
+  constructor: (options)->
     @_unit = Units.findOne({name:"Specialist"})
-
-    options =
-      unit: @_unit
-    super(options, game)
+    super(@_unit, options)
 
   autoattack_specialist: (ability, targets) ->
     @baseAttack(ability, targets)

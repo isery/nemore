@@ -1,10 +1,7 @@
 class @SniperLogic extends BaseUnitLogic
-	constructor: (game)->
+	constructor: (options)->
 		@_unit = Units.findOne({name:"Sniper"})
-
-		options =
-			unit: @_unit
-		super(options, game)
+		super(@_unit, options)
 
 	autoattack_sniper: (ability, targets) ->
 		@baseAttack(ability, targets)

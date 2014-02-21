@@ -1,10 +1,7 @@
 class @DroneLogic extends BaseUnitLogic
-	constructor: (game)->
+	constructor: (options)->
 		@_unit = Units.findOne({name:"Drone"})
-
-		options =
-			unit: @_unit
-		super(options, game)
+		super(@_unit, options)
 
 	autoattack_drone: (ability, targets) ->
 		@baseAttack(ability, targets)

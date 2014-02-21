@@ -1,10 +1,12 @@
 class @BaseUnitLogic
-  constructor: (options, base)->
+  constructor: (unit, options)->
+    @_game = options.game
+    @_gameTeamId = options.gameTeamId
 
-    @_game = base.game
-    @_gameTeamId = @_game.gameTeamId
-    @_unit = options.unit
+    @_unit = unit
+
     @_unitLife = @_unit.life
+    @_unitLife = @_unit.life * 0.75 unless GameTeam.findOne({_id: @_gameTeamId}).hero
     @_unitArmor = @_unit.armor
     @_unitBaseDamage = @_unit.damage
     @_unitCritChance = @_unit.crit
@@ -45,8 +47,6 @@ class @BaseUnitLogic
 
   updateLife: (damage) ->
     @_unitLife -= damage
-    console.log damage
-    console.log @_unitLife
     GameTeam.update(@_gameTeamId, {life: @_unitLife})
 
   generateRandomAbility: ->
