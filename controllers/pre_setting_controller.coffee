@@ -21,9 +21,8 @@ class @PreSettingController extends RouteController
     Meteor.subscribe 'allSpecialAbilities'
     Meteor.subscribe 'allGameTeams', @params._id
     Meteor.subscribe 'allGamePlayers'
+    Meteor.subscribe 'priorityLists'
   data: ->
     gamePlayers: GamePlayer.find({userId: Meteor.userId()})
     currentGame: Game.findById(@params._id),
     gameTeams: GameTeam.find({userId: Meteor.userId()})
-
-

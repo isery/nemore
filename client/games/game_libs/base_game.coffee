@@ -13,7 +13,6 @@ class @BaseGame
     @game = new Phaser.Game(1024, 768, Phaser.AUTO, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
-      # update: @update.bind(@)
     )
 
   preload: ->
@@ -67,14 +66,8 @@ class @BaseGame
           ,
             $set:
               state: "animating"
-          #that[action.from][action.name].startAnimation(that[action.to].getCoordinates(), actionArr)
           new BaseAbility({action: action, baseGame: that}).play()
     })
-  # update: ->
-    # # @game.physics.collide @balls, @mummy2, collisionHandler, null, this
-    # if @game.input.keyboard.isDown(Phaser.Keyboard.ENTER)
-    #   #@[@playerOne.hero._id].activateAbility(@[@playerTwo.hero._id].getCoordinates())
-    #   @[@actions[0].from].activateAbility(@[@actions[0].to].getCoordinates(), @actions[0].abilityId)
 
   preloadTeam: (player) ->
     for member in player.team
@@ -91,23 +84,20 @@ class @BaseGame
     xPos = if isPlayerOne then 200 else 650
     for member, i in player.team
       @[member._id].addSprite(xPos, (100 * i) + 100)
-      @[member._id].setLifeLine(xPos, (100 * i) + 100, 750)
+      @[member._id].initLife(xPos, (100 * i) + 100, member.life)
       @[member._id].addAnimation("standing", 30, true)
       @[member._id].setCoordinates(xPos, (100 * i) + 100)
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
       @[member._id]._unit.scale.x *= -1 unless isPlayerOne
-      # @[member._id].initAbilities()
 
     heroXPos = if isPlayerOne then -100 else 100
 
     @[player.hero._id].addSprite(xPos + heroXPos, 200)
     @[player.hero._id].addAnimation("standing", 30, true)
     @[player.hero._id].setCoordinates(xPos + heroXPos, 200)
-    @[player.hero._id].setLifeLine(xPos + heroXPos, 200, 1000)
+    @[player.hero._id].initLife(xPos + heroXPos, 200, player.hero.life)
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
     @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne
-    # @[player.hero._id].initAbilities()
-
 
 
 

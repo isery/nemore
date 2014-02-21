@@ -1,7 +1,6 @@
 class @BaseGameLogic
   constructor: (data) ->
     @_gameId = data
-
     @initGameTeam()
     @initGame()
 
@@ -19,7 +18,6 @@ class @BaseGameLogic
           new Action(@, doc)
 
     })
-
 
   initGameTeam: ->
     @_gameTeams = GameTeam.find({gameId: @_gameId})

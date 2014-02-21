@@ -12,21 +12,26 @@ class @GameTeam
         gameId: @gameId
         userId: member.userId
         unitId: member.unitId
+        teamId: member._id
         hero: member.hero
         life: @initLife(member)
+        priority: member.priority
 
   special_abilities: ->
-    SpecialAbilities.find({unit_id: @unitId}).fetch()
+    SpecialAbilities.find({unitId: @unitId}).fetch()
 
   special_ability: ->
     if @specialAbilityId
       specialAbility = SpecialAbilities.findOne({_id: @specialAbilityId})
     else
-      specialAbility = SpecialAbilities.findOne({unit_id: @unitId})
+      specialAbility = SpecialAbilities.findOne({unitId: @unitId})
     specialAbility
 
   unit: ->
     Units.findOne({_id: @unitId})
+
+  team: ->
+    Team.findOne({_id: @teamId})
 
   initLife: (member) ->
     life = member.unit().life

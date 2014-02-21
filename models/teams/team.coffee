@@ -20,14 +20,18 @@ class @Team
     Meteor.users.findOne({_id: @userId})
 
   unit: ->
-    Units.findOne({_id: @unitId})
+    Unit.findOne({_id: @unitId})
 
   special_abilities: ->
-    SpecialAbilities.find({unit_id: @unitId}).fetch()
+    SpecialAbilities.find({unitId: @unitId}).fetch()
+
+  abilityPriorities: ->
+    AbilityPriority.find({teamId: @_id})
 
   save: ->
     @validateSave()
     @_id = Team.findOne({userId: @userId, hero: true})?._id
+    priority = Team.find({userId: @userId}).length
     if @hero && @_id
       Teams.update
         _id: @_id
@@ -36,11 +40,15 @@ class @Team
           userId: @userId
           unitId: @unitId
           hero: @hero
+          priority: @priority
     else
       @_id = Teams.insert
         userId: @userId
         unitId: @unitId
         hero: @hero
+        priority: priority
+
+      new AbilityPriority({team: @}).init()
 
   # For Meteor publish
   @all = (userId)->
@@ -60,4 +68,16 @@ class @Team
   @remove: (_id)->
     Teams.remove({_id: _id}) if _id?
 
+  @priorityList = (userId) ->
+    team = Team.find({userId: userId})
+    team.map (member)->
+      abilityPriorities = AbilityPriorities.find({teamId: member._id})
+      abilityPriority = abilityPriorities.map (abilityPriority) ->
+        tmp =
+          abilityPriority: abilityPriority
+          targetPriorities: TargetPriorities.find({abilityPriorityId: abilityPriority._id}).fetch()
+          abilityCondition: AbilityConditions.find({abilityPriorityId: abilityPriority._id}).fetch()
+      tmp =
+        team: member
+        abilityPriority: abilityPriority
 
