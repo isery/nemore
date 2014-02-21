@@ -25,6 +25,9 @@ class @Team
   special_abilities: ->
     SpecialAbilities.find({unitId: @unitId}).fetch()
 
+  abilityPriorities: ->
+    AbilityPriority.find({teamId: @_id})
+
   save: ->
     @validateSave()
     @_id = Team.findOne({userId: @userId, hero: true})?._id
@@ -65,4 +68,16 @@ class @Team
   @remove: (_id)->
     Teams.remove({_id: _id}) if _id?
 
+  @priorityList = (userId) ->
+    team = Team.find({userId: userId})
+    team.map (member)->
+      abilityPriorities = AbilityPriorities.find({teamId: member._id})
+      abilityPriority = abilityPriorities.map (abilityPriority) ->
+        tmp =
+          abilityPriority: abilityPriority
+          targetPriorities: TargetPriorities.find({abilityPriorityId: abilityPriority._id}).fetch()
+          abilityCondition: AbilityConditions.find({abilityPriorityId: abilityPriority._id}).fetch()
+      tmp =
+        team: member
+        abilityPriority: abilityPriority
 

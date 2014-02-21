@@ -2,13 +2,15 @@
   <div> preSetting adf</div>
   <br><br>
   {{#each gameTeams}}
-    {{unit.name}}
-    {{special_ability.name}}
-    <div data-id="{{_id}}">
-      {{#each special_abilities}}
-        ... {{name}} <input type="button" value="Choose" class="choose_ability" data-id="{{_id}}"> <br>
+
+    <label>Unit_Name: {{unit.name}}</label> <br>
+    {{#each team.abilityPriorities}}
+      <label>Ability_Name: {{ability.name}}</label> <br>
+      {{#each targetPriority}}
+        <label>{{priority}}. Unit_Name: {{unit.name}}</label> <br>
       {{/each}}
-    </div>
+      <label>Condition: {{abilityCondition.condition.name}}</label> <br>
+    {{/each}}
     <br>
   {{/each}}
   <input class="rdy-button-workaround" type="button" id="ready" value="Ready">

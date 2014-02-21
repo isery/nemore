@@ -28,3 +28,12 @@ Meteor.publish "allSpecialAbilities", ->
 
 Meteor.publish "allConditions", ->
   Conditions.find({})
+
+Meteor.publish "priorityLists", ->
+  [
+    AbilityPriorities.find({}),
+    TargetPriorities.find({}),
+    AbilityConditions.find({}),
+    Conditions.find({})
+  ]
+

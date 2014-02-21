@@ -11,7 +11,6 @@ class @AbilityPriority
   init: ->
     abilities = @team.unit().specialAbilities()
     @_teamId = @team._id
-    console.log abilities
     for ability, index in abilities
       @_abilityId = ability._id
       @_priority = index
@@ -23,10 +22,18 @@ class @AbilityPriority
       new TargetPriority({abilityPriority: @}).init()
       new AbilityCondition({abilityPriority: @}).init()
 
-# for every unit ability
-# teamId
-# abilityId
-# priority
+  ability: ->
+    SpecialAbilities.findOne({_id: @abilityId})
+
+  targetPriority: ->
+    TargetPriority.find({abilityPriorityId: @_id})
+
+  abilityCondition: ->
+    AbilityCondition.findOne({abilityPriorityId: @_id})
+
+  @find = (options = {})->
+    abilityPriorities = AbilityPriorities.find(options).fetch()
+    new AbilityPriority(abilityPriority) for abilityPriority in abilityPriorities
 
 class @TargetPriority
   constructor: (options) ->
@@ -41,10 +48,12 @@ class @TargetPriority
         unitId: unit._id
         priority: index
 
-# for every unit
-# abilityPriorityId
-# unitId
-# priority
+  unit: ->
+    Unit.findOne({_id: @unitId})
+
+  @find = (options = {})->
+    targetPriorities = TargetPriorities.find(options).fetch()
+    new TargetPriority(targetPriority) for targetPriority in targetPriorities
 
 class @AbilityCondition
   constructor: (options) ->
@@ -57,13 +66,15 @@ class @AbilityCondition
       abilityPriorityId: @abilityPriority._id
       conditionId: condition._id
 
+  condition: ->
+    Conditions.findOne({_id: @conditionId})
 
-# targetPriorityId
-# conditionId
+  @findOne = (options = {}) ->
+    abilityCondition = AbilityConditions.findOne(options)
+    new AbilityCondition(abilityCondition)
 
 class @Condition
   constructor: (options) ->
     for key, value of options
       @[key] = value
 
-# possible Conditions
