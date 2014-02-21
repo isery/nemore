@@ -26,7 +26,7 @@ class @Action
     _fromPriority = Math.floor((idx/2)) % @_team.length
 
     unless @_team[_fromPriority]
-      getNext(_fromPriority+1)
+      @getNext(_fromPriority+1)
 
     if(@_game._lastPriority[@_player._id] == _fromPriority)
       _fromPriority++

@@ -47,6 +47,8 @@ class @BaseUnitLogic
 
   updateLife: (damage) ->
     @_unitLife -= damage
+    if @_unitLife < 0
+      @_unitLife = 0
     GameTeam.update(@_gameTeamId, {life: @_unitLife})
 
   generateRandomAbility: ->
