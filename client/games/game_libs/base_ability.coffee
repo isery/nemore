@@ -90,10 +90,12 @@ class @BaseAbility
       ability = @_game.add.sprite(target.gameTeam.getCoordinates().x, target.gameTeam.getCoordinates().y, "buff")
       tween = @_game.add.tween(ability).to({x: target.gameTeam.getCoordinates().x, y: target.gameTeam.getCoordinates().y + 20}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
-        @_doneParts++
+        conditionName = Conditions.findOne({_id: this.scope._abilityData.conditionId}).name
+        this.target.gameTeam._conditions.add(conditionName)
+        this.scope._doneParts++
         tween.kill()
-        @finishPart()
-      , @
+        this.scope.finishPart()
+      , {target: target, scope: @}
 
   displayText: (target) ->
     text = if target.hit then target.damage.toString() else "Miss!"

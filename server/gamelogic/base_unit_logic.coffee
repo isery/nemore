@@ -15,6 +15,8 @@ class @BaseUnitLogic
 
     @_specialAbilities = SpecialAbilities.find({unitId: @_unit._id}).fetch()
 
+    @_conditions = new BaseCondition({game: @_game, gameTeamId: @_gameTeamId})
+
   baseAttack: (ability, targets) ->
     damageFactor = parseFloat(ability.factor)
 
@@ -41,9 +43,13 @@ class @BaseUnitLogic
 
   baseDefense: (ability, targets) ->
     buffFactor = ability.factor
+    for target in targets
+      @_game[target.gameTeamId]._conditions.add(ability)
 
   baseBuffFunction: (ability, targets) ->
     buffFactor = ability.factor
+    for target in targets
+      @_game[target.gameTeamId]._conditions.add(ability)
 
   updateLife: (damage) ->
     @_unitLife -= damage

@@ -5,7 +5,7 @@ class @BaseUnit
     @_name = data.name
     @_image = data.image
     @_json = data.json
-    @_shootTime = 0
+    @_conditions = new BaseCondition({game: @_game, baseUnit: @})
 
     @initSprites()
 
