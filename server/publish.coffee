@@ -26,14 +26,19 @@ Meteor.publish "userData", ->
 Meteor.publish "allSpecialAbilities", ->
   SpecialAbilities.find({})
 
-Meteor.publish "allConditions", ->
-  Conditions.find({})
+Meteor.publish "allTerms", ->
+  Terms.find({})
 
 Meteor.publish "priorityLists", ->
   [
     AbilityPriorities.find({}),
     TargetPriorities.find({}),
-    AbilityConditions.find({}),
-    Conditions.find({})
+    AbilityTerms.find({}),
+    Terms.find({})
   ]
 
+Meteor.publish "conditions", ->
+  [
+    GameTeamConditions.find({}),
+    Conditions.find({})
+  ]

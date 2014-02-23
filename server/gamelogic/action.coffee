@@ -3,6 +3,7 @@ class @Action
     @_game = data
 
     @from(doc)
+    @updateConditions(@from)
     @getAbility()
     @to()
     @calculateAbility()
@@ -58,6 +59,9 @@ class @Action
 
   calculateAbility: () ->
     @_game[@_from._id][@_randomAbility.name](@_randomAbility,@_targets)
+
+  updateConditions: ->
+    BaseCondition.update(@_game, @_from._id)
 
   save: (doc) ->
     actionId = Actions.insert

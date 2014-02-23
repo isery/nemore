@@ -17,6 +17,13 @@ class @GameTeam
         life: @initLife(member)
         priority: member.priority
 
+  conditions: ->
+    @_gameTeamConditions = GameTeamCondition.find({gameTeamId: @_id})
+    @_gameTeamConditions = @_gameTeamConditions.map (gameTeamCondition) ->
+      gameTeamCondition.condition()
+
+    @
+
   special_abilities: ->
     SpecialAbilities.find({unitId: @unitId}).fetch()
 

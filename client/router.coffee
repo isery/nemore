@@ -46,6 +46,7 @@ Router.map ->
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
       Meteor.subscribe 'allSpecialAbilities'
+      Meteor.subscribe 'conditions'
     data: ->
       game: Game.findOne _id: @params._id
       actions: Action.find()
@@ -61,7 +62,7 @@ Router.map ->
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'allTeams'
       Meteor.subscribe 'allSpecialAbilities'
-      Meteor.subscribe 'allConditions'
+      Meteor.subscribe 'allTerms'
     data: ->
       units: Unit.find({})
   @route 'crewSelection',
@@ -72,7 +73,7 @@ Router.map ->
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'allTeams'
       Meteor.subscribe 'allSpecialAbilities'
-      Meteor.subscribe 'allConditions'
+      Meteor.subscribe 'allTerms'
     data: ->
       units: Unit.find()
       teams: Team.find({hero: {$exists: false}})

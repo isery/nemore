@@ -1,7 +1,7 @@
 @AbilityPriorities = new Meteor.Collection 'abilityPriority'
 @TargetPriorities = new Meteor.Collection 'targetPriority'
-@AbilityConditions = new Meteor.Collection 'abilityCondition'
-@Conditions = new Meteor.Collection 'conditions'
+@AbilityTerms = new Meteor.Collection 'abilityTerm'
+@Terms = new Meteor.Collection 'terms'
 
 class @AbilityPriority
   constructor: (options) ->
@@ -20,7 +20,7 @@ class @AbilityPriority
         priority: index
 
       new TargetPriority({abilityPriority: @}).init()
-      new AbilityCondition({abilityPriority: @}).init()
+      new AbilityTerm({abilityPriority: @}).init()
 
   ability: ->
     SpecialAbilities.findOne({_id: @abilityId})
@@ -28,8 +28,8 @@ class @AbilityPriority
   targetPriority: ->
     TargetPriority.find({abilityPriorityId: @_id})
 
-  abilityCondition: ->
-    AbilityCondition.findOne({abilityPriorityId: @_id})
+  abilityTerm: ->
+    AbilityTerm.findOne({abilityPriorityId: @_id})
 
   @find = (options = {})->
     abilityPriorities = AbilityPriorities.find(options).fetch()
@@ -55,25 +55,25 @@ class @TargetPriority
     targetPriorities = TargetPriorities.find(options).fetch()
     new TargetPriority(targetPriority) for targetPriority in targetPriorities
 
-class @AbilityCondition
+class @AbilityTerm
   constructor: (options) ->
     for key, value of options
       @[key] = value
 
   init: ->
-    condition = Conditions.findOne({name: 'always'})
-    AbilityConditions.insert
+    term = Terms.findOne({name: 'always'})
+    AbilityTerms.insert
       abilityPriorityId: @abilityPriority._id
-      conditionId: condition._id
+      termId: term._id
 
-  condition: ->
-    Conditions.findOne({_id: @conditionId})
+  term: ->
+    Terms.findOne({_id: @termId})
 
   @findOne = (options = {}) ->
-    abilityCondition = AbilityConditions.findOne(options)
-    new AbilityCondition(abilityCondition)
+    abilityTerm = AbilityTerms.findOne(options)
+    new AbilityTerm(abilityTerm)
 
-class @Condition
+class @Term
   constructor: (options) ->
     for key, value of options
       @[key] = value

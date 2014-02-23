@@ -42,6 +42,12 @@ class @BaseGame
     @game.load.atlasJSONHash("disableSpecialAbility_specialist", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
 
     @game.load.image "buff", "/sprites/buff.png"
+    @game.load.image "fire", "/sprites/fire.png"
+    @game.load.image "poison", "/sprites/poison.png"
+    @game.load.image "pot", "/sprites/pot.png"
+    @game.load.image "crit", "/sprites/crit.png"
+    @game.load.image "hit", "/sprites/hit.png"
+    @game.load.image "armor", "/sprites/armor.png"
 
     @game.load.image "ball", "/sprites/aqua_ball.png"
     @game.load.spritesheet "mummy", "/sprites/metalslug_monster39x40.png", 39, 40,10
@@ -67,6 +73,7 @@ class @BaseGame
             $set:
               state: "animating"
           new BaseAbility({action: action, baseGame: that}).play()
+          BaseCondition.update({action: action, baseGame: that})
     })
 
   preloadTeam: (player) ->
