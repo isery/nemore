@@ -3,17 +3,14 @@ class @CommanderLogic extends BaseUnitLogic
 		@_unit = Units.findOne({name:"Commander"})
 		super(@_unit, options)
 
-	autoattack_commander: (ability, targets) ->
+	heal_commander: (ability, targets) ->
 		@baseAttack(ability, targets)
 
-	defense_commander: (ability, targets) ->
+	hotBuff_commander: (ability, targets) ->
 		@baseDefense(ability, targets)
 
-	buffAllCrit_commander: (ability, targets) ->
+	hitBuff_commander: (ability, targets) ->
 		@baseBuffFunction(ability,targets)
 
-	buffAllAccuracy_commander: (ability, targets) ->
-		@baseBuffFunction(ability, targets)
-
-	buffAllDamage_commander: (ability, targets) ->
-		@baseBuffFunction(ability,targets)
+	attack_commander: (ability, targets) ->
+		@baseAttack(ability, targets)

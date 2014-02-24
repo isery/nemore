@@ -97,6 +97,24 @@ class @BaseAbility
         this.scope.finishPart()
       , {target: target, scope: @}
 
+  heal: ->
+    @_parts = @_targets.length
+    for target, index in @_targets
+      ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
+      ability.animations.add("shooting_" + index)
+      ability.animations.play("shooting_" + index, 20, true)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween.onComplete.add (tween)->
+        this.scope.displayText(this.target)
+        if this.target.hit
+          this.scope.hit(this.target)
+          this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
+        else
+          this.scope._doneParts++
+          this.scope.finishPart()
+        tween.kill()
+      , {target: target, scope: @}
+
   displayText: (target) ->
     text = if target.hit then target.damage.toString() else "Miss!"
     text += " " + "Crit!" if target.crit

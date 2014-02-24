@@ -3,17 +3,14 @@ class @DroneLogic extends BaseUnitLogic
 		@_unit = Units.findOne({name:"Drone"})
 		super(@_unit, options)
 
-	autoattack_drone: (ability, targets) ->
+	defenseBuff_drone: (ability, targets) ->
+		@baseBuffFunction(ability, targets)
+
+	defenseAll_drone: (ability, targets) ->
+		@baseBuffFunction(ability, targets)
+
+	damageBuff_drone: (ability, targets) ->
+		@baseBuffFunction(ability, targets)
+
+	damageAll_drone: (ability, targets) ->
 		@baseAttack(ability, targets)
-
-	defense_drone: (ability, targets) ->
-		@baseDefense(ability, targets)
-
-	armorAll_drone: (ability, targets) ->
-		@baseBuffFunction(ability, targets)
-
-	armorSelf_drone: (ability, targets) ->
-		@baseBuffFunction(ability, targets)
-
-	armorTarget_drone: (ability, targets) ->
-		@baseBuffFunction(ability, targets)

@@ -4,7 +4,7 @@ class @Action
 
     @from(doc)
     @updateConditions(@from)
-    @getAbility()
+    @getAbility(doc)
     @to()
     @calculateAbility()
     @save(doc)
@@ -20,14 +20,14 @@ class @Action
     #PriorityList 1 (eigene Units)
     @_team = GameTeam.find({gameId: @_game._gameId, userId: @_player, life: {$gt: 0}}, {sort: {priority: 1}})
 
-    @_from = @getNext(_currentIndex)
+    @_from = @getNextFrom(_currentIndex)
 
 
-  getNext: (idx) ->
+  getNextFrom: (idx) ->
     _fromPriority = Math.floor((idx/2)) % @_team.length
 
     unless @_team[_fromPriority]
-      @getNext(_fromPriority+1)
+      @getNextFrom(_fromPriority+1)
 
     if(@_game._lastPriority[@_player._id] == _fromPriority)
       _fromPriority++
@@ -35,8 +35,26 @@ class @Action
     @_game._lastPriority[@_player._id] = _fromPriority
     @_team[_fromPriority]
 
-  getAbility: () ->
+  getNextAbility: () ->
+    #gameteam.team.abilitypriorities (objekt von allen abilities inkl priority etc.)
+
+    #console.log "hi"
+
+
+  getAbility: (doc) ->
     @_randomAbility = @_game[@_from._id].generateRandomAbility()
+    #_abilities = @_game[@_from._id]
+    #@_ability = getNextAbility(_abilities)
+
+    _lastAbility = Actions.find({gameId: @_game._gameId, abilityId: @_randomAbility._id}, {sort: {index:-1}}).fetch() || null
+    _indexOfLastAbility = _lastAbility.index
+    _currentIndex = doc.lastIndex + 1
+    _cooldownOfAbility = @_randomAbility.cooldown
+
+    if _currentIndex - _indexOfLastAbility > _cooldownOfAbility or _lastAbility.length is 0
+      return @_randomAbility
+    else
+      @getAbility(doc)
 
   to: () ->
     _playerNumber = if @_game._playerFlag then "2" else "1"

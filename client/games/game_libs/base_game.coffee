@@ -19,35 +19,34 @@ class @BaseGame
     @preloadTeam(@playerOne)
     @preloadTeam(@playerTwo)
 
-    @game.load.atlasJSONHash("autoattack_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("autoattack_sniper", "/sprites/autoattack_sniper.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("autoattack_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("autoattack_drone", "/sprites/autoattack_drone.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("defenseBuff_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("defenseAll_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("damageBuff_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("damageAll_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
 
-    @game.load.atlasJSONHash("defense_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("armorAll_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("armorSelf_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("armorTarget_drone", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("defense_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("buffAccuracy_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("buffDamage_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("buffCrit_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("defense_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("buffAllCrit_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("buffAllAccuracy_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("buffAllDamage_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("defense_specialist", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("multiShot_specialist", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("burstShot_specialist", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("disableSpecialAbility_specialist", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("attack_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("steadyShot_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("executeShot_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("critBuff_sniper", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+
+    @game.load.atlasJSONHash("heal_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("hotBuff_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("hitBuff_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("attack_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+
+    @game.load.atlasJSONHash("attack_specialist", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("hotBuff_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("hitBuff_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("attack_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
 
     @game.load.image "buff", "/sprites/buff.png"
-    @game.load.image "fire", "/sprites/fire.png"
-    @game.load.image "poison", "/sprites/poison.png"
-    @game.load.image "pot", "/sprites/pot.png"
+
+    @game.load.image "dot", "/sprites/fire.png"
+    @game.load.image "hot", "/sprites/pot.png"
     @game.load.image "crit", "/sprites/crit.png"
     @game.load.image "hit", "/sprites/hit.png"
     @game.load.image "armor", "/sprites/armor.png"
+    @game.load.image "dmg", "/sprites/poison.png"
 
     @game.load.image "ball", "/sprites/aqua_ball.png"
     @game.load.spritesheet "mummy", "/sprites/metalslug_monster39x40.png", 39, 40,10

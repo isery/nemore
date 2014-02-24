@@ -11,14 +11,14 @@ class @BaseUnitLogic
     @_unitBaseDamage = @_unit.damage
     @_unitCritChance = @_unit.crit
     @_unitHitChance = @_unit.accuracy
-    @_unitCritFactor = 1.75
+    @_unitCritFactor = @_unit.critFactor
 
     @_specialAbilities = SpecialAbilities.find({unitId: @_unit._id}).fetch()
 
     @_conditions = new BaseCondition({game: @_game, gameTeamId: @_gameTeamId})
 
   baseAttack: (ability, targets) ->
-    damageFactor = parseFloat(ability.factor)
+    damageFactor = parseFloat(ability.value)
 
     for target in targets
       if Math.random() <= @_unitHitChance
@@ -42,12 +42,12 @@ class @BaseUnitLogic
       target.life = @_game[target.gameTeamId]._unitLife
 
   baseDefense: (ability, targets) ->
-    buffFactor = ability.factor
+    buffFactor = ability.value
     for target in targets
       @_game[target.gameTeamId]._conditions.add(ability)
 
   baseBuffFunction: (ability, targets) ->
-    buffFactor = ability.factor
+    buffFactor = ability.value
     for target in targets
       @_game[target.gameTeamId]._conditions.add(ability)
 
