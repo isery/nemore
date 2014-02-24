@@ -3,17 +3,14 @@ class @SpecialistLogic extends BaseUnitLogic
     @_unit = Units.findOne({name:"Specialist"})
     super(@_unit, options)
 
-  autoattack_specialist: (ability, targets) ->
+  attack_specialist: (ability, targets) ->
     @baseAttack(ability, targets)
 
-  defense_specialist: (ability, targets) ->
-    @baseDefense(ability, targets)
-
-  multiShot_specialist: (ability, targets) ->
-    @baseAttack(ability, targets)
+  burnAll_specialist: (ability, targets) ->
+    @baseBuffFunction(ability, targets)
 
   burstShot_specialist: (ability, targets) ->
     @baseAttack(ability, targets)
 
-  disableSpecialAbility_specialist: (ability, targets) ->
-    @baseBuffFunction(ability, targets)
+  heal_specialist: (ability, targets) ->
+    @baseAttack(ability, targets)
