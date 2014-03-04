@@ -16,6 +16,8 @@ class @BaseCondition
 
       @_conditions[condition.name]._id = @save(@_conditions[condition.name])
 
+#TOOO add remove
+
   save: (options) ->
     GameTeamConditions.insert(options)
 
@@ -26,7 +28,8 @@ class @BaseCondition
       gameTeamConditions = gameTeam.conditions()._gameTeamConditions
       for gameTeamCondition in gameTeamConditions
         leftDuration = game[gameTeam._id]._conditions._conditions[gameTeamCondition.condition.name].leftDuration -= 1
-        if leftDuration <= 0
+        if leftDuration == 0
+          delete game[gameTeam._id]._conditions._conditions[gameTeamCondition.condition.name]
           GameTeamConditions.remove({_id: gameTeamCondition._id})
         else
           GameTeamConditions.update
