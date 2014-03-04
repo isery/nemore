@@ -1,7 +1,7 @@
 
 if Meteor.isServer
 	Meteor.startup ->
-		if Units.find().count() <= 4
+		if Units.find().count() <= 0
 			droneId = Units.insert name: "Drone", fraction: "Police", life: 1000, damage: 50, crit: 0.05, accuracy: 0.90, armor: 0.4, critFactor: 1.75
 			sniperId = Units.insert name: "Sniper", fraction: "Police", life: 1000, damage: 150, crit: 0.2, accuracy: 0.95, armor: 0.8, critFactor: 1.75
 			commanderId = Units.insert name: "Commander", fraction: "Terrorist", life: 1000, damage: 125, crit: 0.1, accuracy: 0.9, armor: 0.4, critFactor: 1.75

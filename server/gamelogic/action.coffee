@@ -46,15 +46,18 @@ class @Action
     #_abilities = @_game[@_from._id]
     #@_ability = getNextAbility(_abilities)
 
-    _lastAbility = Actions.find({gameId: @_game._gameId, abilityId: @_randomAbility._id}, {sort: {index:-1}}).fetch() || null
-    _indexOfLastAbility = _lastAbility.index
-    _currentIndex = doc.lastIndex + 1
-    _cooldownOfAbility = @_randomAbility.cooldown
+    _lastAbility = Actions.find({gameId: @_game._gameId, abilityId: @_randomAbility._id}, {sort: {index:-1}}).fetch()[0] || null
 
-    if _currentIndex - _indexOfLastAbility > _cooldownOfAbility or _lastAbility.length is 0
-      return @_randomAbility
+    if _lastAbility?
+      _indexOfLastAbility = _lastAbility.index
+      _currentIndex = doc.lastIndex + 1
+      _cooldownOfAbility = @_randomAbility.cooldown
+      if _currentIndex - _indexOfLastAbility > _cooldownOfAbility or _lastAbility.length is 0
+        return @_randomAbility
+      else
+        @getAbility(doc)
     else
-      @getAbility(doc)
+      @_randomAbility
 
   to: () ->
     _playerNumber = if @_game._playerFlag then "2" else "1"
