@@ -1,9 +1,9 @@
-Accounts.onCreateUser (options, user) ->
-  if (options.profile)
-    options.profile.picture = getFbPicture( user.services.facebook.accessToken )
+# Accounts.onCreateUser (options, user) ->
+#   if (options.profile)
+#     options.profile.picture = getFbPicture( user.services.facebook.accessToken )
 
-    user.profile = options.profile;
-  return user
+#     user.profile = options.profile;
+#   return user
 
 getFbPicture = (accessToken) ->
   result = Meteor.http.get "https://graph.facebook.com/me",
