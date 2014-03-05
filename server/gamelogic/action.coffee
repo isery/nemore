@@ -2,9 +2,9 @@ class @Action
   constructor: (data, doc)->
     @_game = data
 
-    @from(doc)
+    @from(doc) #P1
     @updateConditions(@from)
-    @getAbility(doc)
+    @getAbility(doc) #P2
     @to()
     @calculateAbility()
     @save(doc)
@@ -17,7 +17,7 @@ class @Action
 
     _currentIndex = doc.lastIndex + 1
 
-    #PriorityList 1 (eigene Units)
+    #PriorityList 1 (own Units)
     @_gameTeam = GameTeam.find({gameId: @_game._gameId, userId: @_player, life: {$gt: 0}}, {sort: {priority: 1}})
 
     @_from = @getNextFrom(_currentIndex)
@@ -36,25 +36,18 @@ class @Action
     @_gameTeam[_fromPriority]
 
   getAbility: (doc) ->
-    #useless For loop?
+    #PriorityList 2 (Abilities)
     for _abilityInPriorityList in @_from.team().abilityPriorities()
-      _abilityId = _abilityInPriorityList.abilityId
-      @_ability = SpecialAbilities.findOne({_id: _abilityId, unitId: @_from.unitId})
-
-      _lastAbility = Actions.find({gameId: @_game._gameId, abilityId: _abilityId}, {sort: {index:-1}}).fetch()[0] || null
+      @_ability = SpecialAbilities.findOne({_id: _abilityInPriorityList.abilityId, unitId: @_from.unitId})
+      _lastAbility = Actions.find({gameId: @_game._gameId, abilityId: _abilityInPriorityList.abilityId}, {sort: {index:-1}}).fetch()[0] || null
 
       if _lastAbility?
         _indexOfLastAbility = _lastAbility.index
         _currentIndex = doc.lastIndex + 1
-        _cooldownOfAbility = @_ability.cooldown
-
-        if _currentIndex - _indexOfLastAbility > _cooldownOfAbility or _lastAbility.length is 0
+        if _currentIndex - _indexOfLastAbility > @_ability.cooldown
           return @_ability
-        else
-          @getNextAbility(doc)
       else
         return @_ability
-
 
 
   to: () ->
@@ -63,9 +56,7 @@ class @Action
     _player = GamePlayers.findOne({gameId: @_game._gameId, player: _playerNumber}).userId
     _gameTeam = GameTeam.find({gameId: @_game._gameId, userId: _player})
 
-    #_numberOfTargets = @_randomAbility.target_count
     _numberOfTargets = @_ability.target_count
-
     @_targets = []
 
     for i in [0..._numberOfTargets]
@@ -78,21 +69,12 @@ class @Action
     @_targets
 
   calculateAbility: () ->
-    #@_game[@_from._id][@_randomAbility.name](@_randomAbility,@_targets)
     @_game[@_from._id][@_ability.name](@_ability,@_targets)
 
   updateConditions: ->
     BaseCondition.update(@_game, @_from._id)
 
   save: (doc) ->
-    ###
-    actionId = Actions.insert
-      gameId: @_game._gameId
-      from: @_from._id
-      to: @_targets
-      abilityId: @_randomAbility._id
-      index: parseInt(doc.lastIndex) + 1
-    ###
     actionId = Actions.insert
       gameId: @_game._gameId
       from: @_from._id
