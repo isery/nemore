@@ -1,4 +1,7 @@
 class @BaseUnitLogic
+    _operators:
+      '<': (a,b) ->  a < b
+      '>': (a,b) ->  a > b
   constructor: (unit, options)->
     @_game = options.game
     @_gameTeamId = options.gameTeamId
@@ -17,34 +20,33 @@ class @BaseUnitLogic
 
     @_conditions = new BaseCondition({game: @_game, gameTeamId: @_gameTeamId})
 
-  baseAttack: (ability, targets) ->
+  baseAttack: (ability, targets, term = false) ->
     damageFactor = parseFloat(ability.value)
 
     for target in targets
-      if Math.random() <= @_unitHitChance
+      if Math.random() <= @getHitChance()
         didHit = true
         didCrit = false
-        damageToTarget = damageFactor * @_unitBaseDamage * target.armor
-        if Math.random() <= @_unitCritChance
+        damageToTarget = damageFactor * @getBaseDamage() * @_game[target.gameTeamId].getArmor()
+        if Math.random() <= @getCritChance()
           didCrit = true
-          damageToTarget = damageToTarget * @_unitCritFactor
+          damageToTarget = damageToTarget * @getCritChance()
       else
         didHit = false
         didCrit = false
         damageToTarget = 0
 
-      target.damage = damageToTarget
+      if term
+        @_operators[term.operator](term.value, @_game[target.gameTeamId]._unitLife)
+
+
+      target.damage = Math.floor(damageToTarget)
       target.hit = didHit
       target.crit = didCrit
 
       @_game[target.gameTeamId].updateLife(damageToTarget)
 
       target.life = @_game[target.gameTeamId]._unitLife
-
-  baseDefense: (ability, targets) ->
-    buffFactor = ability.value
-    for target in targets
-      @_game[target.gameTeamId]._conditions.add(ability)
 
   baseBuffFunction: (ability, targets) ->
     buffFactor = ability.value
@@ -59,3 +61,49 @@ class @BaseUnitLogic
 
   generateRandomAbility: ->
     @_specialAbilities[Math.floor(Math.random() * @_specialAbilities.length)]
+
+  getBaseDamage: ->
+    dmg = @_unitBaseDamage
+    if @_conditions._conditions['dmg']
+      dmg += @_conditions._conditions['dmg'].value || 10
+
+    dmg
+
+  getCritChance: ->
+    crit = @_unitCritChance
+    if @_conditions._conditions['crit']
+      crit += @_conditions._conditions['crit'].value || 10
+
+    crit
+
+  getHitChance: ->
+    hit = @_unitBaseHitChance
+    if @_conditions._conditions['hit']
+      hit += @_conditions._conditions['hit'].value || 10
+
+    hit
+
+  getArmor: ->
+    armor = @_unitArmor
+    if @_conditions._conditions['armor']
+      armor += @_conditions._conditions['armor'].value || 10
+
+    armor
+
+  baseHeal: (ability, targets)->
+    for target in targets
+      target.hit = false
+      target.crit = false
+      target.heal = 0
+      if Math.random() <= @getHitChance()
+        target.hit = true
+        target.heal = @_unitBaseDamage
+        if Math.random() <= @getCritChance()
+          target.crit = true
+          target.heal *= @_unitCritFactor
+
+        target.heal *= parseFloat(ability.value)
+        target.heal *= -1
+
+      @_game[target.gameTeamId].updateLife(target.heal)
+      target.life = @_game[target.gameTeamId]._unitLife
