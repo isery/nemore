@@ -22,7 +22,7 @@ class @BaseUnitLogic
       '<': (a,b) -> a < b
       '>': (a,b) -> a > b
 
-  baseAttack: (ability, targets, termObj = false) ->
+  baseAttack: (ability, targets, termObj = {}) ->
     damageFactor = parseFloat(ability.value)
 
     for target in targets
@@ -38,8 +38,8 @@ class @BaseUnitLogic
         didCrit = false
         damageToTarget = 0
 
-      if termObj && @_operators[term.operator](term.value, @_game[target.gameTeamId]._unitLife)
-        damageToTarget * termObj.value
+      if Object.keys(termObj).length > 0 && @_operators[termObj.operator](termObj.value, @_game[target.gameTeamId]._unitLife)
+          damageToTarget * termObj.value
 
 
       target.damage = Math.floor(damageToTarget)
