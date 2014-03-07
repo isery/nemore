@@ -11,7 +11,7 @@ class @SniperLogic extends BaseUnitLogic
 
 	executeShot_sniper: (ability, targets) ->
 		termObj =
-			term: Terms.findOne({name: '< 50'})
+			operator: Terms.findOne({name: '< 50'}).operator
 			value: 0.8
 		@baseAttack(ability, targets, termObj)
 
