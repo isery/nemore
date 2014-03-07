@@ -45,11 +45,11 @@ if Meteor.isServer
 			SpecialAbilities.insert unitId: specialistId, name: "heal_specialist", value: 0.8, target_count: 1, cooldown: 5, states: ["pullweapon", "heal", "downweapon"]
 
 		if Terms.find().count() <= 0
-			Terms.insert name: 'always'
-			Terms.insert name: '< 100', operator: '<', value: 100
-			Terms.insert name: '< 75', operator: '<', value: 75
-			Terms.insert name: '< 50', operator: '<', value: 50
-			Terms.insert name: '< 25', operator: '<', value: 25
+			Terms.insert name: 'always', operator: '∞'
+			Terms.insert name: '< 100', operator: '<', value: 1
+			Terms.insert name: '< 75', operator: '<', value: 0.75
+			Terms.insert name: '< 50', operator: '<', value: 0.50
+			Terms.insert name: '< 25', operator: '<', value: 0.25
 
 
 
