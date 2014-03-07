@@ -11,7 +11,6 @@ Template.crewSelection.events
     Router.go 'summary'
 
   'click .btn-8g': (e)->
-    console.log "hi"
     $(e.currentTarget).addClass 'btn-success3d'
     #setTimeout (->
     #  $(e.currentTarget).removeClass 'btn-success3d'
