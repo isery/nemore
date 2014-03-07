@@ -10,7 +10,8 @@ class @SniperLogic extends BaseUnitLogic
 		@baseAttack(ability, targets)
 
 	executeShot_sniper: (ability, targets) ->
-		@baseAttack(ability, targets)
+		term = Terms.findOne({name: '< 50'})
+		@baseAttack(ability, targets, term)
 
 	critBuff_sniper: (ability, targets) ->
 		@baseBuffFunction(ability, targets)

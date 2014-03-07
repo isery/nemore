@@ -13,4 +13,4 @@ class @SpecialistLogic extends BaseUnitLogic
     @baseAttack(ability, targets)
 
   heal_specialist: (ability, targets) ->
-    @baseAttack(ability, targets)
+    @baseHeal(ability, targets)
