@@ -35,9 +35,9 @@ class @BaseGame
     @game.load.atlasJSONHash("attack_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
 
     @game.load.atlasJSONHash("attack_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("hotBuff_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("hitBuff_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("attack_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("heal_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("burstShot_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("burnAll_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
 
     @game.load.image "buff", "/sprites/buff.png"
 

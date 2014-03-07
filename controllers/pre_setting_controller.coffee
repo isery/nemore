@@ -11,8 +11,6 @@ class @PreSettingController extends RouteController
         unless gamePlayers[0].userId is userId
           currentGame.setPlayer2(userId)
           newTeam = new GameTeam({gameId: currentGame._id}).init()
-      if currentGame.state == "ready"
-        Router.go 'games', _id: _id
 
   waitOn: ->
     Meteor.subscribe 'currentGame', @params._id
@@ -26,3 +24,4 @@ class @PreSettingController extends RouteController
     gamePlayers: GamePlayer.find({userId: Meteor.userId()})
     currentGame: Game.findById(@params._id),
     gameTeams: GameTeam.find({userId: Meteor.userId()})
+
