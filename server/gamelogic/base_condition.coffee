@@ -8,11 +8,13 @@ class @BaseCondition
     condition = Conditions.findOne({_id: ability.conditionId})
     if @_conditions[condition.name]
       @_conditions[condition.name].leftDuration = ability.duration
+      @_conditions[condition.name].value = ability.value
     else
       @_conditions[condition.name] =
         conditionId: condition._id
         leftDuration: ability.duration
         gameTeamId: @_gameTeamId
+        value: ability.value
 
       @_conditions[condition.name]._id = @save(@_conditions[condition.name])
 

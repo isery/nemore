@@ -4,10 +4,10 @@ class @CommanderLogic extends BaseUnitLogic
 		super(@_unit, options)
 
 	heal_commander: (ability, targets) ->
-		@baseAttack(ability, targets)
+		@baseHeal(ability, targets)
 
 	hotBuff_commander: (ability, targets) ->
-		@baseDefense(ability, targets)
+		@baseBuffFunction(ability, targets)
 
 	hitBuff_commander: (ability, targets) ->
 		@baseBuffFunction(ability,targets)

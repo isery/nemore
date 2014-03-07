@@ -32,7 +32,7 @@ if Meteor.isServer
 			SpecialAbilities.insert unitId: sniperId, name: "executeShot_sniper", value: 2.0, target_count: 1, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unitId: sniperId, name: "critBuff_sniper", value: 1.0, target_count: 1, duration: -1, cooldown: 5, conditionId: critId, states: ["pullweapon", "buff", "downweapon"]
 
-			SpecialAbilities.insert unitId: commanderId, name: "heal_commander", value: 75, target_count: 1, cooldown: 0, states: ["pullweapon", "heal", "downweapon"]
+			SpecialAbilities.insert unitId: commanderId, name: "heal_commander", value: 0.65, target_count: 1, cooldown: 0, states: ["pullweapon", "heal", "downweapon"]
 			SpecialAbilities.insert unitId: commanderId, name: "hotBuff_commander", value: 50, target_count: 3, duration: 2, cooldown: 11, conditionId: hotId, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unitId: commanderId, name: "hitBuff_commander", value: 1, target_count: 2, duration: -1, cooldown: 9, conditionId: hitId, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unitId: commanderId, name: "attack_commander", value: 1, target_count: 1, cooldown: 2,  states: ["pullweapon", "shoot", "downweapon"]
@@ -42,10 +42,14 @@ if Meteor.isServer
 			SpecialAbilities.insert unitId: specialistId, name: "burnAll_specialist", value: 20, target_count: 5, duration:2, cooldown: 11, conditionId: dotId, states: ["pullweapon", "buff", "downweapon"]
 			#burstShot wird über Sprite geregelt; am Server nur 1 Target - 180% dmg
 			SpecialAbilities.insert unitId: specialistId, name: "burstShot_specialist", value: 1.8, target_count: 1, cooldown:6,  states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: specialistId, name: "heal_specialist", value: 100, target_count: 1, cooldown: 5, states: ["pullweapon", "heal", "downweapon"]
+			SpecialAbilities.insert unitId: specialistId, name: "heal_specialist", value: 0.8, target_count: 1, cooldown: 5, states: ["pullweapon", "heal", "downweapon"]
 
 		if Terms.find().count() <= 0
 			Terms.insert name: 'always'
+			Terms.insert name: '< 100', operator: '<', value: 100
+			Terms.insert name: '< 75', operator: '<', value: 75
+			Terms.insert name: '< 50', operator: '<', value: 50
+			Terms.insert name: '< 25', operator: '<', value: 25
 
 
 
