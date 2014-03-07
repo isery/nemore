@@ -122,7 +122,9 @@ class @BaseAbility
       font: "28px Arial bold"
       align: "center"
 
-    if value > 0
+    if !target.hit
+      style.fill = "#F28816"
+    else if value > 0
       style.fill = "#ff0044"
     else
       style.fill = "#1CE81F"
