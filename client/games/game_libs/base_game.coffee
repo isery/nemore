@@ -1,5 +1,8 @@
 class @BaseGame
+  @_instance: undefined
+
   constructor: (data) ->
+    BaseGame._instance = @
     @_id = data.game._id
     @playerOne =
       hero: data.heroOne
@@ -14,6 +17,7 @@ class @BaseGame
       preload: @preload.bind(@)
       create: @create.bind(@)
     )
+
 
   preload: ->
     @preloadTeam(@playerOne)
@@ -104,7 +108,3 @@ class @BaseGame
     @[player.hero._id].initLife(xPos + heroXPos, 200, player.hero.life)
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
     @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne
-
-
-
-

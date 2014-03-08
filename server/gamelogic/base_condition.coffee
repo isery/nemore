@@ -18,7 +18,10 @@ class @BaseCondition
 
       @_conditions[condition.name]._id = @save(@_conditions[condition.name])
 
-#TOOO add remove
+  remove: (conditionName) ->
+    conditionId = Conditions.findOne({name: conditionName})._id
+    GameTeamConditions.remove({gameTeamId: @_gameTeamId, conditionId: conditionId})
+    delete @_conditions[conditionName]
 
   save: (options) ->
     GameTeamConditions.insert(options)

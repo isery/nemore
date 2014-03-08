@@ -116,8 +116,6 @@ class @BaseAbility
       , {target: target, scope: @}
 
   displayText: (target, value) ->
-    text = if target.hit then value else "Miss!"
-    text += " " + "Crit!" if target.crit
     style =
       font: "28px Arial bold"
       align: "center"
@@ -129,6 +127,10 @@ class @BaseAbility
     else
       style.fill = "#1CE81F"
 
+    value = Math.abs(value)
+
+    text = if target.hit then value else "Miss!"
+    text += " " + "Crit!" if target.crit
 
     t = @_game.add.text(target.gameTeam._unit.center.x + 30,  target.gameTeam._unit.center.y, text, style);
 
