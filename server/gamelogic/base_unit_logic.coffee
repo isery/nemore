@@ -58,12 +58,13 @@ class @BaseUnitLogic
         target.crit = true
         target.heal *= @_unitCritFactor
 
-      target.heal *= Math.round(parseFloat(ability.value))
+      target.heal *= ability.value
 
       if (@_game[target.gameTeamId]._unitLife + target.heal) > @_game[target.gameTeamId]._unitMaxLife
         target.heal = @_game[target.gameTeamId]._unitMaxLife - @_game[target.gameTeamId]._unitLife
 
       target.heal *= -1
+      target.heal = Math.round(target.heal)
 
       @_game[target.gameTeamId].updateLife(target.heal)
       target.life = @_game[target.gameTeamId]._unitLife
@@ -96,6 +97,7 @@ class @BaseUnitLogic
       console.log "CRIT BUFF"
       console.log @_conditions._conditions['crit'].value
       crit += @_conditions._conditions['crit'].value || 10
+      @_conditions.remove 'crit'
     crit
 
   getHitChance: ->
