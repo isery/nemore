@@ -1,4 +1,3 @@
-
 if Meteor.isServer
 	Meteor.startup ->
 		if Units.find().count() <= 0
