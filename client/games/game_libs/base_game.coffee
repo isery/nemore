@@ -53,7 +53,6 @@ class @BaseGame
     @game.load.image "dmg", "/sprites/poison.png"
 
     @game.load.image "ball", "/sprites/aqua_ball.png"
-    @game.load.spritesheet "mummy", "/sprites/metalslug_monster39x40.png", 39, 40,10
     @game.load.image "healthbar", "/sprites/healthbar.png"
     @game.load.spritesheet "explode", "/sprites/explode1.png", 128, 128, 16
 

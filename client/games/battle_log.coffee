@@ -1,7 +1,5 @@
 Template.battlelog.getActions = ->
-  tmp = Actions.find({},{sort:{index: -1}}).fetch()
-  console.log tmp
-  tmp
+  Actions.find({},{sort:{index: -1}}).fetch()
 
 Template.battlelog.getFrom = ->
   BaseGame._instance[@from]?._name

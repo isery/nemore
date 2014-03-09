@@ -1,36 +1,76 @@
-{"frames": [
-
 {
-	"filename": "a.png",
-	"frame": {"x":149,"y":2,"w":64,"h":97},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":97},
-	"sourceSize": {"w":64,"h":97}
-},
-{
-	"filename": "b.png",
-	"frame": {"x":80,"y":2,"w":67,"h":97},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":97},
-	"sourceSize": {"w":67,"h":97}
-},
-{
-	"filename": "c.png",
-	"frame": {"x":2,"y":2,"w":76,"h":97},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":76,"h":97},
-	"sourceSize": {"w":76,"h":97}
-}],
-"meta": {
-	"app": "http://www.codeandweb.com/texturepacker ",
-	"version": "1.0",
-	"image": "temp.png",
-	"format": "RGBA8888",
-	"size": {"w":256,"h":128},
-	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:66499ebf212ce8d910fcf2413a1e51da:6aee784ef46fefc7dc37e429f7175280:35ee65944e037358c584c8be44992c8c$"
-}
+  "frames": [
+    {
+      "filename": "a.png",
+      "frame": {
+        "x": 78,
+        "y": 0,
+        "w": 81,
+        "h": 100
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 81,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 81,
+        "h": 100
+      }
+    },
+    {
+      "filename": "b.png",
+      "frame": {
+        "x": 0,
+        "y": 101,
+        "w": 86,
+        "h": 100
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 86,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 86,
+        "h": 100
+      }
+    },
+    {
+      "filename": "c.png",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 77,
+        "h": 100
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 77,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 77,
+        "h": 100
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://www.leshylabs.com/apps/sstool/",
+    "version": "Leshy SpriteSheet Tool v0.8",
+    "size": {
+      "w": 159,
+      "h": 201
+    },
+    "scale": 1
+  }
 }
