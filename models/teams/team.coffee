@@ -2,6 +2,7 @@ Teams = new Meteor.Collection 'teams'
 
 class @Team
   _maxCount: 10
+  _priorityIndex = 100
   constructor: (options) ->
     @validate options
     for key, value of options
@@ -31,7 +32,8 @@ class @Team
   save: ->
     @validateSave()
     @_id = Team.findOne({userId: @userId, hero: true})?._id
-    priority = Team.find({userId: @userId}).length
+    _priorityIndex += 100
+    priority = _priorityIndex
     if @hero && @_id
       Teams.update
         _id: @_id
@@ -40,7 +42,7 @@ class @Team
           userId: @userId
           unitId: @unitId
           hero: @hero
-          priority: @priority
+          priority: priority
     else
       @_id = Teams.insert
         userId: @userId

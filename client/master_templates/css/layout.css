@@ -8,7 +8,7 @@
 }
 
 html, body{
-	height: 100%;
+	/*height: 100%;*/
 }
 body {
 	background: #706744;
@@ -17,14 +17,29 @@ body {
 }
 
 body .container{
-	height:100%; 
+	/*height:100%;
 	width:100%;
 	padding-left: 0;
-	padding-right: 0;
+	padding-right: 0;*/
 }
 
 body .container .outerContainer{
-	position: absolute;
+	/*position: absolute;
 	height: inherit;
-	width: inherit;
+	width: inherit;*/
+}
+
+/* hotfix für crewselection */
+
+body .georgcontainer {
+  height:100%;
+  width:100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body .georgcontainer .outerContainer {
+  position: absolute;
+  height: inherit;
+  width: inherit;
 }

@@ -2,3 +2,11 @@
   position: absolute;
   left: 100px;
 }
+
+.item {
+  cursor: pointer;
+}
+
+.left {
+  margin-left:600px;
+}

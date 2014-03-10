@@ -1,17 +1,34 @@
 <template name="preSetting">
-  <div> preSetting adf</div>
-  <br><br>
   {{#each gameTeams}}
-
-    <label>Unit_Name: {{unit.name}}</label> <br>
-    {{#each team.abilityPriorities}}
-      <label>Ability_Name: {{ability.name}}</label> <br>
-      {{#each targetPriority}}
-        <label>{{priority}}. Unit_Name: {{unit.name}}</label> <br>
-      {{/each}}
-      <label>Condition: {{abilityCondition.condition.name}}</label> <br>
-    {{/each}}
-    <br>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Unit: {{unit.name}}</div>
+        <div class="panel-body">
+          {{#each team.abilityPriorities}}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="panel panel-default dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <div class="panel-heading">Ability: {{ability.name}}</div></a>
+                    <div class="panel-body dropdown-menu left">
+                      <ul class="list-group list" role="menu">
+                        {{#each targetPriority}}
+                          <li class="list-group-item item" data-id={{_id}} data-prio={{priority}}>{{priority}} -> {{unit.name}}</li>
+                        {{/each}}
+                      </ul>
+                      <label>Condition: {{abilityCondition.condition.name}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
   {{/each}}
-  <input class="rdy-button-workaround" type="button" id="ready" value="Ready">
+  <div class="row">
+    <input class="rdy-button-workaround" type="button" id="ready" value="Ready">
+  </div>
 </template>

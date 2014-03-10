@@ -11,6 +11,8 @@ class @AbilityPriority
   init: ->
     abilities = @team.unit().specialAbilities()
     @_teamId = @team._id
+    console.log "here"
+    console.log abilities
     for ability, index in abilities
       @_abilityId = ability._id
       @_priority = index
