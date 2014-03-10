@@ -64,7 +64,7 @@ class @BaseAbility
       ability.animations.play("shooting_" + index, 20, true)
       tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
-        this.scope.displayText(this.target)
+        this.scope.displayText(this.target, this.target.damage.toString())
         if this.target.hit
           this.scope.hit(this.target)
           this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
@@ -105,7 +105,7 @@ class @BaseAbility
       ability.animations.play("shooting_" + index, 20, true)
       tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
-        this.scope.displayText(this.target)
+        this.scope.displayText(this.target, this.target.heal.toString())
         if this.target.hit
           this.scope.hit(this.target)
           this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
@@ -115,17 +115,26 @@ class @BaseAbility
         tween.kill()
       , {target: target, scope: @}
 
-  displayText: (target) ->
-    text = if target.hit then target.damage.toString() else "Miss!"
-    text += " " + "Crit!" if target.crit
+  displayText: (target, value) ->
     style =
       font: "28px Arial bold"
-      fill: "#ff0044"
       align: "center"
 
-    t = @_game.add.text(target.gameTeam._unit.center.x - 15,  target.gameTeam._unit.center.y, text, style);
+    if !target.hit
+      style.fill = "#F28816"
+    else if value > 0
+      style.fill = "#ff0044"
+    else
+      style.fill = "#1CE81F"
 
-    tween = @_game.add.tween(t).to({x: target.gameTeam._unit.center.x - 15, y: target.gameTeam._unit.center.y - 75}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+    value = Math.abs(value)
+
+    text = if target.hit then value else "Miss!"
+    text += " " + "Crit!" if target.crit
+
+    t = @_game.add.text(target.gameTeam._unit.center.x + 30,  target.gameTeam._unit.center.y, text, style);
+
+    tween = @_game.add.tween(t).to({x: target.gameTeam._unit.center.x + 30, y: target.gameTeam._unit.center.y - 75}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
     tween.onComplete.add (tween) ->
       setTimeout ->
         tween.text = ""

@@ -37,7 +37,6 @@ class @BaseCondition
     gameTeam = GameTeam.find({userId: userId, gameId: _baseGame._id})
     for member in gameTeam
       gameTeamConditions = member.conditions()._gameTeamConditions
-
       for k, v of _baseGame[member._id]._conditions._conditions
         _baseGame[member._id]._conditions._conditions[k].destroy()
         delete _baseGame[member._id]._conditions._conditions[k]
@@ -45,5 +44,3 @@ class @BaseCondition
       for gameTeamCondition in gameTeamConditions
         condition = gameTeamCondition.condition
         _baseGame[member._id]._conditions.add(condition.name)
-
-

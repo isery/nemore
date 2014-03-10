@@ -24,7 +24,7 @@ class @AbilityPriority
       new TargetPriority({abilityPriority: @}).init()
       new AbilityTerm({abilityPriority: @}).init()
 
-  ability: ->
+  specialAbility: ->
     SpecialAbilities.findOne({_id: @abilityId})
 
   targetPriority: ->

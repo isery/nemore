@@ -6,7 +6,6 @@ class @Unit
       @[key] = value
 
   specialAbilities: ->
-
     abilities = SpecialAbilities.find({unitId: @_id}).fetch()
 
   # For Meteor publish

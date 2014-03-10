@@ -78,7 +78,7 @@ class @Team
         tmp =
           abilityPriority: abilityPriority
           targetPriorities: TargetPriorities.find({abilityPriorityId: abilityPriority._id}).fetch()
-          abilityCondition: AbilityConditions.find({abilityPriorityId: abilityPriority._id}).fetch()
+          abilityTerm: AbilityTerms.find({abilityPriorityId: abilityPriority._id}).fetch()
       tmp =
         team: member
         abilityPriority: abilityPriority

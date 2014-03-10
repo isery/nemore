@@ -8,15 +8,20 @@ class @BaseCondition
     condition = Conditions.findOne({_id: ability.conditionId})
     if @_conditions[condition.name]
       @_conditions[condition.name].leftDuration = ability.duration
+      @_conditions[condition.name].value = ability.value
     else
       @_conditions[condition.name] =
         conditionId: condition._id
         leftDuration: ability.duration
         gameTeamId: @_gameTeamId
+        value: ability.value
 
       @_conditions[condition.name]._id = @save(@_conditions[condition.name])
 
-#TOOO add remove
+  remove: (conditionName) ->
+    conditionId = Conditions.findOne({name: conditionName})._id
+    GameTeamConditions.remove({gameTeamId: @_gameTeamId, conditionId: conditionId})
+    delete @_conditions[conditionName]
 
   save: (options) ->
     GameTeamConditions.insert(options)
@@ -27,7 +32,8 @@ class @BaseCondition
     for gameTeam in gameTeams
       gameTeamConditions = gameTeam.conditions()._gameTeamConditions
       for gameTeamCondition in gameTeamConditions
-        leftDuration = game[gameTeam._id]._conditions._conditions[gameTeamCondition.condition.name].leftDuration -= 1
+        leftDuration = gameTeamCondition.leftDuration - 1
+        game[gameTeam._id]._conditions._conditions[gameTeamCondition.condition.name].leftDuration -= 1
         if leftDuration == 0
           delete game[gameTeam._id]._conditions._conditions[gameTeamCondition.condition.name]
           GameTeamConditions.remove({_id: gameTeamCondition._id})
