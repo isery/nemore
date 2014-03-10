@@ -1,12 +1,11 @@
-.rdy-button-workaround{
-  position: absolute;
-  left: 100px;
-}
-
 .item {
   cursor: pointer;
 }
 
 .left {
-  margin-left:600px;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
 }

@@ -1,34 +1,36 @@
 <template name="preSetting">
-  {{#each gameTeams}}
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">Unit: {{unit.name}}</div>
-        <div class="panel-body">
-          {{#each team.abilityPriorities}}
-            <div class="row">
-              <div class="col-md-6">
-                <div class="panel panel-default dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <div class="panel-heading">Ability: {{ability.name}}</div></a>
-                    <div class="panel-body dropdown-menu left">
-                      <ul class="list-group list" role="menu">
-                        {{#each targetPriority}}
-                          <li class="list-group-item item" data-id={{_id}} data-prio={{priority}}>{{priority}} -> {{unit.name}}</li>
-                        {{/each}}
-                      </ul>
-                      <label>Condition: {{abilityCondition.condition.name}}</label>
-                    </div>
+      <ul class="list-group list" role="menu">
+      {{#each gameTeams}}
+        <li class="list-group-item dropdown item" data-id={{_id}} data-prio={{priority}} data-model="GameTeam">
+          <div class="row">
+            <div class="col-md-6">
+            Unit: {{unit.name}} : {{priority}}
+              <ul class="list-group list" role="menu">
+              {{#each team.abilityPriorities}}
+                  <li class="list-group-item dropdown item open-sub dropdown-toggle" data-id={{_id}} data-prio={{priority}} data-model="AbilityPriority" data-toggle="dropdown" >
+                  ability: {{specialAbility.name}} : {{priority}}
+                  <a href="#" class="" ><span class="caret"></span></a>
+                  <div class="panel-body dropdown-menu left">
+                    <ul class="list-group list " role="menu">
+                    {{#each targetPriority}}
+                      <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{unit.name}}</li>
+                    {{/each}}
+                    </ul>
                   </div>
-                </div>
-              </div>
+                </li>
+                {{/each}}
+              </ul>
+              <label>Condition: {{abilityCondition.condition.name}}</label>
             </div>
-          {{/each}}
-        </div>
-      </div>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
     </div>
-  {{/each}}
+  </div>
   <div class="row">
-    <input class="rdy-button-workaround" type="button" id="ready" value="Ready">
+    <input class="btnReady" type="button" id="ready" value="Ready">
   </div>
 </template>

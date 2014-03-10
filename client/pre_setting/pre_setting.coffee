@@ -12,6 +12,12 @@ Template.preSetting.events
     gameTeamId = $(e.target).parent().data('id')
     GameTeam.update(gameTeamId, {specialAbilityId: specialAbilityId})
 
+  'click .open-sub': (e) ->
+    $('li.dropdown').removeClass('open')
+    specialAbilityId = $(e.target).data('id')
+    Session.set "open-sub", specialAbilityId
+    $(e.target).addClass("open")
+
 Template.preSetting.created = ->
   Deps.autorun (deps) ->
     game = Games.findOne
@@ -24,6 +30,7 @@ Template.preSetting.created = ->
       deps.stop()
 
 Template.preSetting.rendered = ->
+  $('li[data-id='+Session.get("open-sub")+']').addClass("open")
   $('.list').sortable(
     stop: (event,ui) ->
       el = ui.item.get(0)
@@ -37,21 +44,15 @@ Template.preSetting.rendered = ->
       else
         newRank = SimpleRationalRanks.between before.getAttribute("data-prio"), after.getAttribute("data-prio")
 
-      console.log newRank
-
-      el.setAttribute("data-prio",newRank);
+      model =  el.getAttribute("data-model")
+      modelId = el.getAttribute("data-id")
+      window[model].update(modelId, {priority : newRank})
   )
 
 SimpleRationalRanks =
   beforeFirst: (firstRank) ->
-    console.log "beforeFirst"
-    console.log parseInt(firstRank)-1
-    return parseInt(firstRank)-1
+    return parseFloat(firstRank)-1
   between: (beforeRank, afterRank) ->
-    console.log "between"
-    console.log ( parseInt(beforeRank) + parseInt(afterRank) ) / 2
-    return ( parseInt(beforeRank) + parseInt(afterRank) ) / 2
+    return ( parseFloat(beforeRank) + parseFloat(afterRank) ) / 2
   afterLast: (lastRank) ->
-    console.log "lastrank"
-    console.log parseInt(lastRank)+1
-    return parseInt(lastRank)+1
+    return parseFloat(lastRank)+1

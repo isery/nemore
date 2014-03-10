@@ -48,8 +48,8 @@ class @GameTeam
   @all = (gameId) ->
     GameTeams.find({gameId: gameId})
 
-  @find = (options = {})->
-    teams = GameTeams.find(options).fetch()
+  @find = (options = {}, otherOptions = {})->
+    teams = GameTeams.find(options, otherOptions).fetch()
     new GameTeam(team) for team in teams
 
   @findOne = (options = {})->

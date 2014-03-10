@@ -4,22 +4,22 @@
 @Terms = new Meteor.Collection 'terms'
 
 class @AbilityPriority
+  _priorityIndex = 100
   constructor: (options) ->
     for key, value of options
       @[key] = value
 
   init: ->
     abilities = @team.unit().specialAbilities()
+    _priorityIndex += 100
     @_teamId = @team._id
-    console.log "here"
-    console.log abilities
     for ability, index in abilities
       @_abilityId = ability._id
-      @_priority = index
+      @_priority = _priorityIndex
       @_id = AbilityPriorities.insert
         abilityId: ability._id
         teamId: @team._id
-        priority: index
+        priority: _priorityIndex + index
 
       new TargetPriority({abilityPriority: @}).init()
       new AbilityTerm({abilityPriority: @}).init()
@@ -28,34 +28,50 @@ class @AbilityPriority
     SpecialAbilities.findOne({_id: @abilityId})
 
   targetPriority: ->
-    TargetPriority.find({abilityPriorityId: @_id})
+    TargetPriority.find({abilityPriorityId: @_id}, {sort: {priority: 1}})
 
   abilityTerm: ->
     AbilityTerm.findOne({abilityPriorityId: @_id})
 
-  @find = (options = {})->
-    abilityPriorities = AbilityPriorities.find(options).fetch()
+  @find = (options = {}, otherOptions = {})->
+    abilityPriorities = AbilityPriorities.find(options, otherOptions).fetch()
     new AbilityPriority(abilityPriority) for abilityPriority in abilityPriorities
 
+  @update = (_id, options) ->
+    AbilityPriorities.update
+      _id: _id
+    ,
+      $set:
+        options
+
 class @TargetPriority
+  _priorityIndex = 100
   constructor: (options) ->
     for key, value of options
       @[key] = value
 
   init: ->
     units = Unit.find()
+    _priorityIndex += 100
     for unit, index in units
       @_id = TargetPriorities.insert
         abilityPriorityId: @abilityPriority._id
         unitId: unit._id
-        priority: index
+        priority: _priorityIndex + index
 
   unit: ->
     Unit.findOne({_id: @unitId})
 
-  @find = (options = {})->
-    targetPriorities = TargetPriorities.find(options).fetch()
+  @find = (options = {}, otherOptions = {})->
+    targetPriorities = TargetPriorities.find(options, otherOptions).fetch()
     new TargetPriority(targetPriority) for targetPriority in targetPriorities
+
+  @update = (_id, options) ->
+    TargetPriorities.update
+      _id: _id
+    ,
+      $set:
+        options
 
 class @AbilityTerm
   constructor: (options) ->

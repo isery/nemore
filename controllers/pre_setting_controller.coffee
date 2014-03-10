@@ -23,5 +23,5 @@ class @PreSettingController extends RouteController
   data: ->
     gamePlayers: GamePlayer.find({userId: Meteor.userId()})
     currentGame: Game.findById(@params._id),
-    gameTeams: GameTeam.find({userId: Meteor.userId()})
+    gameTeams: GameTeam.find({userId: Meteor.userId()}, {sort: {priority: 1}})
 

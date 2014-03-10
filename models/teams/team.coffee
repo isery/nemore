@@ -27,7 +27,7 @@ class @Team
     SpecialAbilities.find({unitId: @unitId}).fetch()
 
   abilityPriorities: ->
-    AbilityPriority.find({teamId: @_id})
+    AbilityPriority.find({teamId: @_id}, {sort: {priority: 1}})
 
   save: ->
     @validateSave()
