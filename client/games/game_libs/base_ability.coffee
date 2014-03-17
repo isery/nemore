@@ -62,7 +62,7 @@ class @BaseAbility
       ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
       ability.animations.add("shooting_" + index)
       ability.animations.play("shooting_" + index, 20, true)
-      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 400, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
         this.scope.displayText(this.target, this.target.damage.toString())
         if this.target.hit
@@ -77,7 +77,7 @@ class @BaseAbility
   hit: (target)->
     explode = @_game.add.sprite(target.gameTeam.getCoordinates().x - 35, target.gameTeam.getCoordinates().y - 20, "explode")
     explode.animations.add "exploding"
-    explode.animations.play "exploding", 10, false
+    explode.animations.play "exploding", 20, false
     explode.events.onAnimationComplete.add (explode)->
       @_doneParts++
       explode.kill()
