@@ -86,16 +86,12 @@ class @BaseUnitLogic
   getBaseDamage: ->
     dmg = @_unitBaseDamage
     if @_conditions._conditions['dmg']
-      console.log "DMG BUFF"
-      console.log @_conditions._conditions['dmg'].value
       dmg += @_conditions._conditions['dmg'].value || 10
     dmg
 
   getCritChance: ->
     crit = @_unitCritChance
     if @_conditions._conditions['crit']
-      console.log "CRIT BUFF"
-      console.log @_conditions._conditions['crit'].value
       crit += @_conditions._conditions['crit'].value || 10
       @_conditions.remove 'crit'
     crit
@@ -103,16 +99,12 @@ class @BaseUnitLogic
   getHitChance: ->
     hit = @_unitHitChance
     if @_conditions._conditions['hit']
-      console.log "HIT BUFF"
-      console.log @_conditions._conditions['hit'].value
       hit += @_conditions._conditions['hit'].value || 10
     hit
 
   getArmor: ->
     armor = @_unitArmor
     if @_conditions._conditions['armor']
-      console.log "ARMOR BUFF"
-      console.log @_conditions._conditions['armor'].value
       armor += @_conditions._conditions['armor'].value || 10
     armor
 
