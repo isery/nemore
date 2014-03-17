@@ -1,6 +1,6 @@
 .outerContainer .containerLeft{
-	width: 60%; 
-	height: inherit; 
+	width: 60%;
+	height: inherit;
 	float: left;
 	background-color: #706744;
 }
@@ -77,8 +77,8 @@
 
 
 .outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table{
-	width: 50%; 
-	height: 100%; 
+	width: 50%;
+	height: 100%;
 	float: left;
 	margin-bottom: 0;
 }
@@ -127,6 +127,9 @@
 	color: lightgoldenrodyellow;
 	overflow: hidden;
 
+
+	/* WORKAROUND MENU */
+	margin-bottom: 50px;
 }
 
 .btnReady:focus{
