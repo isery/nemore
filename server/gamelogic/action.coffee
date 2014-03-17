@@ -60,8 +60,8 @@ class @Action
     _numberOfTargets = @_ability.target_count
     _typeOfTarget = @_ability.target_type
     _currentAbilityPriority = AbilityPriorities.findOne({abilityId: @_ability._id, teamId: @_from.teamId}).priority
-    @_targets = []
     _targetCounter = 0
+    @_targets = []
 
     switch _typeOfTarget
       when "team"
@@ -95,26 +95,26 @@ class @Action
             for _otherTeamUnit in _gameTeam
               #Prioritylist3(Targets)
               if _otherTeamUnit.unitId is _targetPriority.unitId
-                  switch _termOperator
-                    when "<"
-                      #Prioritylist4(Abilityterms)
-                      if @_operators[_termOperator](@_game[_otherTeamUnit._id]._unitLife, @_game[_otherTeamUnit._id]._unitMaxLife * _term.value) and i < _numberOfTargets
-                        @_targets.push({
-                          gameTeamId: _otherTeamUnit._id
-                          armor: _otherTeamUnit.unit().armor
-                        })
-                      else
-                        @getAbility(doc, _currentAbilityPriority + 1)
-                        @to(doc)
-                    when "∞"
-                      if _targetCounter < _numberOfTargets and @_game[_otherTeamUnit._id]._unitLife > 0
-                        @_targets.push({
-                          gameTeamId: _otherTeamUnit._id
-                          armor: _otherTeamUnit.unit().armor
-                        })
-                        _targetCounter++
+                switch _termOperator
+                  when "<"
+                    #Prioritylist4(Abilityterms)
+                    if @_operators[_termOperator](@_game[_otherTeamUnit._id]._unitLife, @_game[_otherTeamUnit._id]._unitMaxLife * _term.value) and i < _numberOfTargets
+                      @_targets.push({
+                        gameTeamId: _otherTeamUnit._id
+                        armor: _otherTeamUnit.unit().armor
+                      })
                     else
-                      console.log "THIS SHOULD NEVER EVER HAPPEN"
+                      @getAbility(doc, _currentAbilityPriority + 1)
+                      @to(doc)
+                  when "∞"
+                    if _targetCounter < _numberOfTargets and @_game[_otherTeamUnit._id]._unitLife > 0
+                      @_targets.push({
+                        gameTeamId: _otherTeamUnit._id
+                        armor: _otherTeamUnit.unit().armor
+                      })
+                      _targetCounter++
+                  else
+                    console.log "THIS SHOULD NEVER EVER HAPPEN"
 
 
     @_targets
