@@ -6,8 +6,8 @@ class @CommanderLogic extends BaseUnitLogic
 	heal_commander: (ability, targets) ->
 		@baseHeal(ability, targets)
 
-	hotBuff_commander: (ability, targets) ->
-		@baseBuffFunction(ability, targets)
+	trueDamage_commander: (ability, targets) ->
+		@baseAttack(ability, targets)
 
 	hitBuff_commander: (ability, targets) ->
 		@baseBuffFunction(ability,targets)

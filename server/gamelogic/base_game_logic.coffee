@@ -1,10 +1,10 @@
 class @BaseGameLogic
-  constructor: (data) ->
-    @_gameId = data
-
+  constructor: (gameId, reInitializeFlag) ->
+    @_gameId = gameId
     @_playerFlag = false
 
     @initGameTeam()
+    @reInitializeBaseGame() if reInitializeFlag
     @initGame()
 
   initGame: ->
@@ -32,3 +32,14 @@ class @BaseGameLogic
     for member in @_gameTeams
       name = member.unit().name + "Logic"
       @[member._id] = new global[name]({game: @, gameTeamId: member._id})
+
+  reInitializeBaseGame:() ->
+    BaseCondition.reInitializeConditions(@)
+
+    _lastAction = Actions.find({gameId: @_gameId}, {sort: {index:-1},limit:1}).fetch()[0]
+    _userId = GameTeam.findOne({_id: _lastAction.from}).userId
+    _playerNumber = parseInt(GamePlayers.findOne({gameId: this._gameId, userId: _userId}).player)
+
+    @_playerFlag = if playerNumber is 1 then true else false
+
+
