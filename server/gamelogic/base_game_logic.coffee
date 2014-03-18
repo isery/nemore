@@ -17,8 +17,10 @@ class @BaseGameLogic
         players = GamePlayers.find({gameId: doc.gameId, state: 'waiting', lastIndex: lastAction}).fetch()
         actions = Actions.find({gameId: doc.gameId, index: {$gt: doc.lastIndex}}).fetch()
 
+        deadHero = @check_end()
+        isEnd = Object.keys(deadHero).length > 0
 
-        unless actions && players.length < 2
+        unless actions && players.length < 2 || isEnd
           @_lastPriority = {}
           @_lastPriority[players[0]._id] = undefined
           @_lastPriority[players[1]._id] = undefined
@@ -32,3 +34,9 @@ class @BaseGameLogic
     for member in @_gameTeams
       name = member.unit().name + "Logic"
       @[member._id] = new global[name]({game: @, gameTeamId: member._id})
+
+  check_end: ->
+    GameTeam.findOne({gameId: @_gameId, hero: true, life: {$lte: 0}})
+
+  end: ->
+    Game.findOne({_id: @_gameId}).end()

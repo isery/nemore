@@ -32,7 +32,7 @@ class @BaseUnitLogic
         damageToTarget = damageFactor * @getBaseDamage() * @_game[target.gameTeamId].getArmor()
         if Math.random() <= @getCritChance()
           didCrit = true
-          damageToTarget = damageToTarget * @getCritChance()
+          damageToTarget = damageToTarget * @_unitCritFactor
       else
         didHit = false
         didCrit = false
@@ -76,8 +76,10 @@ class @BaseUnitLogic
 
   updateLife: (damage) ->
     @_unitLife -= damage
-    if @_unitLife < 0
+    if @_unitLife <= 0
       @_unitLife = 0
+      @_game.end() if GameTeam.findOne({_id: @_gameTeamId}).hero
+
     GameTeam.update(@_gameTeamId, {life: @_unitLife})
 
   generateRandomAbility: ->

@@ -39,12 +39,19 @@ class @Game
       lastIndex: 0
 
   setReady: ->
-    console.log "about to setReady"
     Games.update
       _id: @_id
     ,
       $set:
         state: "ready"
+
+  end: ->
+    Games.update
+      _id: @_id
+    ,
+      $set:
+        state: "finished"
+
   @all = ->
     games = Games.find({})
 
