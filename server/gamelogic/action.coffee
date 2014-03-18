@@ -117,6 +117,7 @@ class @Action
                     console.log "THIS SHOULD NEVER EVER HAPPEN"
 
 
+
     @_targets
 
   calculateAbility: () ->

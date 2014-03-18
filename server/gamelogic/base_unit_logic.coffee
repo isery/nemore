@@ -4,9 +4,9 @@ class @BaseUnitLogic
     @_gameTeamId = options.gameTeamId
 
     @_unit = unit
+    @_unitGameTeam = GameTeam.findOne({_id: @_gameTeamId})
 
-    @_unitLife = @_unit.life
-    @_unitLife = @_unit.life * 0.75 unless GameTeam.findOne({_id: @_gameTeamId}).hero
+    @_unitLife = @_unitGameTeam.life
     @_unitMaxLife = @_unitLife
     @_unitArmor = @_unit.armor
     @_unitBaseDamage = @_unit.damage
@@ -46,7 +46,7 @@ class @BaseUnitLogic
       target.hit = didHit
       target.crit = didCrit
 
-      @_game[target.gameTeamId].updateLife(damageToTarget)
+      @_game[target.gameTeamId].updateLife(target.damage)
       target.life = @_game[target.gameTeamId]._unitLife
 
   baseHeal: (ability, targets) ->

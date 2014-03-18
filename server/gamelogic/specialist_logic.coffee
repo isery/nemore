@@ -6,8 +6,8 @@ class @SpecialistLogic extends BaseUnitLogic
   attack_specialist: (ability, targets) ->
     @baseAttack(ability, targets)
 
-  burnAll_specialist: (ability, targets) ->
-    @baseBuffFunction(ability, targets)
+  attackAll_specialist: (ability, targets) ->
+    @baseAttack(ability, targets)
 
   burstShot_specialist: (ability, targets) ->
     @baseAttack(ability, targets)
