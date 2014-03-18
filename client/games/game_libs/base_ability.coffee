@@ -5,6 +5,7 @@ class @BaseAbility
     @_doneParts = 0
     @_action = data.action
     @_game = data.baseGame.game
+    @_baseGame = data.baseGame
     @_baseUnit = data.baseGame[data.action.from]
     @_abilityData = SpecialAbilities.findOne({_id: data.action.abilityId})
     @_statesArr = @_abilityData.states
@@ -37,6 +38,14 @@ class @BaseAbility
       $set:
         state: 'waiting'
         lastIndex: @_action.index
+
+
+    # TODO handle end game
+    endGame = Games.findOne
+      _id: @_baseGame._id
+      state: 'finished'
+
+    console.log "END GAME" if endGame
 
   pullweapon: ->
     @_parts = 1
