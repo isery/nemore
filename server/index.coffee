@@ -14,10 +14,6 @@ getFbPicture = (accessToken) ->
     throw result.error
   return result.data.picture.data.url
 
-startGame = (_id)->
-  console.log "Started Game with id: " + _id
-  new BaseGameLogic(_id)
-
 Meteor.startup ->
   Games.find({
     state: "ready"
@@ -25,8 +21,15 @@ Meteor.startup ->
     added: (game) ->
       console.log "Observer: New game initialized at " + new Date()
       Games.update({_id: game._id},{$set: {state: "playing"}})
-      startGame(game._id)
+
+      console.log "Started Game with id: " + game._id
+      new BaseGameLogic(game._id, false)
   })
 
-
-  # TODO Continue games with state playing on server restart
+  Games.find({
+    state: "playing"
+  }).observe({
+    added: (game) =>
+      console.log "Reinitialized Observer on game with id: "+game._id
+      new BaseGameLogic(game._id, true)
+  })

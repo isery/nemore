@@ -43,3 +43,19 @@ class @BaseCondition
           ,
             $set:
               leftDuration: leftDuration
+
+
+  @reInitializeConditions = (data) ->
+    for gameTeam in data._gameTeams
+      _gameTeamConditions = GameTeamConditions.find({gameTeamId: gameTeam._id}).fetch()
+      for _gameTeamCondition in _gameTeamConditions
+        condition = Conditions.findOne({_id: _gameTeamCondition.conditionId})
+        if data[gameTeam._id]._conditions._conditions[condition.name]
+          data[gameTeam._id]._conditions._conditions[condition.name].leftDuration = _gameTeamCondition.leftDuration
+          data[gameTeam._id]._conditions._conditions[condition.name].value = _gameTeamCondition.value
+        else
+          data[gameTeam._id]._conditions._conditions[condition.name] =
+            conditionId: _gameTeamCondition.conditionId
+            leftDuration: _gameTeamCondition.leftDuration
+            gameTeamId: data.gameTeamId
+            value: _gameTeamCondition.value

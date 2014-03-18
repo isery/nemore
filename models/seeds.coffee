@@ -12,8 +12,6 @@ if Meteor.isServer
 		specialistId = Units.findOne(name: "Specialist")._id
 
 		if Conditions.find().count() <= 0
-			dotId = Conditions.insert name: 'dot'
-			hotId = Conditions.insert name: 'hot'
 			critId = Conditions.insert name: 'crit'
 			hitId = Conditions.insert name: 'hit'
 			armorId = Conditions.insert name: 'armor'
@@ -30,13 +28,14 @@ if Meteor.isServer
 			SpecialAbilities.insert unitId: sniperId, name: "critBuff_sniper", target_type: "self", value: 1.0, target_count: 1, duration: -1, cooldown: 5, conditionId: critId, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unitId: sniperId, name: "attack_sniper", target_type: "enemies", value: 1.0, target_count: 1, cooldown: 0, states: ["pullweapon", "shoot", "downweapon"]
 
-			SpecialAbilities.insert unitId: commanderId, name: "hotBuff_commander", target_type: "team", value: 50, target_count: 3, duration: 2, cooldown: 11, conditionId: hotId, states: ["pullweapon", "buff", "downweapon"]
+			# trueDamage of Commander still needs to be implemented
+			SpecialAbilities.insert unitId: commanderId, name: "trueDamage_commander", target_type: "enemies", value: 1, target_count: 1, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unitId: commanderId, name: "hitBuff_commander", target_type: "team", value: 1, target_count: 2, duration: -1, cooldown: 9, conditionId: hitId, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unitId: commanderId, name: "attack_commander", target_type: "enemies", value: 1, target_count: 1, cooldown: 2,  states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unitId: commanderId, name: "heal_commander", target_type: "team", value: 0.65, target_count: 1, cooldown: 0, states: ["pullweapon", "heal", "downweapon"]
 
 
-			SpecialAbilities.insert unitId: specialistId, name: "burnAll_specialist", target_type: "enemies", value: 20, target_count: 5, duration:2, cooldown: 11, conditionId: dotId, states: ["pullweapon", "buff", "downweapon"]
+			SpecialAbilities.insert unitId: specialistId, name: "attackAll_specialist", target_type: "enemies", value: 0.8, target_count: 5, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unitId: specialistId, name: "burstShot_specialist", target_type: "enemies", value: 1.8, target_count: 1, cooldown:6,  states: ["pullweapon", "shoot", "downweapon"]
 			SpecialAbilities.insert unitId: specialistId, name: "heal_specialist", target_type: "self", value: 0.8, target_count: 1, cooldown: 5, states: ["pullweapon", "heal", "downweapon"]
 			SpecialAbilities.insert unitId: specialistId, name: "attack_specialist", target_type: "enemies", value: 0.75, target_count: 2, cooldown: 0, states: ["pullweapon", "shoot", "downweapon"]
