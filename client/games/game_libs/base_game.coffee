@@ -13,7 +13,7 @@ class @BaseGame
       team: data.gameTeamTwo
 
     @actions = data.actions
-    @game = new Phaser.Game(1024, 768, Phaser.AUTO, "base-game",
+    @game = new Phaser.Game(1024, 768, Phaser.CANVAS, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
     )
@@ -94,7 +94,9 @@ class @BaseGame
     for member, i in player.team
       @[member._id].addSprite(xPos, (100 * i) + 100)
       @[member._id].initLife(xPos, (100 * i) + 100, member.life)
-      @[member._id].addAnimation("standing", 30, true)
+      @[member._id].addAnimation()
+      #@[member._id]._unit.animations.play 'idle'
+
       @[member._id].setCoordinates(xPos, (100 * i) + 100)
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
       @[member._id]._unit.scale.x *= -1 unless isPlayerOne
@@ -102,7 +104,7 @@ class @BaseGame
     heroXPos = if isPlayerOne then -100 else 100
 
     @[player.hero._id].addSprite(xPos + heroXPos, 200)
-    @[player.hero._id].addAnimation("standing", 30, true)
+    @[player.hero._id].addAnimation()
     @[player.hero._id].setCoordinates(xPos + heroXPos, 200)
     @[player.hero._id].initLife(xPos + heroXPos, 200, player.hero.life)
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne

@@ -57,11 +57,6 @@ class @BaseUnit
       @_unitLife.lineTo(x + (50 * percent), y - 10)
       @_unitLife.endFill()
 
-  addAnimation: (name, frames, isLoop) ->
-    @_unit.animations.add "idle"
-    @_unit.animations.add("pullweapon", ["a.png", "b.png", "c.png"], 50, false, false)
-    @_unit.animations.add("downweapon", ["c.png", "b.png", "a.png"], 50, false, false)
-
   setCoordinates: (coordsX, coordsY) ->
     @_posX = coordsX
     @_posY = coordsY
