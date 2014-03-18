@@ -1,8 +1,8 @@
 class @BaseAbility
-  _parts: 1
-  _doneParts: 0
 
   constructor: (data) ->
+    @_parts = 1
+    @_doneParts = 0
     @_action = data.action
     @_game = data.baseGame.game
     @_baseUnit = data.baseGame[data.action.from]
@@ -44,6 +44,7 @@ class @BaseAbility
     @_baseUnit._unit.events.onAnimationComplete.add (anim)->
       @_baseUnit._unit.events.onAnimationComplete.removeAll()
       @_doneParts++
+      @idle_weapon()
       @finishPart()
     , @
 
@@ -53,6 +54,7 @@ class @BaseAbility
     @_baseUnit._unit.events.onAnimationComplete.add (anim)->
       @_baseUnit._unit.events.onAnimationComplete.removeAll()
       @_doneParts++
+      @idle()
       @finishPart()
     , @
 
@@ -141,3 +143,9 @@ class @BaseAbility
         tween.destroy()
       , 1500
     , @
+
+  idle: ->
+    @_baseUnit._unit.animations.play "idle"
+
+  idle_weapon: ->
+    @_baseUnit._unit.animations.play "idle_weapon"
