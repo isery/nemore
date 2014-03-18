@@ -3,6 +3,27 @@
     {
       "filename": "a.png",
       "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 77,
+        "h": 100
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 77,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 77,
+        "h": 100
+      }
+    },
+    {
+      "filename": "b.png",
+      "frame": {
         "x": 78,
         "y": 0,
         "w": 81,
@@ -22,7 +43,7 @@
       }
     },
     {
-      "filename": "b.png",
+      "filename": "c.png",
       "frame": {
         "x": 0,
         "y": 101,
@@ -39,27 +60,6 @@
       },
       "sourceSize": {
         "w": 86,
-        "h": 100
-      }
-    },
-    {
-      "filename": "c.png",
-      "frame": {
-        "x": 0,
-        "y": 0,
-        "w": 77,
-        "h": 100
-      },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 77,
-        "h": 100
-      },
-      "sourceSize": {
-        "w": 77,
         "h": 100
       }
     }
