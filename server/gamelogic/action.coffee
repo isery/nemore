@@ -26,18 +26,18 @@ class @Action
 
     @_from = @getNextFrom(_currentIndex)
 
+  updateConditions: ->
+    BaseCondition.update(@_game, @_from._id)
 
-  getNextFrom: (idx) ->
-    _fromPriority = Math.floor((idx/2)) % @_gameTeam.length
+  getPriorityLists: () ->
+    _playerNumber = if @_game._playerFlag then "1" else "2"
 
-    unless @_gameTeam[_fromPriority]
-      @getNextFrom(_fromPriority+1)
+    _player = GamePlayers.findOne({gameId: @_game._gameId, player: _playerNumber}).userId
+    _priorityList = Team.priorityList(_player)
 
-    if(@_game._lastPriority[@_player._id] == _fromPriority)
-      _fromPriority++
-
-    @_game._lastPriority[@_player._id] = _fromPriority
-    @_gameTeam[_fromPriority]
+    for item in _priorityList
+      if @_from.unitId is item.team.unitId
+        return item
 
   getAbility: (doc, index = 0) ->
     #PriorityList 2 (Abilities)
@@ -54,77 +54,23 @@ class @Action
       else
         return @_ability
 
-
-
   to: (doc) ->
-    _numberOfTargets = @_ability.target_count
+
     _typeOfTarget = @_ability.target_type
     _currentAbilityPriority = AbilityPriorities.findOne({abilityId: @_ability._id, teamId: @_from.teamId}).priority
-    _targetCounter = 0
+    @_targetCounter = 0
     @_targets = []
 
-    switch _typeOfTarget
-      when "team"
-        _playerNumber = if @_game._playerFlag then "1" else "2"
-        _player = GamePlayers.findOne({gameId: @_game._gameId, player: _playerNumber}).userId
-        _gameTeam = GameTeam.find({gameId: @_game._gameId, userId: _player})
-      when "enemies"
-        _otherPlayerNumber = if @_game._playerFlag then "2" else "1"
-        _otherPlayer = GamePlayers.findOne({gameId: @_game._gameId, player: _otherPlayerNumber}).userId
-        _gameTeam = GameTeam.find({gameId: @_game._gameId, userId: _otherPlayer})
-
-    for _item in @_priorityLists.abilityPriority
-      if _item.abilityPriority.abilityId is @_ability._id
-        _termId = _item.abilityTerm[0].termId
-        _term = Terms.findOne({_id: _termId})
-        _termOperator = _term.operator
-
-        if _typeOfTarget is "self"
-          #Prioritylist3 + Prioritylist4 (Target + Abilityterm)
-          if _termOperator is "∞" or @_operators[_termOperator](@_game[@_from._id]._unitLife, @_game[@_from._id]._unitMaxLife * _term.value)
-            @_targets.push({
-              gameTeamId: @_from._id
-              armor: @_from.unit().armor
-            })
-          else
-            @getAbility(doc, _currentAbilityPriority + 1)
-            @to(doc)
-
-        else
-          for _targetPriority in _item.targetPriorities
-            for _otherTeamUnit in _gameTeam
-              #Prioritylist3(Targets)
-              if _otherTeamUnit.unitId is _targetPriority.unitId
-                switch _termOperator
-                  when "<"
-                    #Prioritylist4(Abilityterms)
-                    if @_operators[_termOperator](@_game[_otherTeamUnit._id]._unitLife, @_game[_otherTeamUnit._id]._unitMaxLife * _term.value) and i < _numberOfTargets
-                      @_targets.push({
-                        gameTeamId: _otherTeamUnit._id
-                        armor: _otherTeamUnit.unit().armor
-                      })
-                    else
-                      @getAbility(doc, _currentAbilityPriority + 1)
-                      @to(doc)
-                  when "∞"
-                    if _targetCounter < _numberOfTargets and @_game[_otherTeamUnit._id]._unitLife > 0
-                      @_targets.push({
-                        gameTeamId: _otherTeamUnit._id
-                        armor: _otherTeamUnit.unit().armor
-                      })
-                      _targetCounter++
-                  else
-                    console.log "THIS SHOULD NEVER EVER HAPPEN"
-
-
+    if _typeOfTarget is "self"
+      @pushTargetSelf(doc, _currentAbilityPriority)
+    else
+      _gameTeam = @getGameTeamTo(_typeOfTarget, _currentAbilityPriority, doc)
+      @walkThroughTargetPriorityList(_gameTeam, _currentAbilityPriority, doc)
 
     @_targets
 
   calculateAbility: () ->
     @_game[@_from._id][@_ability.name](@_ability,@_targets)
-
-  updateConditions: ->
-    BaseCondition.update(@_game, @_from._id)
 
   save: (doc) ->
     actionId = Actions.insert
@@ -135,21 +81,85 @@ class @Action
       index: parseInt(doc.lastIndex) + 1
     console.log "Added Actions with id: " + actionId
 
+  getNextFrom: (idx) ->
+    _fromPriority = Math.floor((idx/2)) % @_gameTeam.length
 
-  getPriorityLists: () ->
-    _playerNumber = if @_game._playerFlag then "1" else "2"
+    unless @_gameTeam[_fromPriority]
+      @getNextFrom(_fromPriority+1)
 
-    _player = GamePlayers.findOne({gameId: @_game._gameId, player: _playerNumber}).userId
-    _priorityList = Team.priorityList(_player)
+    if(@_game._lastPriority[@_player._id] == _fromPriority)
+      _fromPriority++
 
-    for item in _priorityList
-      if @_from.unitId is item.team.unitId
-        return item
+    @_game._lastPriority[@_player._id] = _fromPriority
+    @_gameTeam[_fromPriority]
+
+  getGameTeamTo: (typeOfTarget, currentAbilityPriority, doc) ->
+    switch typeOfTarget
+      when "team"
+        _playerNumber = if @_game._playerFlag then "1" else "2"
+        _player = GamePlayers.findOne({gameId: @_game._gameId, player: _playerNumber}).userId
+        return GameTeam.find({gameId: @_game._gameId, userId: _player})
+      when "enemies"
+        _otherPlayerNumber = if @_game._playerFlag then "2" else "1"
+        _otherPlayer = GamePlayers.findOne({gameId: @_game._gameId, player: _otherPlayerNumber}).userId
+        return GameTeam.find({gameId: @_game._gameId, userId: _otherPlayer})
+
+  pushTargetSelf: (doc, currentAbilityPriority) ->
+    for _item in @_priorityLists.abilityPriority
+      if _item.abilityPriority.abilityId is @_ability._id
+        _term = @getTerm(_item)
+
+        #Prioritylist3 + Prioritylist4 (Target + Abilityterm)
+        if _termOperator is "∞" or @checkAbilityTerms(@_from, _term)
+          @_targets.push({
+            gameTeamId: @_from._id
+            armor: @_from.unit().armor
+          })
+        else
+          @getAbility(doc, currentAbilityPriority + 1)
+          @to(doc)
+
+  getTerm: (item) ->
+    return Terms.findOne({_id: item.abilityTerm[0].termId})
 
 
+  walkThroughTargetPriorityList: (gameTeam, currentAbilityPriority, doc) ->
+    for _item in @_priorityLists.abilityPriority
+      if _item.abilityPriority.abilityId isnt @_ability._id
+        _term = @getTerm(_item)
+        for _targetPriority in _item.targetPriorities
+          for _otherTeamUnit in gameTeam
+            #Prioritylist3(Targets)
+            if _otherTeamUnit.unitId is _targetPriority.unitId
+              @pushTarget(_otherTeamUnit, _targetPriority, _term, currentAbilityPriority, doc)
 
 
+  pushTarget: (otherTeamUnit,targetPriority, term, currentAbilityPriority, doc) ->
+      switch term.operator
+        when "<"
+          #Prioritylist4(Abilityterms)
+          if @checkAbilityTerms(otherTeamUnit, term) and @checkNumberOfTargets() and @checkTargetHealth(otherTeamUnit)
+            @_targetCounter++
+            @_targets.push({
+              gameTeamId: otherTeamUnit._id
+              armor: otherTeamUnit.unit().armor
+            })
+          else
+            @getAbility(doc, currentAbilityPriority + 1)
+            @to(doc)
+        when "∞"
+          if @checkNumberOfTargets() and @checkTargetHealth(otherTeamUnit)
+            @_targetCounter++
+            @_targets.push({
+              gameTeamId: otherTeamUnit._id
+              armor: otherTeamUnit.unit().armor
+            })
 
+  checkAbilityTerms: (target, term) ->
+    @_operators[term.operator](@_game[target._id]._unitLife, @_game[target._id]._unitMaxLife * term.value)
 
+  checkTargetHealth: (target) ->
+    @_game[target._id]._unitLife > 0
 
-
+  checkNumberOfTargets: () ->
+    @_targetCounter < @_ability.target_count

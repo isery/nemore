@@ -14,6 +14,12 @@ getFbPicture = (accessToken) ->
     throw result.error
   return result.data.picture.data.url
 
+reInitializeOnStartup = () ->
+  _games = Games.find({state: "playing"}).fetch()
+  for _game in _games
+    console.log "Reinitialized Observer on game with id: " + _game._id
+    new BaseGameLogic(_game._id, true)
+
 Meteor.startup ->
   Games.find({
     state: "ready"
@@ -26,10 +32,4 @@ Meteor.startup ->
       new BaseGameLogic(game._id, false)
   })
 
-  Games.find({
-    state: "playing"
-  }).observe({
-    added: (game) =>
-      console.log "Reinitialized Observer on game with id: "+game._id
-      new BaseGameLogic(game._id, true)
-  })
+  reInitializeOnStartup()

@@ -46,6 +46,6 @@ class @BaseGameLogic
 
     _lastAction = Actions.find({gameId: @_gameId}, {sort: {index:-1},limit:1}).fetch()[0]
     _userId = GameTeam.findOne({_id: _lastAction.from}).userId
-    _playerNumber = parseInt(GamePlayers.findOne({gameId: this._gameId, userId: _userId}).player)
 
-    @_playerFlag = if playerNumber is 1 then true else false
+    _playerNumber = parseInt(GamePlayers.findOne({gameId: @._gameId, userId: _userId}).player)
+    @_playerFlag = if _playerNumber is 1 then true else false
