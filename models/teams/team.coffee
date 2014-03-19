@@ -73,11 +73,11 @@ class @Team
   @priorityList = (userId) ->
     team = Team.find({userId: userId})
     team.map (member)->
-      abilityPriorities = AbilityPriorities.find({teamId: member._id})
+      abilityPriorities = AbilityPriorities.find({teamId: member._id}, {sort: {priority: 1}})
       abilityPriority = abilityPriorities.map (abilityPriority) ->
         tmp =
           abilityPriority: abilityPriority
-          targetPriorities: TargetPriorities.find({abilityPriorityId: abilityPriority._id}).fetch()
+          targetPriorities: TargetPriorities.find({abilityPriorityId: abilityPriority._id}, {sort: {priority: 1}}).fetch()
           abilityTerm: AbilityTerms.find({abilityPriorityId: abilityPriority._id}).fetch()
       tmp =
         team: member

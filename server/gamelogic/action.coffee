@@ -11,8 +11,8 @@ class @Action
     @save(doc)
 
     @_operators =
-      '<': (a,b) -> a < b
-      '>': (a,b) -> a > b
+      '<': (obj1,obj2) -> obj1 < obj2
+      '>': (obj1,obj2) -> obj1 > obj2
 
   from : (doc) ->
     @_game._playerFlag = !@_game._playerFlag
@@ -110,7 +110,7 @@ class @Action
         _term = @getTerm(_item)
 
         #Prioritylist3 + Prioritylist4 (Target + Abilityterm)
-        if _termOperator is "∞" or @checkAbilityTerms(@_from, _term)
+        if _term.operator is "∞" or @checkAbilityTerms(@_from, _term)
           @_targets.push({
             gameTeamId: @_from._id
             armor: @_from.unit().armor
@@ -128,17 +128,24 @@ class @Action
       if _item.abilityPriority.abilityId isnt @_ability._id
         _term = @getTerm(_item)
         for _targetPriority in _item.targetPriorities
-          for _otherTeamUnit in gameTeam
-            #Prioritylist3(Targets)
-            if _otherTeamUnit.unitId is _targetPriority.unitId
-              @pushTarget(_otherTeamUnit, _targetPriority, _term, currentAbilityPriority, doc)
+          #Prioritylist3(Random Targets)
+          _random = "Random"
+          if( _random is _targetPriority.unitId )
+            _otherTeamUnit = gameTeam[Math.floor(Math.random() * (gameTeam.length))]
+            @pushTarget(_otherTeamUnit, _targetPriority, _term, currentAbilityPriority, doc, gameTeam)
+          else
+            for _otherTeamUnit in gameTeam
+              #Prioritylist3(Targets)
+              _hero = if _otherTeamUnit.hero then "Hero" else "NoHero"
+              if ((_otherTeamUnit.unitId is _targetPriority.unitId) or (_hero is _targetPriority.unitId))
+                @pushTarget(_otherTeamUnit, _targetPriority, _term, currentAbilityPriority, doc, gameTeam)
 
 
-  pushTarget: (otherTeamUnit,targetPriority, term, currentAbilityPriority, doc) ->
+  pushTarget: (otherTeamUnit,targetPriority, term, currentAbilityPriority, doc, gameTeam) ->
       switch term.operator
         when "<"
           #Prioritylist4(Abilityterms)
-          if @checkAbilityTerms(otherTeamUnit, term) and @checkNumberOfTargets() and @checkTargetHealth(otherTeamUnit)
+          if @checkAbilityTerms(otherTeamUnit, term) and @checkNumberOfTargets(gameTeam) and @checkTargetHealth(otherTeamUnit)
             @_targetCounter++
             @_targets.push({
               gameTeamId: otherTeamUnit._id
@@ -148,7 +155,7 @@ class @Action
             @getAbility(doc, currentAbilityPriority + 1)
             @to(doc)
         when "∞"
-          if @checkNumberOfTargets() and @checkTargetHealth(otherTeamUnit)
+          if @checkNumberOfTargets(gameTeam) and @checkTargetHealth(otherTeamUnit)
             @_targetCounter++
             @_targets.push({
               gameTeamId: otherTeamUnit._id
@@ -161,5 +168,5 @@ class @Action
   checkTargetHealth: (target) ->
     @_game[target._id]._unitLife > 0
 
-  checkNumberOfTargets: () ->
-    @_targetCounter < @_ability.target_count
+  checkNumberOfTargets: (gameTeam) ->
+    @_targetCounter < @_ability.target_count and @_targetCounter < gameTeam.length
