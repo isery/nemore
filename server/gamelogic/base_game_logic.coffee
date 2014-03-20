@@ -49,3 +49,9 @@ class @BaseGameLogic
 
     _playerNumber = parseInt(GamePlayers.findOne({gameId: @._gameId, userId: _userId})?.player)
     @_playerFlag = if _playerNumber is 1 then true else false
+
+
+Meteor.methods
+  # conditionsObj: conditionId, value, duration
+  addCondition: (gameId, gameTeamId, conditionObj) ->
+    BaseGameManager.get(gameId)[gameTeamId]._conditions.add(conditionObj)
