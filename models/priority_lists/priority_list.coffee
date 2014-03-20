@@ -48,11 +48,24 @@ class @TargetPriority
 
   init: ->
     units = Unit.find()
+    lastIndex = 0
     for unit, index in units
+      lastIndex = index
       @_id = TargetPriorities.insert
         abilityPriorityId: @abilityPriority._id
         unitId: unit._id
         priority: index
+
+    @_id = TargetPriorities.insert
+      abilityPriorityId: @abilityPriority._id
+      unitId: "Hero"
+      priority: _priorityIndex + lastIndex
+
+    @_id = TargetPriorities.insert
+      abilityPriorityId: @abilityPriority._id
+      unitId: "Random"
+      priority: _priorityIndex + lastIndex + 1
+
 
   unit: ->
     Unit.findOne({_id: @unitId})

@@ -22,6 +22,7 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'userData'
       Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'colorKeys'
   @route 'gamerooms',
     before: ->
       Router.isLoggedIn(@) if @ready()
@@ -47,6 +48,7 @@ Router.map ->
       Meteor.subscribe 'currentActions', @params._id
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'conditions'
+      Meteor.subscribe 'colorKeys'
     data: ->
       game: Game.findOne _id: @params._id
       actions: Action.find()

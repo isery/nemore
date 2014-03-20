@@ -42,3 +42,10 @@ Meteor.publish "conditions", ->
     GameTeamConditions.find({}),
     Conditions.find({})
   ]
+
+Meteor.publish "colorKeys", ->
+  [
+    Colors.find({}),
+    Keys.find({}),
+    ColorKeys.find({})
+  ]
