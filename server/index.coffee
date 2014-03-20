@@ -18,7 +18,7 @@ reInitializeOnStartup = () ->
   _games = Games.find({state: "playing"}).fetch()
   for _game in _games
     console.log "Reinitialized Observer on game with id: " + _game._id
-    new BaseGameLogic(_game._id, true)
+    BaseGameManager.set new BaseGameLogic(_game._id, true)
 
 Meteor.startup ->
   Games.find({
@@ -29,7 +29,7 @@ Meteor.startup ->
       Games.update({_id: game._id},{$set: {state: "playing"}})
 
       console.log "Started Game with id: " + game._id
-      new BaseGameLogic(game._id, false)
+      BaseGameManager.set new BaseGameLogic(game._id, false)
   })
 
   reInitializeOnStartup()
