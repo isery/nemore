@@ -4,22 +4,19 @@
 @Terms = new Meteor.Collection 'terms'
 
 class @AbilityPriority
-  _priorityIndex = 100
   constructor: (options) ->
     for key, value of options
       @[key] = value
 
   init: ->
     abilities = @team.unit().specialAbilities()
-    _priorityIndex += 100
     @_teamId = @team._id
     for ability, index in abilities
       @_abilityId = ability._id
-      @_priority = _priorityIndex
       @_id = AbilityPriorities.insert
         abilityId: ability._id
         teamId: @team._id
-        priority: _priorityIndex + index
+        priority: index
 
       new TargetPriority({abilityPriority: @}).init()
       new AbilityTerm({abilityPriority: @}).init()
@@ -45,19 +42,17 @@ class @AbilityPriority
         options
 
 class @TargetPriority
-  _priorityIndex = 100
   constructor: (options) ->
     for key, value of options
       @[key] = value
 
   init: ->
     units = Unit.find()
-    _priorityIndex += 100
     for unit, index in units
       @_id = TargetPriorities.insert
         abilityPriorityId: @abilityPriority._id
         unitId: unit._id
-        priority: _priorityIndex + index
+        priority: index
 
   unit: ->
     Unit.findOne({_id: @unitId})
@@ -67,7 +62,7 @@ class @TargetPriority
     new TargetPriority(targetPriority) for targetPriority in targetPriorities
 
   @update = (_id, options) ->
-    TargetPriorities.update
+    test = TargetPriorities.update
       _id: _id
     ,
       $set:
@@ -85,7 +80,7 @@ class @AbilityTerm
       termId: term._id
 
   term: ->
-    Terms.findOne({_id: @termId})
+    Terms.find({_id: @termId})
 
   @findOne = (options = {}) ->
     abilityTerm = AbilityTerms.findOne(options)
@@ -95,4 +90,3 @@ class @Term
   constructor: (options) ->
     for key, value of options
       @[key] = value
-

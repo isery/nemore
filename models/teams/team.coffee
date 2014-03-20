@@ -2,7 +2,7 @@ Teams = new Meteor.Collection 'teams'
 
 class @Team
   _maxCount: 10
-  _priorityIndex = 100
+  _priorityIndex = 0
   constructor: (options) ->
     @validate options
     for key, value of options
@@ -30,10 +30,9 @@ class @Team
     AbilityPriority.find({teamId: @_id}, {sort: {priority: 1}})
 
   save: ->
+    console.log "whhaaat"
     @validateSave()
     @_id = Team.findOne({userId: @userId, hero: true})?._id
-    _priorityIndex += 100
-    priority = _priorityIndex
     if @hero && @_id
       Teams.update
         _id: @_id
@@ -42,14 +41,15 @@ class @Team
           userId: @userId
           unitId: @unitId
           hero: @hero
-          priority: priority
+          priority: _priorityIndex
+      _priorityIndex++
     else
       @_id = Teams.insert
         userId: @userId
         unitId: @unitId
         hero: @hero
-        priority: priority
-
+        priority: _priorityIndex
+      _priorityIndex++
       new AbilityPriority({team: @}).init()
 
   # For Meteor publish
@@ -68,6 +68,7 @@ class @Team
     Teams.find({userId: Meteor.userId()}).fetch().length
 
   @remove: (_id)->
+    _priorityIndex--
     Teams.remove({_id: _id}) if _id?
 
   @priorityList = (userId) ->
@@ -82,4 +83,3 @@ class @Team
       tmp =
         team: member
         abilityPriority: abilityPriority
-

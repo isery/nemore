@@ -46,7 +46,20 @@ Template.preSetting.rendered = ->
 
       model =  el.getAttribute("data-model")
       modelId = el.getAttribute("data-id")
-      window[model].update(modelId, {priority : newRank})
+      movedObject = window[model].update(modelId, {priority : newRank})
+      if model is "TargetPriority"
+        id = window[model].find(modelId)[0].abilityPriorityId
+        modelItems = window[model].find({abilityPriorityId:id},{sort: {priority: 1}})
+      else if model is "GameTeam"
+        id = window[model].find(modelId)[0].gameId
+        modelItems = window[model].find({gameId:id},{sort: {priority: 1}})
+      else if model is "AbilityPriority"
+        id = window[model].find(modelId)[0].teamId
+        modelItems = window[model].find({teamId:id},{sort: {priority: 1}})
+      for i of modelItems
+        modelId = modelItems[i]._id
+        window[model].update(modelId, {priority : parseInt(i)})
+
   )
 
 SimpleRationalRanks =

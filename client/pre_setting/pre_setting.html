@@ -19,10 +19,14 @@
                     {{/each}}
                     </ul>
                   </div>
+                  <select class="form-control">
+                    {{#each abilityTerm.term}}
+                      <option>{{name}}</option>
+                    {{/each}}
+                  </select>
                 </li>
                 {{/each}}
               </ul>
-              <label>Condition: {{abilityCondition.condition.name}}</label>
             </div>
           </div>
         </li>
