@@ -29,6 +29,12 @@ Template.preSetting.created = ->
       Router.go 'games', _id: game._id
       deps.stop()
 
+  Handlebars.registerHelper "checkHeroOrRandom", (obj, options) ->
+    if (obj.unitId is "Hero") or (obj.unitId is "Random")
+      return options.fn(@)
+    else
+      return options.inverse(@)
+
 Template.preSetting.rendered = ->
   $('li[data-id='+Session.get("open-sub")+']').addClass("open")
   $('.list').sortable(
@@ -59,7 +65,6 @@ Template.preSetting.rendered = ->
       for i of modelItems
         modelId = modelItems[i]._id
         window[model].update(modelId, {priority : parseInt(i)})
-
   )
 
 SimpleRationalRanks =
@@ -69,3 +74,5 @@ SimpleRationalRanks =
     return ( parseFloat(beforeRank) + parseFloat(afterRank) ) / 2
   afterLast: (lastRank) ->
     return parseFloat(lastRank)+1
+
+

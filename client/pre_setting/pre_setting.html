@@ -14,8 +14,13 @@
                   <a href="#" class="" ><span class="caret"></span></a>
                   <div class="panel-body dropdown-menu left">
                     <ul class="list-group list " role="menu">
+
                     {{#each targetPriority}}
-                      <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{unit.name}}</li>
+                      {{#checkHeroOrRandom this}}
+                      <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{this.unitId}}</li>
+                      {{else}}
+                        <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{unit.name}}</li>
+                      {{/checkHeroOrRandom}}
                     {{/each}}
                     </ul>
                   </div>

@@ -59,12 +59,12 @@ class @TargetPriority
     @_id = TargetPriorities.insert
       abilityPriorityId: @abilityPriority._id
       unitId: "Hero"
-      priority: _priorityIndex + lastIndex
+      priority: lastIndex + 1
 
     @_id = TargetPriorities.insert
       abilityPriorityId: @abilityPriority._id
       unitId: "Random"
-      priority: _priorityIndex + lastIndex + 1
+      priority: lastIndex + 2
 
 
   unit: ->
