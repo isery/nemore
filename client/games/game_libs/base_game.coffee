@@ -2,6 +2,11 @@ class @BaseGame
   @_instance: undefined
 
   constructor: (data) ->
+    @keys = ["A","S","D","F"]
+    @keyListener = []
+    @timer = 60
+    @durationOfColorHighlight = 700
+    @frameRate = 60
     BaseGame._instance = @
     @_id = data.game._id
     @playerOne =
@@ -16,7 +21,31 @@ class @BaseGame
     @game = new Phaser.Game(1024, 768, Phaser.CANVAS, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
+      update: @update.bind(@)
     )
+    console.log @
+    @colorHighlight = new ColorHighlight({game:@game})
+
+
+  update: ->
+    @timer--
+    if @timer <= 0
+      @colorHighlight.create()
+      removeColorHighlight = setTimeout(->
+        @colorHighlight.destroy()
+        @colorHighlight.setState(false)
+      , @durationOfColorHighlight)
+      @timer = @frameRate
+    for i of @keyListener
+      if @keyListener[i].isDown
+        if @colorHighlightState
+          #console.log keyListener[i].keyCode
+          #console.log activeSprite
+          #console.log activeColor
+          clearTimeout removeColorHighlight
+          @colorHighlight.setState(false)
+          @timer = @frameRate
+          @colorHighlight.animateSuccess()
 
 
   preload: ->
@@ -62,6 +91,8 @@ class @BaseGame
     @createTeam(@playerTwo)
 
     @initObserver()
+    @createKeyboardListener()
+
 
   initObserver: ->
     that = @
@@ -77,6 +108,11 @@ class @BaseGame
           new BaseAbility({action: action, baseGame: that}).play()
           BaseCondition.update({action: action, baseGame: that})
     })
+
+  createKeyboardListener: ->
+    for i of @keys
+      keyLetter = @keys[i]
+      @keyListener.push @game.input.keyboard.addKey(Phaser.Keyboard[keyLetter])
 
   preloadTeam: (player) ->
     for member in player.team
