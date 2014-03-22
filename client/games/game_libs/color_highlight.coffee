@@ -1,12 +1,13 @@
 class @ColorHighlight
   constructor: (data) ->
     @spriteSize = 64
-    @x = 100
     @game = data.game
-    @y = 100
     @backgroundColor = "#124184"
-    @randomColors = ["#ff0000","#00ff00","#ffff00"]
-    @allSprites = data.allSprites
+    @randomColors = []
+    colors = Color.find()
+    for i of colors
+      @randomColors.push colors[i].hex
+    @allSprites = data.allUnits
     @colorHighligtState = false
     @activeSprite = null
     @activeColor = null
@@ -14,14 +15,20 @@ class @ColorHighlight
     @successAnimationDuration = 500
     @successBlinkingDuration = 80
     @currentColorHighlight = null
+    @activeUnitId = null
     @colorHighlightState = null
 
+  firstElement: (object)->
+    for i of object
+      return object[i]
 
   create: ->
     if @probabilityOfOccurance()
       randomSpriteIndex = @createRandomNumber(0, @allSprites.length)
       randomColorIndex = @createRandomNumber(0, @randomColors.length)
-      @activeSprite = @allSprites[randomSpriteIndex]
+      @activeUnitId = Object.keys(@allSprites[randomSpriteIndex])[0]
+      @activeUnit =  @firstElement(@allSprites[randomSpriteIndex])
+      @activeSprite = @activeUnit._unit
       @activeColor = @randomColors[randomColorIndex]
       x = @activeSprite.position.x - @spriteSize / 2
       y = @activeSprite.position.y - @spriteSize / 2
@@ -30,20 +37,21 @@ class @ColorHighlight
       @activeSprite.bringToTop()
       @setState(true)
 
-  setState: (state) ->
+  setState:  (state) ->
     @colorHighlightState = state
 
   destroy: ->
-    currentColorHighlight.kill()  if currentColorHighlight?
+    @currentColorHighlight.kill()  if @currentColorHighlight?
 
   animateSuccess: ->
+    that = @
     blinking = setInterval(->
-      @currentColorHighlight.visible = not @currentColorHighlight.visible
-    , @successBlinkingDuration)
+      that.currentColorHighlight.visible = not that.currentColorHighlight.visible
+    , that.successBlinkingDuration)
     setTimeout (->
       clearInterval blinking
-      @currentColorHighlight.kill()
-    ), @successAnimationDuration
+      that.currentColorHighlight.kill()
+    ), that.successAnimationDuration
 
   probabilityOfOccurance: ->
     randomNumber = @createRandomNumber(0, 100)
@@ -54,13 +62,13 @@ class @ColorHighlight
 
   createBitMap: (spriteSize, color, backgroundColor) ->
     bmd = @game.add.bitmapData(@spriteSize * 2, @spriteSize * 2)
-    bmd.ctx.beginPath()
-    grd = bmd.ctx.createRadialGradient(@spriteSize, @spriteSize, 0, @spriteSize, @spriteSize, @spriteSize)
+    bmd.context.beginPath()
+    grd = bmd.context.createRadialGradient(@spriteSize, @spriteSize, 0, @spriteSize, @spriteSize, @spriteSize)
     grd.addColorStop 0, color
     grd.addColorStop 1, backgroundColor
-    bmd.ctx.rect 0, 0, @spriteSize * 2, @spriteSize * 2
-    bmd.ctx.fillStyle = grd
-    bmd.ctx.fill()
+    bmd.context.rect 0, 0, @spriteSize * 2, @spriteSize * 2
+    bmd.context.fillStyle = grd
+    bmd.context.fill()
     bmd
 
   createRandomNumber: (from, to) ->

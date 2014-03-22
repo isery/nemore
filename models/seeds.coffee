@@ -56,10 +56,10 @@ if Meteor.isServer
 			colorArr.push Colors.insert name: "Blue", hex: "#0000ff"
 		if Keys.find().count() <= 0
 			keyArr = []
-			keyArr.push Keys.insert name: "q", inputkey: 30
-			keyArr.push Keys.insert name: "w", inputkey: 31
-			keyArr.push Keys.insert name: "e", inputkey: 32
-			keyArr.push Keys.insert name: "r", inputkey: 33
+			keyArr.push Keys.insert name: "q", inputkey: 81
+			keyArr.push Keys.insert name: "w", inputkey: 87
+			keyArr.push Keys.insert name: "e", inputkey: 69
+			keyArr.push Keys.insert name: "r", inputkey: 82
 		if ColorKeys.find().count() <= 0
 			for color in colorArr
 				for key, i in keyArr

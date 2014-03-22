@@ -30,7 +30,6 @@ class @Team
     AbilityPriority.find({teamId: @_id}, {sort: {priority: 1}})
 
   save: ->
-    console.log "whhaaat"
     @validateSave()
     @_id = Team.findOne({userId: @userId, hero: true})?._id
     if @hero && @_id

@@ -2,13 +2,17 @@ class @BaseGame
   @_instance: undefined
 
   constructor: (data) ->
-    @keys = ["A","S","D","F"]
+    allKeys = Key.find()
+    @keys = []
+    for i of allKeys
+      @keys.push allKeys[i].name.toUpperCase()
     @keyListener = []
     @timer = 60
     @durationOfColorHighlight = 700
     @frameRate = 60
     BaseGame._instance = @
     @_id = data.game._id
+    @allUnits = []
     @playerOne =
       hero: data.heroOne
       team: data.gameTeamOne
@@ -23,25 +27,33 @@ class @BaseGame
       create: @create.bind(@)
       update: @update.bind(@)
     )
-    console.log @
-    @colorHighlight = new ColorHighlight({game:@game})
+    @colorHighlight = new ColorHighlight({game:@game, allUnits:@allUnits})
 
 
   update: ->
     @timer--
     if @timer <= 0
       @colorHighlight.create()
+      that = @
       removeColorHighlight = setTimeout(->
-        @colorHighlight.destroy()
-        @colorHighlight.setState(false)
-      , @durationOfColorHighlight)
+        that.colorHighlight.destroy()
+        that.colorHighlight.setState(false)
+      , that.durationOfColorHighlight)
       @timer = @frameRate
     for i of @keyListener
       if @keyListener[i].isDown
-        if @colorHighlightState
-          #console.log keyListener[i].keyCode
-          #console.log activeSprite
-          #console.log activeColor
+        if @colorHighlight.colorHighlightState
+          colorId = Color.findOne({hex:@colorHighlight.activeColor})._id
+          keyId = Key.findOne({inputkey:@keyListener[i].keyCode})._id
+          colorKey = ColorKey.findOne({colorId:colorId,keyId:keyId})
+          condition = colorKey.condition()
+          conditionName = condition.name
+          conditionId = condition._id
+          unitId = @colorHighlight.activeUnitId
+          #this.target.gameTeam._conditions.add(conditionName) should be like this
+          # no conditions?
+          #GameTeam.findOne({_id:unitId})._conditions.add(conditionName)
+          Meteor.call "addCondition", @_id,unitId, {conditionId:conditionId,value: colorKey.value, duration: 1}
           clearTimeout removeColorHighlight
           @colorHighlight.setState(false)
           @timer = @frameRate
@@ -94,6 +106,7 @@ class @BaseGame
     @createKeyboardListener()
 
 
+
   initObserver: ->
     that = @
     Actions.find({gameId: @_id}).observe({
@@ -136,6 +149,9 @@ class @BaseGame
       @[member._id].setCoordinates(xPos, (100 * i) + 100)
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
       @[member._id]._unit.scale.x *= -1 unless isPlayerOne
+      object = {}
+      object[member._id] = @[member._id]
+      @allUnits.push object if isPlayerOne
 
     heroXPos = if isPlayerOne then -100 else 100
 
