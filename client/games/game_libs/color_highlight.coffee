@@ -28,6 +28,7 @@ class @ColorHighlight
       randomColorIndex = @createRandomNumber(0, @randomColors.length)
       @activeUnitId = Object.keys(@allSprites[randomSpriteIndex])[0]
       @activeUnit =  @firstElement(@allSprites[randomSpriteIndex])
+      console.log @activeUnit
       @activeSprite = @activeUnit._unit
       @activeColor = @randomColors[randomColorIndex]
       x = @activeSprite.position.x - @spriteSize / 2
@@ -35,6 +36,9 @@ class @ColorHighlight
       bmd = @createBitMap(@spriteSize, @activeColor, @backgroundColor)
       @currentColorHighlight = @game.add.sprite(x, y, bmd)
       @activeSprite.bringToTop()
+      #TODO Christoph
+      #@activeUnit._unitLife.bringToTop()
+      #@activeUnit._lifeBackground.bringToTop()
       @setState(true)
 
   setState:  (state) ->
