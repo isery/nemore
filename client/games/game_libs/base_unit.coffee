@@ -6,7 +6,7 @@ class @BaseUnit
     @_image = data.image
     @_json = data.json
     @_conditions = new BaseCondition({game: @_game, baseUnit: @})
-
+    @_group = @_game.add.group()
     @initSprites()
 
   initSprites: ->
@@ -18,7 +18,7 @@ class @BaseUnit
       @[ability.name] = new BaseAbility({baseUnit: @, ability: ability})
 
   addSprite: (x,y) ->
-    @_unit = @_game.add.sprite(x, y, @_name, "a.png")
+     @_unit = @_group.create x, y, @_name, "a.png"
 
   initLife: (x, y, life)->
     @_maxLife = life
@@ -29,12 +29,14 @@ class @BaseUnit
     @_lifeBackground.moveTo(x + 9, y - 10)
     @_lifeBackground.lineTo(x + 51, y - 10)
     @_lifeBackground.endFill()
+    @_group.add(@_lifeBackground)
 
     @setLifeLine(x,y, life)
 
   setLifeLine: (x, y, life) ->
     percent = life/@_maxLife
-    @_unitLife.destroy() if @_unitLife
+    if @_unitLife
+      @_unitLife.destroy()
 
     if percent >= 0.80
       color = 0x1ADE00
@@ -56,6 +58,7 @@ class @BaseUnit
       @_unitLife.moveTo(x + 10, y - 10)
       @_unitLife.lineTo(x + (50 * percent), y - 10)
       @_unitLife.endFill()
+      @_group.add(@_unitLife)
 
   setCoordinates: (coordsX, coordsY) ->
     @_posX = coordsX
@@ -63,6 +66,11 @@ class @BaseUnit
 
   getCoordinates: ->
     {x: @_posX, y: @_posY}
+
+  bringToTop: ->
+    @_unit.bringToTop()
+    @_group.bringToTop(@_lifeBackground)
+    @_group.bringToTop(@_unitLife)
 
   @create = (name, unitId ,game)->
     switch name
