@@ -75,14 +75,14 @@ class @BaseGame
     @game.load.atlasJSONHash("critBuff_sniper", "/sprites/autoattack_sniper.png", "/sprites/autoattack.json");
 
     @game.load.atlasJSONHash("heal_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("hotBuff_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("trueDamage_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
     @game.load.atlasJSONHash("hitBuff_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
     @game.load.atlasJSONHash("attack_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
 
     @game.load.atlasJSONHash("attack_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
     @game.load.atlasJSONHash("heal_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
     @game.load.atlasJSONHash("burstShot_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("burnAll_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("attackAll_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
 
     @game.load.image "buff", "/sprites/buff.png"
 
@@ -144,8 +144,6 @@ class @BaseGame
       @[member._id].addSprite(xPos, (100 * i) + 100)
       @[member._id].initLife(xPos, (100 * i) + 100, member.life)
       @[member._id].addAnimation()
-      #@[member._id]._unit.animations.play 'idle'
-
       @[member._id].setCoordinates(xPos, (100 * i) + 100)
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
       @[member._id]._unit.scale.x *= -1 unless isPlayerOne
