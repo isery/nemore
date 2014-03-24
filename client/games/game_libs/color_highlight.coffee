@@ -29,15 +29,13 @@ class @ColorHighlight
       randomColorIndex = @createRandomNumber(0, @randomColors.length)
       @activeUnitId = Object.keys(@allSprites[randomSpriteIndex])[0]
       @activeUnit =  @firstElement(@allSprites[randomSpriteIndex])
-      console.log @activeUnit
       @activeSprite = @activeUnit._unit
       @activeColor = @randomColors[randomColorIndex]
       x = @activeSprite.position.x - @spriteSize / 2
       y = @activeSprite.position.y - @spriteSize / 2
       bmd = @createBitMap(@spriteSize, @activeColor, @backgroundColor)
-      @currentColorHighlight = @game.add.sprite(x, y, bmd)
-      @activeSprite.bringToTop()
-      @setLifeBarToTop(@activeUnitId)
+      @currentColorHighlight = @baseGame[@activeUnitId]._group.create x, y, bmd
+      @baseGame[@activeUnitId].bringToTop()
       @setState(true)
 
   setState:  (state) ->
@@ -77,9 +75,3 @@ class @ColorHighlight
   createRandomNumber: (from, to) ->
     number = Math.floor((Math.random() * to) + from)
     number
-
-  setLifeBarToTop: (gameTeamId) ->
-    @unitLifeBar = @baseGame[gameTeamId]._unitLife
-    @unitLifeBackground = @baseGame[gameTeamId]._lifeBackground
-    @unitLifeBackground.group.bringToTop(@unitLifeBackground)
-    @unitLifeBar.group.bringToTop(@unitLifeBar)
