@@ -3,12 +3,13 @@
 </template>
 
 <template name="container">
-	  <div class="container">
-	  	{{> navigation}}
-	  </div>
-	  <div class="outerContainer">
-	  	{{yield}}
-	  </div>
+	<div class="container">
+		{{> navigation}}
+		<div class="outerContainer">
+			{{yield}}
+		</div>
+	</div>
+
 </template>
 
 
@@ -22,6 +23,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Nemore</title>
 
-  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-  </head>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	</head>
 </template>
