@@ -71,9 +71,9 @@ class @BaseAbility
     @_parts = @_targets.length
     for target, index in @_targets
       ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
-      ability.animations.add("shooting_" + index)
-      ability.animations.play("shooting_" + index, 20, true)
-      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 400, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      ability.animations.add("shooting")
+      ability.animations.play("shooting", 20, true)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.x - 20, y: target.gameTeam._unit.y }, 400, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
         this.scope.displayText(this.target, this.target.damage.toString())
         if this.target.hit
@@ -82,6 +82,7 @@ class @BaseAbility
         else
           this.scope._doneParts++
           this.scope.finishPart()
+
         tween.kill()
       , {target: target, scope: @}
 
@@ -114,7 +115,7 @@ class @BaseAbility
       ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
       ability.animations.add("shooting_" + index)
       ability.animations.play("shooting_" + index, 20, true)
-      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.center.x - 20, y: target.gameTeam._unit.center.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.x - 20, y: target.gameTeam._unit.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
         this.scope.displayText(this.target, this.target.heal.toString())
         if this.target.hit
@@ -143,9 +144,9 @@ class @BaseAbility
     text = if target.hit then value else "Miss!"
     text += " " + "Crit!" if target.crit
 
-    t = @_game.add.text(target.gameTeam._unit.center.x + 30,  target.gameTeam._unit.center.y, text, style);
+    t = @_game.add.text(target.gameTeam._unit.x,  target.gameTeam._unit.y, text.toString(), style)
 
-    tween = @_game.add.tween(t).to({x: target.gameTeam._unit.center.x + 30, y: target.gameTeam._unit.center.y - 75}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+    tween = @_game.add.tween(t).to({x: target.gameTeam._unit.x + 30, y: target.gameTeam._unit.y - 35}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
     tween.onComplete.add (tween) ->
       setTimeout ->
         tween.text = ""
