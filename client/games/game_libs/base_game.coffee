@@ -27,7 +27,7 @@ class @BaseGame
       create: @create.bind(@)
       update: @update.bind(@)
     )
-    @colorHighlight = new ColorHighlight({game:@game, allUnits:@allUnits})
+    @colorHighlight = new ColorHighlight({game:@game, allUnits:@allUnits, baseGame: @})
 
 
   update: ->

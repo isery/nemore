@@ -2,6 +2,7 @@ class @ColorHighlight
   constructor: (data) ->
     @spriteSize = 64
     @game = data.game
+    @baseGame = data.baseGame
     @backgroundColor = "#124184"
     @randomColors = []
     colors = Color.find()
@@ -36,9 +37,7 @@ class @ColorHighlight
       bmd = @createBitMap(@spriteSize, @activeColor, @backgroundColor)
       @currentColorHighlight = @game.add.sprite(x, y, bmd)
       @activeSprite.bringToTop()
-      #TODO Christoph
-      #@activeUnit._unitLife.bringToTop()
-      #@activeUnit._lifeBackground.bringToTop()
+      @setLifeBarToTop(@activeUnitId)
       @setState(true)
 
   setState:  (state) ->
@@ -78,3 +77,9 @@ class @ColorHighlight
   createRandomNumber: (from, to) ->
     number = Math.floor((Math.random() * to) + from)
     number
+
+  setLifeBarToTop: (gameTeamId) ->
+    @unitLifeBar = @baseGame[gameTeamId]._unitLife
+    @unitLifeBackground = @baseGame[gameTeamId]._lifeBackground
+    @unitLifeBackground.group.bringToTop(@unitLifeBackground)
+    @unitLifeBar.group.bringToTop(@unitLifeBar)
