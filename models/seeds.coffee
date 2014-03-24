@@ -63,6 +63,6 @@ if Meteor.isServer
 		if ColorKeys.find().count() <= 0
 			for color in colorArr
 				for key, i in keyArr
-					ColorKeys.insert colorId: color, keyId: key, conditionId: conditionArr[i], value: 1
+					ColorKeys.insert colorId: color, keyId: key, conditionId: conditionArr[i], value: 1, duration: 1
 
 

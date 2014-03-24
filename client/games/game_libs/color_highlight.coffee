@@ -29,6 +29,7 @@ class @ColorHighlight
       randomColorIndex = @createRandomNumber(0, @randomColors.length)
       @activeUnitId = Object.keys(@allSprites[randomSpriteIndex])[0]
       @activeUnit =  @firstElement(@allSprites[randomSpriteIndex])
+      console.log @activeUnit
       @activeSprite = @activeUnit._unit
       @activeColor = @randomColors[randomColorIndex]
       x = @activeSprite.position.x - @spriteSize / 2

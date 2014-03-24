@@ -50,14 +50,14 @@ class @BaseGame
           conditionName = condition.name
           conditionId = condition._id
           unitId = @colorHighlight.activeUnitId
-          #this.target.gameTeam._conditions.add(conditionName) should be like this
-          # no conditions?
-          #GameTeam.findOne({_id:unitId})._conditions.add(conditionName)
-          Meteor.call "addCondition", @_id,unitId, {conditionId:conditionId,value: colorKey.value, duration: 1}
+          gameTeamId = GameTeam.findOne({_id:unitId})._id
+          @[gameTeamId]._conditions.add(conditionName)
+          Meteor.call "addCondition", @_id,unitId, {conditionId:conditionId,value: colorKey.value, duration: colorKey.duration}
           clearTimeout removeColorHighlight
           @colorHighlight.setState(false)
           @timer = @frameRate
           @colorHighlight.animateSuccess()
+
 
 
   preload: ->
