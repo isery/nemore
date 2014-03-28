@@ -2,14 +2,6 @@ class @BaseGame
   @_instance: undefined
 
   constructor: (data) ->
-    allKeys = Key.find()
-    @keys = []
-    for i of allKeys
-      @keys.push allKeys[i].name.toUpperCase()
-    @keyListener = []
-    @timer = 60
-    @durationOfColorHighlight = 700
-    @frameRate = 60
     BaseGame._instance = @
     @_id = data.game._id
     @allUnits = []
@@ -22,11 +14,29 @@ class @BaseGame
       team: data.gameTeamTwo
 
     @actions = data.actions
-    @game = new Phaser.Game(1024, 768, Phaser.CANVAS, "base-game",
+
+    @canvasSize =
+      x: 1024
+      y: 768
+
+    @game = new Phaser.Game(@canvasSize.x, @canvasSize.y, Phaser.CANVAS, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
       update: @update.bind(@)
     )
+
+    @initColorHighlight()
+
+
+  initColorHighlight: ->
+    allKeys = Key.find()
+    @keys = []
+    for i of allKeys
+      @keys.push allKeys[i].name.toUpperCase()
+    @keyListener = []
+    @timer = 60
+    @durationOfColorHighlight = 700
+    @frameRate = 60
     @colorHighlight = new ColorHighlight({game:@game, allUnits:@allUnits, baseGame: @})
 
 
@@ -64,25 +74,26 @@ class @BaseGame
     @preloadTeam(@playerOne)
     @preloadTeam(@playerTwo)
 
-    @game.load.atlasJSONHash("defenseBuff_drone", "/sprites/autoattack_drone.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("defenseAll_drone", "/sprites/autoattack_drone.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("damageBuff_drone", "/sprites/autoattack_drone.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("damageAll_drone", "/sprites/autoattack_drone.png", "/sprites/autoattack.json");
+    @game.load.image "background", "/sprites/background.png"
+    @game.load.atlasJSONHash("defenseBuff_drone", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("defenseAll_drone", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("damageBuff_drone", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("damageAll_drone", "/sprites/shot.png", "/sprites/shot.json");
 
-    @game.load.atlasJSONHash("attack_sniper", "/sprites/autoattack_sniper.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("steadyShot_sniper", "/sprites/autoattack_sniper.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("executeShot_sniper", "/sprites/autoattack_sniper.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("critBuff_sniper", "/sprites/autoattack_sniper.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("attack_sniper", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("steadyShot_sniper", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("executeShot_sniper", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("critBuff_sniper", "/sprites/shot.png", "/sprites/shot.json");
 
-    @game.load.atlasJSONHash("heal_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("trueDamage_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("hitBuff_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("attack_commander", "/sprites/autoattack_commander.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("heal_commander", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("trueDamage_commander", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("hitBuff_commander", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("attack_commander", "/sprites/shot.png", "/sprites/shot.json");
 
-    @game.load.atlasJSONHash("attack_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("heal_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("burstShot_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
-    @game.load.atlasJSONHash("attackAll_specialist", "/sprites/autoattack_specialist.png", "/sprites/autoattack.json");
+    @game.load.atlasJSONHash("attack_specialist", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("heal_specialist", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("burstShot_specialist", "/sprites/shot.png", "/sprites/shot.json");
+    @game.load.atlasJSONHash("attackAll_specialist", "/sprites/shot.png", "/sprites/shot.json");
 
     @game.load.image "buff", "/sprites/buff.png"
 
@@ -95,10 +106,11 @@ class @BaseGame
 
     @game.load.image "ball", "/sprites/aqua_ball.png"
     @game.load.image "healthbar", "/sprites/healthbar.png"
+
     @game.load.spritesheet "explode", "/sprites/explode1.png", 128, 128, 16
 
   create: ->
-    @game.stage.backgroundColor = '#124184'
+    background =  @game.add.sprite(0, 0, 'background')
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
 
@@ -139,23 +151,23 @@ class @BaseGame
 
   createTeam: (player) ->
     isPlayerOne = (Meteor.userId() == player.hero.userId)
-    xPos = if isPlayerOne then 200 else 650
+    xPos = if isPlayerOne then @canvasSize.x * 0.25 else @canvasSize.x * 0.85
     for member, i in player.team
-      @[member._id].addSprite(xPos, (100 * i) + 100)
-      @[member._id].initLife(xPos, (100 * i) + 100, member.life)
+      @[member._id].addSprite(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55)
+      @[member._id].initLife(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55, member.life)
       @[member._id].addAnimation()
-      @[member._id].setCoordinates(xPos, (100 * i) + 100)
+      @[member._id].setCoordinates(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55)
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
       @[member._id]._unit.scale.x *= -1 unless isPlayerOne
       object = {}
       object[member._id] = @[member._id]
       @allUnits.push object if isPlayerOne
 
-    heroXPos = if isPlayerOne then -100 else 100
+    heroXPos = if isPlayerOne then @canvasSize.x *- 0.175 else 0
 
-    @[player.hero._id].addSprite(xPos + heroXPos, 200)
+    @[player.hero._id].addSprite(xPos + heroXPos, @canvasSize.y * 0.7)
     @[player.hero._id].addAnimation()
-    @[player.hero._id].setCoordinates(xPos + heroXPos, 200)
-    @[player.hero._id].initLife(xPos + heroXPos, 200, player.hero.life)
+    @[player.hero._id].setCoordinates(xPos + heroXPos, @canvasSize.y * 0.7)
+    @[player.hero._id].initLife(xPos + heroXPos, @canvasSize.y * 0.7, player.hero.life)
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
     @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne
