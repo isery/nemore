@@ -1,10 +1,10 @@
 {
   "frames": [
     {
-      "filename": "a.png",
+      "filename": "idle_1.png",
       "frame": {
-        "x": 151,
-        "y": 0,
+        "x": 141,
+        "y": 245,
         "w": 65,
         "h": 120
       },
@@ -22,51 +22,303 @@
       }
     },
     {
-      "filename": "b.png",
+      "filename": "idle_2.png",
       "frame": {
-        "x": 0,
-        "y": 0,
-        "w": 74,
-        "h": 120
+        "x": 268,
+        "y": 245,
+        "w": 61,
+        "h": 112
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 74,
-        "h": 120
+        "w": 61,
+        "h": 112
       },
       "sourceSize": {
-        "w": 74,
-        "h": 120
+        "w": 61,
+        "h": 112
       }
     },
     {
-      "filename": "c.png",
+      "filename": "miss_1",
       "frame": {
+        "x": 330,
+        "y": 240,
+        "w": 57,
+        "h": 118
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
         "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 118
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 118
+      }
+    },
+    {
+      "filename": "miss_2.png",
+      "frame": {
+        "x": 99,
+        "y": 125,
+        "w": 62,
+        "h": 119
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 119
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 119
+      }
+    },
+    {
+      "filename": "death_1.png",
+      "frame": {
+        "x": 207,
+        "y": 245,
+        "w": 60,
+        "h": 118
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 60,
+        "h": 118
+      },
+      "sourceSize": {
+        "w": 60,
+        "h": 118
+      }
+    },
+    {
+      "filename": "death_2.png",
+      "frame": {
+        "x": 330,
         "y": 121,
-        "w": 83,
-        "h": 120
+        "w": 71,
+        "h": 118
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 83,
-        "h": 120
+        "w": 71,
+        "h": 118
       },
       "sourceSize": {
-        "w": 83,
-        "h": 120
+        "w": 71,
+        "h": 118
       }
     },
     {
-      "filename": "d.png",
+      "filename": "death_3.png",
+      "frame": {
+        "x": 82,
+        "y": 0,
+        "w": 81,
+        "h": 123
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 81,
+        "h": 123
+      },
+      "sourceSize": {
+        "w": 81,
+        "h": 123
+      }
+    },
+    {
+      "filename": "death_4.png",
+      "frame": {
+        "x": 0,
+        "y": 125,
+        "w": 98,
+        "h": 119
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 98,
+        "h": 119
+      },
+      "sourceSize": {
+        "w": 98,
+        "h": 119
+      }
+    },
+    {
+      "filename": "death_5.png",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 81,
+        "h": 124
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 81,
+        "h": 124
+      },
+      "sourceSize": {
+        "w": 81,
+        "h": 124
+      }
+    },
+    {
+      "filename": "death_6.png",
+      "frame": {
+        "x": 240,
+        "y": 0,
+        "w": 89,
+        "h": 123
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 89,
+        "h": 123
+      },
+      "sourceSize": {
+        "w": 89,
+        "h": 123
+      }
+    },
+    {
+      "filename": "death_7.png",
+      "frame": {
+        "x": 164,
+        "y": 121,
+        "w": 72,
+        "h": 119
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 72,
+        "h": 119
+      },
+      "sourceSize": {
+        "w": 72,
+        "h": 119
+      }
+    },
+    {
+      "filename": "death_8.png",
+      "frame": {
+        "x": 240,
+        "y": 124,
+        "w": 73,
+        "h": 103
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 73,
+        "h": 103
+      },
+      "sourceSize": {
+        "w": 73,
+        "h": 103
+      }
+    },
+    {
+      "filename": "pullweapon_1.png",
       "frame": {
         "x": 75,
+        "y": 245,
+        "w": 65,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 65,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 65,
+        "h": 120
+      }
+    },
+    {
+      "filename": "pullweapon_2.png",
+      "frame": {
+        "x": 0,
+        "y": 245,
+        "w": 74,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 74,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 74,
+        "h": 120
+      }
+    },
+    {
+      "filename": "pullweapon_3.png",
+      "frame": {
+        "x": 330,
+        "y": 0,
+        "w": 83,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 83,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 83,
+        "h": 120
+      }
+    },
+    {
+      "filename": "pullweapon_4.png",
+      "frame": {
+        "x": 164,
         "y": 0,
         "w": 75,
         "h": 120
@@ -89,8 +341,8 @@
     "app": "http://www.leshylabs.com/apps/sstool/",
     "version": "Leshy SpriteSheet Tool v0.8",
     "size": {
-      "w": 216,
-      "h": 241
+      "w": 413,
+      "h": 365
     },
     "scale": 1
   }

@@ -1,7 +1,7 @@
 {
   "frames": [
     {
-      "filename": "a.png",
+      "filename": "pullweapon_1.png",
       "frame": {
         "x": 0,
         "y": 0,
@@ -22,9 +22,9 @@
       }
     },
     {
-      "filename": "b.png",
+      "filename": "pullweapon_2.png",
       "frame": {
-        "x": 75,
+        "x": 269,
         "y": 0,
         "w": 81,
         "h": 100
@@ -43,11 +43,137 @@
       }
     },
     {
-      "filename": "c.png",
+      "filename": "pullweapon_3.png",
+      "frame": {
+        "x": 79,
+        "y": 0,
+        "w": 88,
+        "h": 100
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 88,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 88,
+        "h": 100
+      }
+    },
+    {
+      "filename": "death_1.png",
+      "frame": {
+        "x": 70,
+        "y": 205,
+        "w": 65,
+        "h": 98
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 65,
+        "h": 98
+      },
+      "sourceSize": {
+        "w": 65,
+        "h": 98
+      }
+    },
+    {
+      "filename": "death_2.png",
       "frame": {
         "x": 0,
         "y": 101,
-        "w": 88,
+        "w": 78,
+        "h": 103
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 78,
+        "h": 103
+      },
+      "sourceSize": {
+        "w": 78,
+        "h": 103
+      }
+    },
+    {
+      "filename": "death_3.png",
+      "frame": {
+        "x": 168,
+        "y": 86,
+        "w": 79,
+        "h": 106
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 79,
+        "h": 106
+      },
+      "sourceSize": {
+        "w": 79,
+        "h": 106
+      }
+    },
+    {
+      "filename": "death_4.png",
+      "frame": {
+        "x": 168,
+        "y": 0,
+        "w": 100,
+        "h": 85
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 85
+      },
+      "sourceSize": {
+        "w": 100,
+        "h": 85
+      }
+    },
+    {
+      "filename": "death_5.png",
+      "frame": {
+        "x": 136,
+        "y": 205,
+        "w": 129,
+        "h": 61
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 129,
+        "h": 61
+      },
+      "sourceSize": {
+        "w": 129,
+        "h": 61
+      }
+    },
+    {
+      "filename": "idle_1.png",
+      "frame": {
+        "x": 79,
+        "y": 101,
+        "w": 70,
         "h": 100
       },
       "rotated": false,
@@ -55,12 +181,75 @@
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 88,
+        "w": 70,
         "h": 100
       },
       "sourceSize": {
-        "w": 88,
+        "w": 70,
         "h": 100
+      }
+    },
+    {
+      "filename": "idle_2.png",
+      "frame": {
+        "x": 269,
+        "y": 201,
+        "w": 74,
+        "h": 98
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 74,
+        "h": 98
+      },
+      "sourceSize": {
+        "w": 74,
+        "h": 98
+      }
+    },
+    {
+      "filename": "miss_1.png",
+      "frame": {
+        "x": 0,
+        "y": 205,
+        "w": 69,
+        "h": 98
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 69,
+        "h": 98
+      },
+      "sourceSize": {
+        "w": 69,
+        "h": 98
+      }
+    },
+    {
+      "filename": "miss_2.png",
+      "frame": {
+        "x": 269,
+        "y": 101,
+        "w": 72,
+        "h": 99
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 72,
+        "h": 99
+      },
+      "sourceSize": {
+        "w": 72,
+        "h": 99
       }
     }
   ],
@@ -68,8 +257,8 @@
     "app": "http://www.leshylabs.com/apps/sstool/",
     "version": "Leshy SpriteSheet Tool v0.8",
     "size": {
-      "w": 156,
-      "h": 201
+      "w": 350,
+      "h": 303
     },
     "scale": 1
   }
