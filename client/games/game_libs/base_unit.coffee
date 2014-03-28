@@ -18,7 +18,8 @@ class @BaseUnit
       @[ability.name] = new BaseAbility({baseUnit: @, ability: ability})
 
   addSprite: (x,y) ->
-     @_unit = @_group.create x, y, @_name, "a.png"
+     @_unit = @_group.create x, y, @_name, "idle_1.png"
+     @_game.world.bringToTop(@_group)
 
   initLife: (x, y, life)->
     @_maxLife = life
@@ -70,7 +71,7 @@ class @BaseUnit
   bringToTop: ->
     @_unit.bringToTop()
     @_group.bringToTop(@_lifeBackground)
-    @_group.bringToTop(@_unitLife)
+    @_group.bringToTop(@_unitLife) if @_unitLife
 
   @create = (name, unitId ,game)->
     switch name
