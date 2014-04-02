@@ -3,7 +3,7 @@ class @ColorHighlight
     @spriteSize = 64
     @game = data.game
     @baseGame = data.baseGame
-    @backgroundColor = "#124184"
+    @backgroundColor = "#FFFFFFFF"
     @randomColors = []
     colors = Color.find()
     for i of colors
@@ -66,7 +66,7 @@ class @ColorHighlight
     bmd.context.beginPath()
     grd = bmd.context.createRadialGradient(@spriteSize, @spriteSize, 0, @spriteSize, @spriteSize, @spriteSize)
     grd.addColorStop 0, color
-    grd.addColorStop 1, backgroundColor
+    grd.addColorStop 1, 'rgba(0,0,0,0)'
     bmd.context.rect 0, 0, @spriteSize * 2, @spriteSize * 2
     bmd.context.fillStyle = grd
     bmd.context.fill()

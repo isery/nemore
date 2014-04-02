@@ -36,6 +36,9 @@ Template.preSetting.created = ->
       return options.inverse(@)
 
 Template.preSetting.rendered = ->
+  $.fn.fullpage({
+    autoScrolling: false
+  })
   $('li[data-id='+Session.get("open-sub")+']').addClass("open")
   $('.list').sortable(
     stop: (event,ui) ->

@@ -1,66 +1,255 @@
 {
   "frames": [
     {
-      "filename": "a.png",
+      "filename": "death_1.png",
       "frame": {
         "x": 0,
-        "y": 0,
-        "w": 77,
-        "h": 100
+        "y": 126,
+        "w": 146,
+        "h": 125
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 77,
-        "h": 100
+        "w": 146,
+        "h": 125
       },
       "sourceSize": {
-        "w": 77,
-        "h": 100
+        "w": 146,
+        "h": 125
       }
     },
     {
-      "filename": "b.png",
+      "filename": "death_2.png",
       "frame": {
-        "x": 78,
+        "x": 294,
         "y": 0,
-        "w": 81,
-        "h": 100
+        "w": 146,
+        "h": 125
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 81,
-        "h": 100
+        "w": 146,
+        "h": 125
       },
       "sourceSize": {
-        "w": 81,
-        "h": 100
+        "w": 146,
+        "h": 125
       }
     },
     {
-      "filename": "c.png",
+      "filename": "death_3.png",
       "frame": {
-        "x": 0,
-        "y": 101,
-        "w": 86,
-        "h": 100
+        "x": 147,
+        "y": 0,
+        "w": 146,
+        "h": 125
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 86,
-        "h": 100
+        "w": 146,
+        "h": 125
       },
       "sourceSize": {
-        "w": 86,
-        "h": 100
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "death_4.png",
+      "frame": {
+        "x": 147,
+        "y": 126,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "death_5.png",
+      "frame": {
+        "x": 0,
+        "y": 252,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "idle_1.png",
+      "frame": {
+        "x": 147,
+        "y": 252,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "idle_2.png",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "miss_1.png",
+      "frame": {
+        "x": 294,
+        "y": 126,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "miss_2.png",
+      "frame": {
+        "x": 294,
+        "y": 252,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "pullweapon_1.png",
+      "frame": {
+        "x": 0,
+        "y": 378,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "pullweapon_2.png",
+      "frame": {
+        "x": 147,
+        "y": 378,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
+      }
+    },
+    {
+      "filename": "pullweapon_3.png",
+      "frame": {
+        "x": 294,
+        "y": 378,
+        "w": 146,
+        "h": 125
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 146,
+        "h": 125
+      },
+      "sourceSize": {
+        "w": 146,
+        "h": 125
       }
     }
   ],
@@ -68,8 +257,8 @@
     "app": "http://www.leshylabs.com/apps/sstool/",
     "version": "Leshy SpriteSheet Tool v0.8",
     "size": {
-      "w": 159,
-      "h": 201
+      "w": 440,
+      "h": 503
     },
     "scale": 1
   }
