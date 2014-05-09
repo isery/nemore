@@ -101,6 +101,7 @@ class @BaseAbility
         this.scope.displayText(this.target, this.target.damage.toString())
         if this.target.hit
           if this.target.life <= 0
+            target.gameTeam._unit.events.onAnimationComplete.removeAll()
             target.gameTeam._unit.animations.play "death", 5, false
           else
             target.gameTeam._unit.animations.play "hit", 5, false
