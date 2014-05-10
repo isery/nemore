@@ -3,6 +3,7 @@ class @BaseGame
 
   constructor: (data) ->
     BaseGame._instance = @
+    @_playerOneSpriteOffset = 50;
     @_id = data.game._id
     @allUnits = []
     @playerOne =
@@ -154,7 +155,11 @@ class @BaseGame
     xPos = if isPlayerOne then @canvasSize.x * 0.25 else @canvasSize.x * 0.85
     for member, i in player.team
       @[member._id].addSprite(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55)
-      @[member._id].initLife(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55, member.life)
+
+      if isPlayerOne
+        @[member._id].initLife(xPos - (i * @canvasSize.x * 0.05) + @_playerOneSpriteOffset, (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55, member.life)
+      else
+        @[member._id].initLife(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55, member.life)
       @[member._id].addAnimation()
       @[member._id].setCoordinates(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55)
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
@@ -168,6 +173,9 @@ class @BaseGame
     @[player.hero._id].addSprite(xPos + heroXPos, @canvasSize.y * 0.7)
     @[player.hero._id].addAnimation()
     @[player.hero._id].setCoordinates(xPos + heroXPos, @canvasSize.y * 0.7)
-    @[player.hero._id].initLife(xPos + heroXPos, @canvasSize.y * 0.7, player.hero.life)
+    if isPlayerOne
+      @[player.hero._id].initLife(xPos + heroXPos + @_playerOneSpriteOffset, @canvasSize.y * 0.7, player.hero.life)
+    else
+      @[player.hero._id].initLife(xPos + heroXPos, @canvasSize.y * 0.7, player.hero.life)
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
     @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne
