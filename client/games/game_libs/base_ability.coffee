@@ -101,13 +101,18 @@ class @BaseAbility
         this.scope.displayText(this.target, this.target.damage.toString())
         if this.target.hit
           if this.target.life <= 0
+            target.gameTeam._unit.events.onAnimationComplete.removeAll()
             target.gameTeam._unit.animations.play "death", 5, false
           else
             target.gameTeam._unit.animations.play "hit", 5, false
             target.gameTeam._unit.events.onAnimationComplete.add (anim) ->
               target.gameTeam._unit.animations.play "idle"
           this.scope.hit(this.target)
-          this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
+
+          if (Meteor.userId() == GameTeam.findOne({_id: target.gameTeamId}).userId)
+            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x + this.scope._baseGame._playerOneSpriteOffset, this.target.gameTeam.getCoordinates().y, this.target.life)
+          else
+            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
         else
           target.gameTeam._unit.animations.play "miss", 5, false
           target.gameTeam._unit.events.onAnimationComplete.add (anim) ->
@@ -154,7 +159,10 @@ class @BaseAbility
         this.scope.displayText(this.target, this.target.heal.toString())
         if this.target.hit
           this.scope.hit(this.target)
-          this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
+          if (Meteor.userId() == GameTeam.findOne({_id: target.gameTeamId}).userId)
+            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x + this.scope._baseGame._playerOneSpriteOffset, this.target.gameTeam.getCoordinates().y, this.target.life)
+          else
+            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
         else
           this.scope._doneParts++
           this.scope.finishPart()
