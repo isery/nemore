@@ -45,7 +45,13 @@ class @BaseAbility
       _id: @_baseGame._id
       state: 'finished'
 
-    console.log "END GAME" if endGame
+    if endGame
+      hero = GameTeam.findOne({userId: Meteor.userId(), gameId: @_action.gameId, hero: true})
+      if hero.life <= 0
+        text = 'Defeat'
+      else
+        text = 'Victory'
+      $('#base-game').append('<div id="end-game">' + text + '<br> <div id="finish-game">End Game</div> </div>')
 
   pullweapon: ->
     @_parts = 1
