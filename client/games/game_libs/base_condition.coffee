@@ -24,7 +24,7 @@ class @BaseCondition
   init: (keys)->
     for key in keys
       conditionsCount = Object.keys(@_conditions).length
-      @_conditions[key] = @_game.add.sprite(@_baseUnit._posX + 10 + (13 * conditionsCount), @_baseUnit._posY - 30, key)
+      @_conditions[key] = @_game.add.sprite(@_baseUnit._lifePosX + 7 + (13 * conditionsCount), @_baseUnit._lifePosY - 30, key)
       @_conditions[key].scale.x *= 0.4
       @_conditions[key].scale.y *= 0.4
 

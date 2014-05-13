@@ -152,30 +152,77 @@ class @BaseGame
 
   createTeam: (player) ->
     isPlayerOne = (Meteor.userId() == player.hero.userId)
-    xPos = if isPlayerOne then @canvasSize.x * 0.25 else @canvasSize.x * 0.85
-    for member, i in player.team
-      @[member._id].addSprite(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55)
 
+    p1Positions = [
+        x: @canvasSize.x * 0.20
+        y: @canvasSize.y * 0.50
+      ,
+        x: @canvasSize.x * 0.15
+        y: @canvasSize.y * 0.60
+      ,
+        x: @canvasSize.x * 0.20
+        y: @canvasSize.y * 0.70
+      ,
+        x: @canvasSize.x * 0.15
+        y: @canvasSize.y * 0.80
+    ]
+
+    p1HeroPosition =
+      x: @canvasSize.x * 0.05
+      y: @canvasSize.y * 0.65
+
+    p2Positions = [
+        x: @canvasSize.x * 0.75
+        y: @canvasSize.y * 0.50
+      ,
+        x: @canvasSize.x * 0.70
+        y: @canvasSize.y * 0.60
+      ,
+        x: @canvasSize.x * 0.75
+        y: @canvasSize.y * 0.70
+      ,
+        x: @canvasSize.x * 0.70
+        y: @canvasSize.y * 0.80
+    ]
+
+    p2HeroPosition =
+      x: @canvasSize.x * 0.85
+      y: @canvasSize.y * 0.65
+
+    pArr = if isPlayerOne then p1Positions else p2Positions
+
+    # init units
+    for member, i in player.team
+      @[member._id].addSprite(pArr[i].x, pArr[i].y)
       if isPlayerOne
-        @[member._id].initLife(xPos - (i * @canvasSize.x * 0.05) + @_playerOneSpriteOffset, (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55, member.life)
+        @[member._id].initLife(pArr[i].x + @_playerOneSpriteOffset, pArr[i].y, member.life)
+        @[member._id].setCoordinates(pArr[i].x + @_playerOneSpriteOffset, pArr[i].y)
       else
-        @[member._id].initLife(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55, member.life)
+        @[member._id].initLife(pArr[i].x, pArr[i].y, member.life)
+        @[member._id].setCoordinates(pArr[i].x, pArr[i].y)
       @[member._id].addAnimation()
-      @[member._id].setCoordinates(xPos - (i * @canvasSize.x * 0.05), (@canvasSize.y * 0.1 * i) + @canvasSize.y * 0.55)
+
+      # Rotate enemies
       @[member._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
       @[member._id]._unit.scale.x *= -1 unless isPlayerOne
+
+      # Colorhighlight units init
       object = {}
       object[member._id] = @[member._id]
       @allUnits.push object if isPlayerOne
 
-    heroXPos = if isPlayerOne then @canvasSize.x *- 0.185 else 0
+    # init Hero
+    heroPos = if isPlayerOne then p1HeroPosition else p2HeroPosition
 
-    @[player.hero._id].addSprite(xPos + heroXPos, @canvasSize.y * 0.68)
+    @[player.hero._id].addSprite(heroPos.x, heroPos.y)
     @[player.hero._id].addAnimation()
-    @[player.hero._id].setCoordinates(xPos + heroXPos, @canvasSize.y * 0.68)
     if isPlayerOne
-      @[player.hero._id].initLife(xPos + heroXPos + @_playerOneSpriteOffset, @canvasSize.y * 0.68, player.hero.life)
+      @[player.hero._id].initLife(heroPos.x + @_playerOneSpriteOffset, heroPos.y, player.hero.life)
+      @[player.hero._id].setCoordinates(heroPos.x + @_playerOneSpriteOffset, heroPos.y)
     else
-      @[player.hero._id].initLife(xPos + heroXPos, @canvasSize.y * 0.68, player.hero.life)
+      @[player.hero._id].initLife(heroPos.x, heroPos.y, player.hero.life)
+      @[player.hero._id].setCoordinates(heroPos.x, heroPos.y)
+
+    # Rotate enemy hero
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
     @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne

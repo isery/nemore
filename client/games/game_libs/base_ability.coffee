@@ -86,14 +86,14 @@ class @BaseAbility
 
       # Angle calc
       v1 =
-        x: target.gameTeam._unit.x - @_baseUnit._posX
-        y: target.gameTeam._unit.y + 40 - @_baseUnit._posY
+        x: target.gameTeam._posX - @_baseUnit._posX
+        y: target.gameTeam._posY + 40 - @_baseUnit._posY
       p1 = 1 * v1.x + 0 * v1.y
       p2 = Math.sqrt(Math.pow(1,2) + Math.pow(0, 2))
       p3 = Math.sqrt(Math.pow(v1.x,2) + Math.pow(v1.y, 2))
       p4 = p1/(p2*p3)
       p5 = Math.acos(p4) * (180/Math.PI)
-      p5 = 360 - p5 if target.gameTeam._unit.y < @_baseUnit._posY
+      p5 = 360 - p5 if target.gameTeam._posY < @_baseUnit._posY
       ability.angle = p5
 
       ability.animations.add("shooting")
@@ -101,7 +101,7 @@ class @BaseAbility
 
       a1 = 0
       a1 = 40 unless @_baseGame.playerOne.hero.userId == Meteor.userId()
-      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.x + a1, y: target.gameTeam._unit.y + 40 }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._posX + a1, y: target.gameTeam._posY + 40 }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
 
       tween.onComplete.add (tween)->
         this.scope.displayText(this.target, this.target.damage.toString())
@@ -115,10 +115,7 @@ class @BaseAbility
               target.gameTeam._unit.animations.play "idle"
           this.scope.hit(this.target)
 
-          if (Meteor.userId() == GameTeam.findOne({_id: target.gameTeamId}).userId)
-            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x + this.scope._baseGame._playerOneSpriteOffset, this.target.gameTeam.getCoordinates().y, this.target.life)
-          else
-            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
+          this.target.gameTeam.setLifeLine(this.target.life)
         else
           target.gameTeam._unit.animations.play "miss", 5, false
           target.gameTeam._unit.events.onAnimationComplete.add (anim) ->
@@ -132,7 +129,7 @@ class @BaseAbility
   hit: (target)->
     @_doneParts++
     @finishPart()
-    # explode = @_game.add.sprite(target.gameTeam.getCoordinates().x - 35, target.gameTeam.getCoordinates().y - 20, "explode")
+    # explode = @_game.add.sprite(target.gameTeam._lifePosX - 35, target.gameTeam._lifePoxY - 20, "explode")
     # explode.animations.add "exploding"
     # explode.animations.play "exploding", 20, false
     # explode.events.onAnimationComplete.add (explode)->
@@ -144,8 +141,8 @@ class @BaseAbility
   buff: ->
     @_parts = @_targets.length
     for target, index in @_targets
-      ability = @_game.add.sprite(target.gameTeam.getCoordinates().x, target.gameTeam.getCoordinates().y, "buff")
-      tween = @_game.add.tween(ability).to({x: target.gameTeam.getCoordinates().x, y: target.gameTeam.getCoordinates().y + 20}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      ability = @_game.add.sprite(target.gameTeam._lifePosX, target.gameTeam._lifePoxY, "buff")
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._lifePosX, y: target.gameTeam._lifePoxY + 20}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
         conditionName = Conditions.findOne({_id: this.scope._abilityData.conditionId}).name
         this.target.gameTeam._conditions.add(conditionName)
@@ -160,15 +157,12 @@ class @BaseAbility
       ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
       ability.animations.add("shooting_" + index)
       ability.animations.play("shooting_" + index, 20, true)
-      tween = @_game.add.tween(ability).to({x: target.gameTeam._unit.x - 20, y: target.gameTeam._unit.y }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._posX - 20, y: target.gameTeam._posY }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
       tween.onComplete.add (tween)->
         this.scope.displayText(this.target, this.target.heal.toString())
         if this.target.hit
           this.scope.hit(this.target)
-          if (Meteor.userId() == GameTeam.findOne({_id: target.gameTeamId}).userId)
-            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x + this.scope._baseGame._playerOneSpriteOffset, this.target.gameTeam.getCoordinates().y, this.target.life)
-          else
-            this.target.gameTeam.setLifeLine(this.target.gameTeam.getCoordinates().x, this.target.gameTeam.getCoordinates().y, this.target.life)
+          this.target.gameTeam.setLifeLine(this.target.life)
         else
           this.scope._doneParts++
           this.scope.finishPart()
@@ -192,9 +186,9 @@ class @BaseAbility
     text = if target.hit then value else "Miss!"
     text += " " + "Crit!" if target.crit
 
-    t = @_game.add.text(target.gameTeam._unit.x,  target.gameTeam._unit.y, text.toString(), style)
+    t = @_game.add.text(target.gameTeam._posX,  target.gameTeam._posY, text.toString(), style)
 
-    tween = @_game.add.tween(t).to({x: target.gameTeam._unit.x + 30, y: target.gameTeam._unit.y - 35}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+    tween = @_game.add.tween(t).to({x: target.gameTeam._posX + 30, y: target.gameTeam._posY - 35}, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
     tween.onComplete.add (tween) ->
       setTimeout ->
         tween.text = ""
