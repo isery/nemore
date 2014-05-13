@@ -1,20 +1,5 @@
 Template.home.rendered = ->
   $('#cn-slideshow').slideshow();
-  $.fn.fullpage({
-    anchors:['', 'heroView'],
-    scrollingSpeed: 700,
-    autoScrolling:true,
-    #events
-    onLeave: (index, direction) ->,
-    afterLoad: (anchorLink, index) ->{},
-    afterRender: () ->{},
-    afterSlideLoad: (anchorLink, index, slideAnchor, slideIndex)->{},
-    onSlideLeave: (anchorLink, index, slideIndex, direction)->{}
-  });
-Template.home.destroyed = ->
-  $.fn.fullpage({
-    autoScrolling: false
-    })
 
 Template.imageSlider.events
   'click i': (e) ->

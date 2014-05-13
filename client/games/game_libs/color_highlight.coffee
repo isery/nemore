@@ -29,10 +29,9 @@ class @ColorHighlight
       randomColorIndex = @createRandomNumber(0, @randomColors.length)
       @activeUnitId = Object.keys(@allSprites[randomSpriteIndex])[0]
       @activeUnit =  @firstElement(@allSprites[randomSpriteIndex])
-      @activeSprite = @activeUnit._unit
       @activeColor = @randomColors[randomColorIndex]
-      x = @activeSprite.position.x - @spriteSize / 2
-      y = @activeSprite.position.y - @spriteSize / 2
+      x = @activeUnit._posX - @spriteSize / 2
+      y = @activeUnit._posY + 15 - @spriteSize / 2
       bmd = @createBitMap(@spriteSize, @activeColor, @backgroundColor)
       @currentColorHighlight = @baseGame[@activeUnitId]._group.create x, y, bmd
       @baseGame[@activeUnitId].bringToTop()

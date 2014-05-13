@@ -22,6 +22,8 @@ class @BaseUnit
      @_game.world.bringToTop(@_group)
 
   initLife: (x, y, life)->
+    @_lifePosX = x
+    @_lifePosY = y
     @_maxLife = life
     color = 0x000000
     @_lifeBackground = @_game.add.graphics(0,0)
@@ -34,7 +36,7 @@ class @BaseUnit
 
     @setLifeLine(x,y, life)
 
-  setLifeLine: (x, y, life) ->
+  setLifeLine: (life) ->
     percent = life/@_maxLife
     if @_unitLife
       @_unitLife.destroy()
@@ -56,17 +58,14 @@ class @BaseUnit
       @_unitLife = @_game.add.graphics(0, 0)
       @_unitLife.beginFill(color)
       @_unitLife.lineStyle(10, color, 1)
-      @_unitLife.moveTo(x + 10, y - 10)
-      @_unitLife.lineTo(x + (50 * percent), y - 10)
+      @_unitLife.moveTo(@_lifePosX + 10, @_lifePosY - 10)
+      @_unitLife.lineTo(@_lifePosX + (50 * percent), @_lifePosY - 10)
       @_unitLife.endFill()
       @_group.add(@_unitLife)
 
   setCoordinates: (coordsX, coordsY) ->
     @_posX = coordsX
     @_posY = coordsY
-
-  getCoordinates: ->
-    {x: @_posX, y: @_posY}
 
   bringToTop: ->
     @_unit.bringToTop()
