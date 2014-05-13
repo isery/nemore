@@ -195,11 +195,13 @@ class @BaseGame
     for member, i in player.team
       @[member._id].addSprite(pArr[i].x, pArr[i].y)
       if isPlayerOne
-        @[member._id].initLife(pArr[i].x + @_playerOneSpriteOffset, pArr[i].y, member.life)
+        @[member._id].initLife(pArr[i].x + @_playerOneSpriteOffset, pArr[i].y, member.unit().life * 0.75)
         @[member._id].setCoordinates(pArr[i].x + @_playerOneSpriteOffset, pArr[i].y)
       else
-        @[member._id].initLife(pArr[i].x, pArr[i].y, member.life)
+        @[member._id].initLife(pArr[i].x, pArr[i].y, member.unit().life)
         @[member._id].setCoordinates(pArr[i].x, pArr[i].y)
+
+      @[member._id].setLifeLine(member.life)
       @[member._id].addAnimation()
 
       # Rotate enemies
@@ -217,11 +219,13 @@ class @BaseGame
     @[player.hero._id].addSprite(heroPos.x, heroPos.y)
     @[player.hero._id].addAnimation()
     if isPlayerOne
-      @[player.hero._id].initLife(heroPos.x + @_playerOneSpriteOffset, heroPos.y, player.hero.life)
+      @[player.hero._id].initLife(heroPos.x + @_playerOneSpriteOffset, heroPos.y, player.hero.unit().life)
       @[player.hero._id].setCoordinates(heroPos.x + @_playerOneSpriteOffset, heroPos.y)
     else
-      @[player.hero._id].initLife(heroPos.x, heroPos.y, player.hero.life)
+      @[player.hero._id].initLife(heroPos.x, heroPos.y, player.hero.unit().life)
       @[player.hero._id].setCoordinates(heroPos.x, heroPos.y)
+
+    @[player.hero._id].setLifeLine(player.hero.life)
 
     # Rotate enemy hero
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne

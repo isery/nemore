@@ -34,7 +34,7 @@ class @BaseUnit
     @_lifeBackground.endFill()
     @_group.add(@_lifeBackground)
 
-    @setLifeLine(x,y, life)
+    @setLifeLine(life)
 
   setLifeLine: (life) ->
     percent = life/@_maxLife
