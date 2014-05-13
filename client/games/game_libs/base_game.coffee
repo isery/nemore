@@ -168,14 +168,14 @@ class @BaseGame
       object[member._id] = @[member._id]
       @allUnits.push object if isPlayerOne
 
-    heroXPos = if isPlayerOne then @canvasSize.x *- 0.175 else 0
+    heroXPos = if isPlayerOne then @canvasSize.x *- 0.185 else 0
 
-    @[player.hero._id].addSprite(xPos + heroXPos, @canvasSize.y * 0.7)
+    @[player.hero._id].addSprite(xPos + heroXPos, @canvasSize.y * 0.68)
     @[player.hero._id].addAnimation()
-    @[player.hero._id].setCoordinates(xPos + heroXPos, @canvasSize.y * 0.7)
+    @[player.hero._id].setCoordinates(xPos + heroXPos, @canvasSize.y * 0.68)
     if isPlayerOne
-      @[player.hero._id].initLife(xPos + heroXPos + @_playerOneSpriteOffset, @canvasSize.y * 0.7, player.hero.life)
+      @[player.hero._id].initLife(xPos + heroXPos + @_playerOneSpriteOffset, @canvasSize.y * 0.68, player.hero.life)
     else
-      @[player.hero._id].initLife(xPos + heroXPos, @canvasSize.y * 0.7, player.hero.life)
+      @[player.hero._id].initLife(xPos + heroXPos, @canvasSize.y * 0.68, player.hero.life)
     @[player.hero._id]._unit.anchor.setTo(0.9, 0) unless isPlayerOne
     @[player.hero._id]._unit.scale.x *= -1 unless isPlayerOne
