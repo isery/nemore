@@ -21,7 +21,7 @@ Template.preSetting.events
 Template.preSetting.created = ->
   Deps.autorun (deps) ->
     game = Games.findOne
-      _id: Router.getData().currentGame._id
+      _id: Router.getData().currentGame?._id
       state:
         $in: ["ready", "playing"]
 
