@@ -19,7 +19,7 @@
       </div>
       <div class="cn-nav-content">
         <div class="cn-nav-content-prev">
-          <span>Previous image</span>
+          <span>Previous</span>
           <h3>${prevTitle}</h3>
         </div>
         <div class="cn-nav-content-current">
@@ -27,7 +27,7 @@
           <h2>${currentTitle}</h2>
         </div>
         <div class="cn-nav-content-next">
-          <span>Next image</span>
+          <span>Next</span>
           <h3>${nextTitle}</h3>
         </div>
       </div>
@@ -36,10 +36,8 @@
 </head>
 
 <template name="home">
-  <div id="test">
-    <div class="section">{{> imageSlider}}</div>
-    <div class="section">{{> heroes}}</div>
-  </div>
+  <div class="section">{{> imageSlider}}</div>
+  <div class="section">{{> heroes}}</div>
 </template>
 
 <template name="heroes">
@@ -51,6 +49,7 @@
   </ul>
   <span class="close">&times</span>
 </template>
+
 
 <template name="imageSlider">
   <div class="imageSliderContainer">

@@ -1,24 +1,12 @@
 Template.home.rendered = ->
   $('#cn-slideshow').slideshow();
-  $.fn.fullpage({
-    anchors:['', 'heroView'],
-    scrollingSpeed: 700,
-    autoScrolling:true,
-    #events
-    onLeave: (index, direction) ->,
-    afterLoad: (anchorLink, index) ->{},
-    afterRender: () ->{},
-    afterSlideLoad: (anchorLink, index, slideAnchor, slideIndex)->{},
-    onSlideLeave: (anchorLink, index, slideIndex, direction)->{}
-  });
+  #adjustLoginBox()
+
 Template.home.destroyed = ->
-  $.fn.fullpage({
-    autoScrolling: false
-    })
 
 Template.imageSlider.events
   'click i': (e) ->
-    $.fn.fullpage.moveSectionDown();
+    $("html").animate({ scrollTop: $('.heroRowUl').offset().top });
 
 Template.heroes.events
   'click .heroRowUl li': (e) ->
@@ -29,3 +17,9 @@ Template.heroes.events
   'click span.close' :(e) ->
     $(".heroRowUl li.active").removeClass "active"
     $("body").removeClass "show-x"
+
+adjustLoginBox = ->
+  $loginBox = $("#login-dropdown-list")
+  $link = $loginBox.find(".dropdown-toggle")
+  $link.empty().addClass('fa fa-gears')
+  return null

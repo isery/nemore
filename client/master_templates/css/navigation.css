@@ -16,7 +16,7 @@
 	height: 0;
 	border-width: 0px;
 	border-style: solid;
-	border-color: #333;
+	border-color: #f68642;
 	background-color: rgba(0,0,0,0);
 	-webkit-backface-visibility: hidden;
 	-webkit-transition: border-width 0.3s, background-color 0.3s, height 0s 0.3s;
@@ -253,5 +253,31 @@
 .bt-menu ul:first-of-type li a:focus,
 .bt-menu ul li a:hover:before,
 .bt-menu ul li a:focus:before {
-	color: #f68642;
+	color: #333;
+}
+
+
+
+/* LOGIN BOX */
+
+.dropdown-menu{
+	left: 80px !important;
+	top: -382px;
+}
+
+.dropdown-menu .btn-primary{
+	background-color: #f68642;
+	border-color: #f5782a;
+}
+
+.dropdown-menu .btn-primary:hover{
+	background-color: #e15c0b;
+	border-color: #b05809;
+}
+
+#configure-login-service-dialog-modal{
+	z-index: 15;
+}
+.modal-backdrop{
+	z-index: 10;
 }

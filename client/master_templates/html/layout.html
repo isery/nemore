@@ -4,12 +4,9 @@
 
 <template name="container">
 	<div class="container">
-		{{> navigation}}
-		<div class="outerContainer">
-			{{yield}}
-		</div>
+	  <div class="navigationContainer">{{> navigation}}</div>
+		<div class="outerContainer">{{yield}}</div>
 	</div>
-
 </template>
 
 
