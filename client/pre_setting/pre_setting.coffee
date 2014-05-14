@@ -29,11 +29,11 @@ Template.preSetting.created = ->
       Router.go 'games', _id: game._id
       deps.stop()
 
-  Handlebars.registerHelper "checkHeroOrRandom", (obj, options) ->
-    if (obj.unitId is "Hero") or (obj.unitId is "Random")
-      return options.fn(@)
-    else
-      return options.inverse(@)
+Template.preSetting.checkHeroOrRandom = ->
+  if (@unitId is "Hero") or (@unitId is "Random")
+    return true
+  else
+    return false
 
 Template.preSetting.rendered = ->
   $('li[data-id='+Session.get("open-sub")+']').addClass("open")
