@@ -233,7 +233,7 @@ class @BaseGame
         @[member._id].initLife(pArr[i].x + @_playerOneSpriteOffset, pArr[i].y, member.unit().life * 0.75)
         @[member._id].setCoordinates(pArr[i].x + @_playerOneSpriteOffset, pArr[i].y)
       else
-        @[member._id].initLife(pArr[i].x, pArr[i].y, member.unit().life)
+        @[member._id].initLife(pArr[i].x, pArr[i].y, member.unit().life * 0.75)
         @[member._id].setCoordinates(pArr[i].x, pArr[i].y)
 
       @[member._id].setLifeLine(member.life)

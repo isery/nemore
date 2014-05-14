@@ -16,11 +16,11 @@
                     <ul class="list-group list " role="menu">
 
                     {{#each targetPriority}}
-                      {{#checkHeroOrRandom this}}
+                      {{#if checkHeroOrRandom}}
                       <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{this.unitId}}</li>
                       {{else}}
                         <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{unit.name}}</li>
-                      {{/checkHeroOrRandom}}
+                      {{/if}}
                     {{/each}}
                     </ul>
                   </div>

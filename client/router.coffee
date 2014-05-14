@@ -17,14 +17,14 @@ Router.map ->
 
   @route 'home',
     path: '/'
-    before: ->
+    onBeforeAction: ->
       Router.hasHero(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'userData'
       Meteor.subscribe 'allTeams'
       Meteor.subscribe 'colorKeys'
   @route 'gamerooms',
-    before: ->
+    onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
@@ -36,9 +36,33 @@ Router.map ->
       users: Meteor.users.find({}).fetch()
   @route 'preSetting',
     path: '/preSetting/:_id'
+    onBeforeAction: ->
+      @subscribe('currentGame', @params._id).wait()
+      @subscribe('allUnits').wait()
+      @subscribe('allTeams').wait()
+      @subscribe('allSpecialAbilities').wait()
+      @subscribe('allGameTeams', @params._id).wait()
+      @subscribe('allGamePlayers').wait()
+      @subscribe('priorityLists').wait()
+
+      if @data().currentGame
+        Router.isLoggedIn(@)
+        _id = @params._id
+        currentGame = @data().currentGame
+        userId = Meteor.userId()
+        gamePlayers = GamePlayer.find({gameId: currentGame._id})
+        if gamePlayers.length is 1
+          unless gamePlayers[0].userId is userId
+            currentGame.setPlayer2(userId)
+            newTeam = new GameTeam({gameId: currentGame._id}).init()
+
+    data: ->
+      gamePlayers: GamePlayer.find({userId: Meteor.userId()})
+      currentGame: Game.findById(@params._id),
+      gameTeams: GameTeam.find({userId: Meteor.userId()}, {sort: {priority: 1}})
   @route 'games',
     path: '/games/:_id'
-    before: ->
+    onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
@@ -58,7 +82,7 @@ Router.map ->
       heroTwo: GameTeam.findOne userId: GamePlayers.findOne({gameId: @params._id, player: "2"}).userId, gameId: @params._id, hero: true
   @route 'heroSelection',
     path: '/hero_selection'
-    before: ->
+    onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allUnits'
@@ -69,7 +93,7 @@ Router.map ->
       units: Unit.find({})
   @route 'crewSelection',
     path: '/crew_selection'
-    before: ->
+    onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allUnits'
@@ -81,7 +105,7 @@ Router.map ->
       teams: Team.find({hero: {$exists: false}})
       hero: Team.findOne({userId: Meteor.userId(), hero: true})
   @route 'summary',
-    before: ->
+    onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allUnits'
