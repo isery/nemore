@@ -3,7 +3,7 @@ Template.home.rendered = ->
 
 Template.imageSlider.events
   'click i': (e) ->
-    $.fn.fullpage.moveSectionDown();
+    $("html").animate({ scrollTop: $('.heroRowUl').offset().top });
 
 Template.heroes.events
   'click .heroRowUl li': (e) ->

@@ -1,16 +1,15 @@
 <template name="navigation">
-
   <nav id="bt-menu" class="bt-menu">
 
     <a href="#" class="bt-menu-trigger"><span>Menu</span></a>
 
     <ul>
+      <li><a class="fa fa-home" href="{{pathFor 'home'}}"></a></li>
       <li><a class="fa fa-gamepad" href="{{pathFor 'gamerooms'}}"></a></li>
       <li><a class="fa fa-user" href="{{pathFor 'heroSelection'}}"></a></li>
       <li><a class="fa fa-users" href="{{pathFor 'crewSelection'}}"></a></li>
       <li>{{loginButtons}}</li>
     </ul>
-
 
     <!--
     <ul>
@@ -23,5 +22,4 @@
 
     <div id="bt-overlay" class="bt-overlay"></div>
   </nav>
-
 </template>
