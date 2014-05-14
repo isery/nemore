@@ -106,6 +106,8 @@ class @BaseGame
     @game.load.image "dmg", "/sprites/poison.png"
 
     @game.load.image "ball", "/sprites/aqua_ball.png"
+    @game.load.image "smoke", "/sprites/smoke.png"
+    @game.load.image "spark", "/sprites/spark.png"
     @game.load.image "healthbar", "/sprites/healthbar.png"
 
     @game.load.spritesheet "explode", "/sprites/explode1.png", 128, 128, 16
@@ -118,7 +120,40 @@ class @BaseGame
     @initObserver()
     @createKeyboardListener()
 
+    @initSmoke(@game.world.centerX + 200, 380, 0.3, 0.5, -50, -20)
+    @initSmoke(@game.world.centerX + 525, 500, 0.3, 0.5, -30, -10)
 
+    @initSparks()
+
+
+  initSmoke: (posX, posY, scaleFrom, scaleTo, xSpeedFrom, xSpeedTo) ->
+    emitter = @game.add.emitter(posX, posY, 100)
+    emitter.makeParticles('smoke')
+    emitter.setXSpeed(xSpeedFrom, xSpeedTo)
+    emitter.setYSpeed(0, 0)
+    emitter.setRotation(0,40)
+    emitter.setAlpha(0.8, 0.2, 3000)
+    emitter.setScale(scaleFrom, scaleTo, scaleFrom, scaleTo, 6000, Phaser.Easing.Quintic.Out)
+    emitter.gravity = -100
+    emitter.start(false, 5000, 300)
+
+  initSparks: ->
+    emitter = @game.add.emitter(360, 385, 1000)
+    emitter.makeParticles('spark')
+    emitter.setYSpeed(-100, -150)
+    emitter.setAlpha(1.0, 0.0, 1700, Phaser.Easing.Quintic.Out)
+    emitter.setScale(0.1, 0.05, 0.2, 0.1, 1000, Phaser.Easing.Quintic.Out)
+    setInterval =>
+      tmp = setInterval =>
+        emitter.start(true, 1000, null, @randomNumber(20, 40))
+      , @randomNumber(200, 400)
+      setTimeout =>
+        clearInterval(tmp)
+      , @randomNumber(1400, 1700)
+    , @randomNumber(2000, 5000)
+
+  randomNumber: (min, max) ->
+    Math.floor(Math.random() * (max - min + 1) + min)
 
   initObserver: ->
     that = @
