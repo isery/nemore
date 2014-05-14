@@ -51,7 +51,7 @@ class @BaseAbility
         text = 'Defeat'
       else
         text = 'Victory'
-      $('#base-game').append('<div id="end-game">' + text + '<br> <div id="finish-game">End Game</div> </div>')
+      $('#base-game').append('<div id="end-game" class="' + text.toLowerCase() + '"">' + text + '<br> <div id="finish-game">End Game</div> </div>')
 
   pullweapon: ->
     @_parts = 1

@@ -1,7 +1,22 @@
 #end-game{
   position: absolute;
-  top: 40%;
-  left: 45%;
-  font-size: 30px;
-  color: white;
+  top: 30%;
+  left: 40%;
+  font-size: 300%;
+  border: 1px solid;
+  padding: 40px;
+  font-style: italic;
+  text-align: center;
+}
+
+.defeat{
+  color: red;
+}
+
+.victory{
+  color: green;
+}
+
+#finish-game{
+  cursor: pointer;
 }
