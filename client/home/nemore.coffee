@@ -1,8 +1,5 @@
 Template.home.rendered = ->
   $('#cn-slideshow').slideshow();
-  #adjustLoginBox()
-
-Template.home.destroyed = ->
 
 Template.imageSlider.events
   'click i': (e) ->
@@ -17,9 +14,3 @@ Template.heroes.events
   'click span.close' :(e) ->
     $(".heroRowUl li.active").removeClass "active"
     $("body").removeClass "show-x"
-
-adjustLoginBox = ->
-  $loginBox = $("#login-dropdown-list")
-  $link = $loginBox.find(".dropdown-toggle")
-  $link.empty().addClass('fa fa-gears')
-  return null
