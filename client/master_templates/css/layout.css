@@ -38,3 +38,7 @@ body .container .navigationContainer{
 #iron-router-progress{
   background-color: #f68642
 }
+
+#iron-router-progress:before{
+  border-color: #f68642 !important;
+}

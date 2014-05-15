@@ -1,21 +1,74 @@
 <template name="heroSelection">
-    <div class="row">
+    <div class="section">
+      <ul class="heroRowUl">
         {{#each units}}
-        <div class="col-md-3">
-            <div class="thumbnail">
-                <img src="img/{{name}}.png" alt="..." class="hero-selection" id="{{_id}}">
-                <div class="caption">
-                    <h3>{{name}}</h3>
-                    <p>Fraction: {{fraction}}</p>
-                    <p>Live: {{live}}</p>
-                    <p>Damage: {{damage}}</p>
-                    <p>Critical: {{crit}}</p>
-                    <p>Accuracy: {{accuracy}}</p>
-                    <p>Armor: {{armor}}</p>
-                    <p><a href="#" class="btn btn-default hero-selection" role="button">Choose</a></p>
+          <li>
+            <div>
+              <div class="heroStatsTable">
+                  <div class="chooseHero" data-chooseid={{_id}}>Choose</div>
+                  <table>
+                      <tr>
+                          <td colspan=2>
+                              <div>
+                                {{ name }}
+                              </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td><div>
+                              Fraction
+                          </div></td>
+                          <td><div>
+                              {{fraction}}
+                          </div></td>
+                      </tr>
+                      <tr>
+                          <td><div>
+                              Life
+                          </div></td>
+                          <td><div>
+                              {{life}}
+                          </div></td>
+                      </tr>
+                      <tr>
+                          <td><div>
+                              Damage
+                          </div></td>
+                          <td><div>
+                              {{damage}}
+                          </div></td>
+                      </tr>
+                      <tr>
+                          <td><div>
+                              Critical-Hit chance
+                          </div></td>
+                          <td><div>
+                              {{crit}}
+                          </div></td>
+                      </tr>
+                      <tr>
+                          <td><div>
+                              Accuracy
+                          </div></td>
+                          <td><div>
+                              {{accuracy}}
+                          </div></td>
+                      </tr>
+                      <tr>
+                          <td><div>
+                              Armor
+                          </div></td>
+                          <td><div>
+                              {{armor}}
+                          </div></td>
+                      </tr>
+                  </table>
                 </div>
+
             </div>
-        </div>
+          </li>
         {{/each}}
+      </ul>
+      <span class="close">&times;</span>
     </div>
 </template>
