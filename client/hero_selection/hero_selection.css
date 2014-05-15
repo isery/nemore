@@ -1,8 +1,9 @@
-.heroRowUl .heroStatsTable {
-  margin:0px;padding:0px;
+.heroRowUl .absolutePositioned {
+  margin:0px;
+  padding:0px;
   position: absolute;
   bottom: 0px;
-
+  width: 100%;
   -moz-border-radius-bottomleft:2px;
   -webkit-border-bottom-left-radius:2px;
   border-bottom-left-radius:2px;
@@ -20,6 +21,15 @@
   border-top-left-radius:2px;
 
   overflow:hidden;
+}
+.heroRowUl .heroStatsTable, .heroRowUl .heroAbilityTable{
+  float:left;
+}
+.heroRowUl .heroAbilityTable{
+  display: none;
+  width: auto;
+  margin-top: 29.999px;
+  border-left: 1px solid #000000;
 }
 
 .heroRowUl .heroStatsTable .chooseHero {
@@ -61,7 +71,7 @@
   position:relative;
   top:1px;
 }
-.heroStatsTable table{
+.absolutePositioned table{
   border-collapse: collapse;
   border-spacing: 0;
   width:100%;
@@ -70,40 +80,45 @@
   padding:0px;
 }
 
-.heroStatsTable tr div{
+.absolutePositioned table tr div{
   padding: 5px;
 }
 
-.heroStatsTable tr:not(:first-child) div {
-  display: none;
+.absolutePositioned table tr:not(:first-child) div {
   border-bottom: 1px solid #000000;
+}
+.absolutePositioned .heroStatsTable tr:not(:first-child) div {
+  display: none;
+}
+.absolutePositioned .heroAbilityTable tr:not(:first-child) div {
+  visibility: hidden;
 }
 
 
-.heroStatsTable tr:last-child td:last-child {
+.absolutePositioned table tr:last-child td:last-child {
   -moz-border-radius-bottomright:2px;
   -webkit-border-bottom-right-radius:2px;
   border-bottom-right-radius:2px;
 }
-.heroStatsTable table tr:first-child td:first-child {
+.absolutePositioned table tr:first-child td:first-child {
   -moz-border-radius-topleft:2px;
   -webkit-border-top-left-radius:2px;
   border-top-left-radius:2px;
 }
-.heroStatsTable table tr:first-child td:last-child {
+.absolutePositioned table tr:first-child td:last-child {
   -moz-border-radius-topright:2px;
   -webkit-border-top-right-radius:2px;
   border-top-right-radius:2px;
-}.heroStatsTable tr:last-child td:first-child{
+}.absolutePositioned table tr:last-child td:first-child{
   -moz-border-radius-bottomleft:2px;
   -webkit-border-bottom-left-radius:2px;
   border-bottom-left-radius:2px;
 }
 
-.heroStatsTable tr:nth-child(odd){ background-color:#646464; }
-.heroStatsTable tr:nth-child(even){ background-color:#ffffff; }
+.absolutePositioned table tr:nth-child(odd){ background-color:#a0a0a0; }
+.absolutePositioned table tr:nth-child(even){ background-color:#ffffff; }
 
-.heroStatsTable td{
+.absolutePositioned table td{
   vertical-align:middle;
   text-align: center;
   border-width:0px 1px 1px 0px;
@@ -113,19 +128,19 @@
   color:#000000;
 }
 
-.heroStatsTable tr:last-child td{
+.absolutePositioned table tr:last-child td{
   border-width:0px 1px 0px 0px;
 }
 
-.heroStatsTable tr td:last-child{
+.absolutePositioned table tr td:last-child{
   border-width:0px 0px 1px 0px;
 }
 
-.heroStatsTable tr:last-child td:last-child{
+.absolutePositioned table tr:last-child td:last-child{
   border-width:0px 0px 0px 0px;
 }
 
-.heroStatsTable tr:first-child td{
+.absolutePositioned table tr:first-child td{
   background: #333333; /* Old browsers */
   background: -moz-linear-gradient(top,  #333333 0%, #646464 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#646464)); /* Chrome,Safari4+ */
