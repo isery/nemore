@@ -76,13 +76,21 @@ class @BaseAbility
   shoot: ->
     @_parts = @_targets.length
     for target, index in @_targets
-      ability = @_game.add.sprite(@_baseUnit._posX, @_baseUnit._posY, @_abilityData.name)
+
+      # shoot start position
+      abilityOffsetX = 40
+      abilityOffsetX = (abilityOffsetX - 50) * -1 unless GameTeam.findOne({_id: @_from}).userId == Meteor.userId()
+      abilityOffsetY = 50
+
+      ability = @_game.add.sprite(@_baseUnit._posX + abilityOffsetX, @_baseUnit._posY + abilityOffsetY, @_abilityData.name)
       ability.anchor.setTo(0.5,0.5)
       # Flip
       ability.scale.x *= -1
       # Scale
       ability.scale.x *= 0.7
       ability.scale.y *= 0.7
+
+      ability.anchor.setTo(0,0)
 
       # Angle calc
       v1 =
@@ -101,7 +109,7 @@ class @BaseAbility
 
       a1 = 0
       a1 = 40 unless @_baseGame.playerOne.hero.userId == Meteor.userId()
-      tween = @_game.add.tween(ability).to({x: target.gameTeam._posX + a1, y: target.gameTeam._posY + 40 }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
+      tween = @_game.add.tween(ability).to({x: target.gameTeam._posX + a1, y: target.gameTeam._posY + 60 }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
 
       tween.onComplete.add (tween)->
         this.scope.displayText(this.target, this.target.damage.toString())
