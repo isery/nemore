@@ -4,67 +4,125 @@
         {{#each units}}
           <li>
             <div>
-              <div class="heroStatsTable">
-                  <div class="chooseHero" data-chooseid={{_id}}>Choose</div>
+              <div class="absolutePositioned">
+                <div class="heroStatsTable">
+                    <div class="chooseHero" data-chooseid={{_id}}>Choose</div>
+                    <table>
+                        <tr>
+                            <td colspan=2>
+                                <div>
+                                  {{name}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div>
+                                Fraction
+                            </div></td>
+                            <td><div>
+                                {{fraction}}
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td><div>
+                                Life
+                            </div></td>
+                            <td><div>
+                                {{life}}
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td><div>
+                                Damage
+                            </div></td>
+                            <td><div>
+                                {{damage}}
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td><div>
+                                Critical hit chance
+                            </div></td>
+                            <td><div>
+                                {{crit}}
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td><div>
+                                Accuracy
+                            </div></td>
+                            <td><div>
+                                {{accuracy}}
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td><div>
+                                Armor
+                            </div></td>
+                            <td><div>
+                                {{armor}}
+                            </div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="heroAbilityTable">
                   <table>
-                      <tr>
-                          <td colspan=2>
-                              <div>
-                                {{ name }}
-                              </div>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td><div>
-                              Fraction
-                          </div></td>
-                          <td><div>
-                              {{fraction}}
-                          </div></td>
-                      </tr>
-                      <tr>
-                          <td><div>
-                              Life
-                          </div></td>
-                          <td><div>
-                              {{life}}
-                          </div></td>
-                      </tr>
-                      <tr>
-                          <td><div>
-                              Damage
-                          </div></td>
-                          <td><div>
-                              {{damage}}
-                          </div></td>
-                      </tr>
-                      <tr>
-                          <td><div>
-                              Critical-Hit chance
-                          </div></td>
-                          <td><div>
-                              {{crit}}
-                          </div></td>
-                      </tr>
-                      <tr>
-                          <td><div>
-                              Accuracy
-                          </div></td>
-                          <td><div>
-                              {{accuracy}}
-                          </div></td>
-                      </tr>
-                      <tr>
-                          <td><div>
-                              Armor
-                          </div></td>
-                          <td><div>
-                              {{armor}}
-                          </div></td>
-                      </tr>
+                    <tr>
+                      <td colspan=4>
+                        <div>
+                          Abilities
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div>
+                          ABILITY NAME
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          ABILITY DESCRIPTION
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          TARGETS
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          COOLDOWN (ROUNDS)
+                        </div>
+                      </td>
+                    </tr>
+                    {{#each abilities}}
+                    <tr>
+                      <td>
+                        <div>
+                          {{specialName}}
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          {{description}}
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          {{target_count}}
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          {{cooldown}}
+                        </div>
+                      </td>
+                    </tr>
+                    {{/each}}
                   </table>
                 </div>
-
+              </div>
             </div>
           </li>
         {{/each}}
