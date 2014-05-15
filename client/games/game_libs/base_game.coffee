@@ -86,17 +86,16 @@ class @BaseGame
     @game.load.atlasJSONHash("executeShot_sniper", "/sprites/shot.png", "/sprites/shot.json");
     @game.load.atlasJSONHash("critBuff_sniper", "/sprites/shot.png", "/sprites/shot.json");
 
-    @game.load.atlasJSONHash("heal_commander", "/sprites/shot.png", "/sprites/shot.json");
+    # @game.load.atlasJSONHash("heal_commander", "/sprites/shot.png", "/sprites/shot.json");
     @game.load.atlasJSONHash("trueDamage_commander", "/sprites/shot.png", "/sprites/shot.json");
     @game.load.atlasJSONHash("hitBuff_commander", "/sprites/shot.png", "/sprites/shot.json");
     @game.load.atlasJSONHash("attack_commander", "/sprites/shot.png", "/sprites/shot.json");
 
     @game.load.atlasJSONHash("attack_specialist", "/sprites/shot.png", "/sprites/shot.json");
-    @game.load.atlasJSONHash("heal_specialist", "/sprites/shot.png", "/sprites/shot.json");
+    # @game.load.atlasJSONHash("heal_specialist", "/sprites/shot.png", "/sprites/shot.json");
     @game.load.atlasJSONHash("burstShot_specialist", "/sprites/shot.png", "/sprites/shot.json");
     @game.load.atlasJSONHash("attackAll_specialist", "/sprites/shot.png", "/sprites/shot.json");
 
-    @game.load.image "buff", "/sprites/buff.png"
 
     @game.load.image "dot", "/sprites/fire.png"
     @game.load.image "hot", "/sprites/pot.png"
@@ -110,6 +109,8 @@ class @BaseGame
     @game.load.image "spark", "/sprites/spark.png"
     @game.load.image "healthbar", "/sprites/healthbar.png"
 
+    @game.load.spritesheet "heal", "/sprites/heal.png", 128, 128, 28
+    @game.load.spritesheet "buff", "/sprites/buff.png", 128, 128, 28
     @game.load.spritesheet "explode", "/sprites/explode1.png", 128, 128, 16
 
   create: ->

@@ -1,7 +1,7 @@
 Teams = new Meteor.Collection 'teams'
 
 class @Team
-  _maxCount: 10
+  _maxCount: 5
   _priorityIndex = 0
   constructor: (options) ->
     @validate options
