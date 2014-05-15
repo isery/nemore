@@ -17,4 +17,5 @@ class @Unit
     new Unit(unit)
 
   @find = (options = {})->
-    Units.find(options).fetch()
+    units = Units.find(options).fetch()
+    new Unit(unit) for unit in units

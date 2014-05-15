@@ -90,7 +90,9 @@ Router.map ->
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'allTerms'
     data: ->
-      units: Unit.find({})
+      units: Unit.find({}).map (unit) ->
+        unit.abilities = unit.specialAbilities()
+        unit
   @route 'crewSelection',
     path: '/crew_selection'
     onBeforeAction: ->
