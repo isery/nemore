@@ -19,27 +19,26 @@ if Meteor.isServer
 			dmgId = Conditions.insert name: 'dmg'
 			conditionArr.push critId, hitId, armorId, dmgId
 		if SpecialAbilities.find().count() <= 0
-			SpecialAbilities.insert unitId: droneId, name: "defenseAll_drone", target_type: "team", value: 0.4, target_count: 5, duration: 2, cooldown: 11, conditionId: armorId, states: ["pullweapon", "buff", "downweapon"]
-			SpecialAbilities.insert unitId: droneId, name: "damageAll_drone", target_type: "enemies", value: 1.0, target_count: 5, cooldown: 9, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: droneId, name: "damageBuff_drone", target_type: "team", value: 0.2, target_count: 1, duration: -1, cooldown: 5, conditionId: dmgId, states: ["pullweapon", "buff", "downweapon"]
-			SpecialAbilities.insert unitId: droneId, name: "defenseBuff_drone", target_type: "team", value: 0.1, target_count: 2, duration: 2, cooldown: 0, conditionId: armorId, states: ["pullweapon", "buff", "downweapon"]
+			SpecialAbilities.insert unitId: droneId, name: "defenseAll_drone", specialName: "Crystal Armor", description: "Increases defense of allies",target_type: "team", value: 0.4, target_count: 5, duration: 2, cooldown: 11, conditionId: armorId, states: ["pullweapon", "buff", "downweapon"]
+			SpecialAbilities.insert unitId: droneId, name: "damageAll_drone", specialName: "Devastating Blow", description: "Deals damage to all enemies", target_type: "enemies", value: 1.0, target_count: 5, cooldown: 9, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: droneId, name: "damageBuff_drone", specialName: "Raise Morale", description: "Increases damage", target_type: "team", value: 0.2, target_count: 1, duration: -1, cooldown: 5, conditionId: dmgId, states: ["pullweapon", "buff", "downweapon"]
+			SpecialAbilities.insert unitId: droneId, name: "defenseBuff_drone", specialName: "Bulwark", description: "Increases defense of allies", target_type: "team", value: 0.1, target_count: 2, duration: 2, cooldown: 0, conditionId: armorId, states: ["pullweapon", "buff", "downweapon"]
 
-			SpecialAbilities.insert unitId: sniperId, name: "executeShot_sniper", target_type: "enemies", value: 2.0, target_count: 1, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: sniperId, name: "steadyShot_sniper", target_type: "enemies", value: 1.75, target_count: 1, cooldown: 9, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: sniperId, name: "critBuff_sniper", target_type: "self", value: 1.0, target_count: 1, duration: -1, cooldown: 5, conditionId: critId, states: ["pullweapon", "buff", "downweapon"]
-			SpecialAbilities.insert unitId: sniperId, name: "attack_sniper", target_type: "enemies", value: 1.0, target_count: 1, cooldown: 0, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: sniperId, name: "executeShot_sniper", specialName: "Ace in the Hole", description: "Executes an enemy below 50% health", target_type: "enemies", value: 2.0, target_count: 1, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: sniperId, name: "steadyShot_sniper", specialName: "Steady Shot", description: "Deals massive damage to an enemy", target_type: "enemies", value: 1.75, target_count: 1, cooldown: 9, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: sniperId, name: "critBuff_sniper", specialName: "Blood Rush", description: "Increases critical hit chance of the unit", target_type: "self", value: 1.0, target_count: 1, duration: -1, cooldown: 5, conditionId: critId, states: ["pullweapon", "buff", "downweapon"]
+			SpecialAbilities.insert unitId: sniperId, name: "attack_sniper", specialName: "Headshot", description: "Deals decent damage to an enemy", target_type: "enemies", value: 1.0, target_count: 1, cooldown: 0, states: ["pullweapon", "shoot", "downweapon"]
 
-			# trueDamage of Commander still needs to be implemented
-			SpecialAbilities.insert unitId: commanderId, name: "trueDamage_commander", target_type: "enemies", value: 1, target_count: 1, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: commanderId, name: "hitBuff_commander", target_type: "team", value: 1, target_count: 2, duration: -1, cooldown: 9, conditionId: hitId, states: ["pullweapon", "buff", "downweapon"]
-			SpecialAbilities.insert unitId: commanderId, name: "attack_commander", target_type: "enemies", value: 1, target_count: 1, cooldown: 2,  states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: commanderId, name: "heal_commander", target_type: "team", value: 0.65, target_count: 1, cooldown: 0, states: ["pullweapon", "heal", "downweapon"]
+			SpecialAbilities.insert unitId: commanderId, name: "trueDamage_commander", specialName: "Piercing Shot", description: "Ignores enemy armor", target_type: "enemies", value: 1, target_count: 1, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: commanderId, name: "hitBuff_commander", specialName: "Iron Sights", description: "Increases accuracy of multiple allies", target_type: "team", value: 1, target_count: 2, duration: -1, cooldown: 9, conditionId: hitId, states: ["pullweapon", "buff", "downweapon"]
+			SpecialAbilities.insert unitId: commanderId, name: "attack_commander", specialName: "Mercury Cannon", description: "Deals damage to an enemy", target_type: "enemies", value: 1, target_count: 1, cooldown: 2,  states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: commanderId, name: "heal_commander", specialName: "Divine Blessing", description: "Heals an allied unit", target_type: "team", value: 0.65, target_count: 1, cooldown: 0, states: ["pullweapon", "heal", "downweapon"]
 
 
-			SpecialAbilities.insert unitId: specialistId, name: "attackAll_specialist", target_type: "enemies", value: 0.8, target_count: 5, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: specialistId, name: "burstShot_specialist", target_type: "enemies", value: 1.8, target_count: 1, cooldown:6,  states: ["pullweapon", "shoot", "downweapon"]
-			SpecialAbilities.insert unitId: specialistId, name: "heal_specialist", target_type: "self", value: 0.8, target_count: 1, cooldown: 5, states: ["pullweapon", "heal", "downweapon"]
-			SpecialAbilities.insert unitId: specialistId, name: "attack_specialist", target_type: "enemies", value: 0.75, target_count: 2, cooldown: 0, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: specialistId, name: "attackAll_specialist", specialName: "Living Artillery", description: "Damages all enemies", target_type: "enemies", value: 0.8, target_count: 5, cooldown: 11, states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: specialistId, name: "burstShot_specialist", specialName: "Impure Shots", description: "Bursts one enemy", target_type: "enemies", value: 1.8, target_count: 1, cooldown:6,  states: ["pullweapon", "shoot", "downweapon"]
+			SpecialAbilities.insert unitId: specialistId, name: "heal_specialist", specialName: "Astral Blessing", description: "Heals the unit", target_type: "self", value: 0.8, target_count: 1, cooldown: 5, states: ["pullweapon", "heal", "downweapon"]
+			SpecialAbilities.insert unitId: specialistId, name: "attack_specialist", specialName: "Phosphorus Bomb", description: "Damages multiple enemies", target_type: "enemies", value: 0.75, target_count: 2, cooldown: 0, states: ["pullweapon", "shoot", "downweapon"]
 
 		if Terms.find().count() <= 0
 			Terms.insert name: 'always', operator: '∞'
