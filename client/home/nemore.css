@@ -78,22 +78,22 @@
 }
 
 .heroRowUl li > div {
-  background:url('https://dl.dropboxusercontent.com/u/38481981/codepen/landingpage/hero_view_without_background/commander.png') no-repeat 70% 50%;
+  background:url('/clientImgs/hero_view_without_background/commander.png') no-repeat 70% 50%;
   background-size: auto 100%;
   width: 100%;
   height: 100%;
   transition: 1s width;
 }
 .heroRowUl li:nth-child(2) > div {
-	background:url('https://dl.dropboxusercontent.com/u/38481981/codepen/landingpage/hero_view_without_background/sniper.png') no-repeat 50% 50%;
+	background:url('/clientImgs/hero_view_without_background/sniper.png') no-repeat 50% 50%;
 	background-size: auto 100%;
 }
 .heroRowUl li:nth-child(3) > div {
-	background:url('https://dl.dropboxusercontent.com/u/38481981/codepen/landingpage/hero_view_without_background/gunner.png') no-repeat 50% 50%;
+	background:url('/clientImgs/hero_view_without_background/gunner.png') no-repeat 50% 50%;
 	background-size: auto 100%;
 }
 .heroRowUl li:nth-child(4) > div {
-	background:url('https://dl.dropboxusercontent.com/u/38481981/codepen/landingpage/hero_view_without_background/drone.png') no-repeat 50% 50%;
+	background:url('/clientImgs/hero_view_without_background/drone.png') no-repeat 50% 50%;
 	background-size: auto 100%;
 }
 
