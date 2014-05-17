@@ -1,7 +1,6 @@
 Router.configure
   layoutTemplate: 'layout',
 	notFoundTemplate: 'templateNotFound'
-	#loadingTemplate: 'loading'
 
 Router.map ->
   @isLoggedIn = (that)->
