@@ -1,6 +1,6 @@
 <template name="crewSelection">
   <div class="containerLeft">
-    {{> showSelectedCrewLeft}}
+    <!--{{> showSelectedCrewLeft}}-->
   </div>
 
   <div class="containerRight">
@@ -23,51 +23,114 @@
       </div>
       {{/each}}
     </div>
-      <!--<input type="button" value="Done" id="ready" class="btn btn-default btn-lg btn-block">-->
       <button class="btnReady" id="ready">Continue</button>
   </div>
 </template>
 
 
 <template name="showCrewSelectionRight">
-  <div class="containerCrewMember">
-    {{#each units}}
-    <div class="crewMember">
-      <div class="crewMemberData">
-        <table class="table">
-          <tr><th colspan="2">Name</th></tr>
+{{#each units}}
+<div class="crewMember">
+  <div class="innerContainerMember">
+    <div class="chooseUnit" data-chooseid={{_id}}>Choose</div>
+    <div class="crewMemberName">{{name}}</div>
+    <div class="crewMemberData">
+      <div class="crewMemberTable">
+        <table class="unitData">
           <tr>
-            <td>Fraction</td>
-            <td>{{fraction}}</td>
+              <td><div>
+                  Fraction
+              </div></td>
+              <td><div>
+                  {{fraction}}
+              </div></td>
           </tr>
           <tr>
-            <td>Live</td>
-            <td>{{live}}</td>
+              <td><div>
+                  Life
+              </div></td>
+              <td><div>
+                  {{life}}
+              </div></td>
           </tr>
           <tr>
-            <td>Damage</td>
-            <td>{{damage}}</td>
+              <td><div>
+                  Damage
+              </div></td>
+              <td><div>
+                  {{damage}}
+              </div></td>
+          </tr>
+          <tr>
+              <td><div>
+                  Critical hit chance
+              </div></td>
+              <td><div>
+                  {{crit}}
+              </div></td>
+          </tr>
+          <tr>
+              <td><div>
+                  Accuracy
+              </div></td>
+              <td><div>
+                  {{accuracy}}
+              </div></td>
+          </tr>
+          <tr>
+              <td><div>
+                  Armor
+              </div></td>
+              <td><div>
+                  {{armor}}
+              </div></td>
           </tr>
         </table>
-        <table class="table">
-          <tr><th colspan="2">{{name}}</th></tr>
-          <tr>
-            <td>Critical</td>
-            <td>{{crit}}</td>
+        <div class="crewMemberAbilities hideToggle">Abilities</div>
+        <table class="abilityTable">
+          <tr class="visibilityToggle">
+            <td>
+              <div>
+                ABILITY NAME
+              </div>
+            </td>
+            <td>
+              <div>
+                TARGETS
+              </div>
+            </td>
+            <td>
+              <div>
+                COOLDOWN (ROUNDS)
+              </div>
+            </td>
           </tr>
-          <tr>
-            <td>Accuracy</td>
-            <td>{{accuracy}}</td>
+          {{#each abilities}}
+          <tr class="visibilityToggle">
+            <td>
+              <div>
+                {{specialName}}
+              </div>
+            </td>
+            <td>
+              <div>
+                {{target_count}}
+              </div>
+            </td>
+            <td>
+              <div>
+                {{cooldown}}
+              </div>
+            </td>
           </tr>
-          <tr>
-            <td>Armor</td>
-            <td>{{armor}}</td>
-          </tr>
+          {{/each}}
         </table>
       </div>
-      <div id="{{_id}}" class="crewMemberAvatar"></div>
-      <div style="clear:both;"></div>
+      <div class="crewMemberAvatar" style="background:url('/clientImgs/hero_view_without_background/sniper.png') no-repeat 70% 50%; background-size: auto 100%;">
+      </div>
     </div>
-    {{/each}}
+    <div style="clear:both;"></div>
   </div>
+</div>
+{{/each}}
 </template>

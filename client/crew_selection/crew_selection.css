@@ -1,5 +1,6 @@
 .outerContainer .containerLeft{
-	width: 60%;
+	width: 40%;
+	position: relative;
 	height: inherit;
 	float: left;
 	background-color: #706744;
@@ -44,64 +45,217 @@
 }
 
 .outerContainer .containerRight{
-	width: 40%;
+	width: 60%;
 	height: inherit;
 	float: left;
 	background-color: #333;
-	overflow: hidden;
-}
-
-.outerContainer .containerRight .containerCrewMember{
-	width: 90%;
-	height: inherit;
-	margin: 0px auto;
-	padding: 20px 0px;
-}
-
-.outerContainer .containerRight .containerCrewMember .crewMember{
-	height: 22%;
-	background-color: lightgoldenrodyellow;
-}
-.outerContainer .containerRight .containerCrewMember .crewMember:not(:first-of-type){
-	margin-top: 4%;
-}
-
-.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData{
-	width: 70%;
-	height: 100%;
-	float: left;
 	position: relative;
 	overflow: hidden;
-	padding-right: 10px
 }
 
-
-.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table{
-	width: 50%;
-	height: 100%;
-	float: left;
-	margin-bottom: 0;
+.outerContainer .containerRight{
+	height: inherit;
 }
 
-.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table th:first-child{
-	border-top: 0px;
-}
-.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table:first-child tr:not(:first-child){
-	border-right: 1px solid #dddddd;
-}
-.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberData .table th{
-	text-align: center;
-	vertical-align: middle;
-}
-
-.outerContainer .containerRight .containerCrewMember .crewMember .crewMemberAvatar{
-	width: 30%;
-	height: 100%;
+.outerContainer .containerRight .crewMember{
 	float: right;
-	background:url('/img/detailed/2.png') no-repeat 50% 50%;
-	background-size: auto 100%;
+	height: 25%;
+	width: 100%;
 }
 
+.outerContainer .containerRight .crewMember .innerContainerMember{
+	margin-right: 125px;
+	float:right;
+}
+
+.outerContainer .containerRight .chooseUnit {
+	position: absolute;
+  width: 184px;
+  transform: translate(-77px, 75px) rotate(-90deg);
+	-webkit-transform: translate(-77px, 75px) rotate(-90deg);
+	-moz-transform: translate(-77px, 75px) rotate(-90deg);
+	-o-transform: translate(-77px, 75px) rotate(-90deg);
+	-ms-transform: translate(-77px, 75px) rotate(-90deg);
+
+
+  background:-o-linear-gradient(bottom, #f68642 5%, #bf5f00 100%);    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f68642), color-stop(1, #bf5f00) );
+  background:-moz-linear-gradient( center top, #f68642 5%, #bf5f00 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#f68642", endColorstr="#bf5f00");  background: -o-linear-gradient(top,#f68642,bf5f00);
+  background-color:#f68642;
+  -webkit-border-top-left-radius:15px;
+  -moz-border-radius-topleft:15px;
+  border-top-left-radius:15px;
+  -webkit-border-top-right-radius:15px;
+  -moz-border-radius-topright:15px;
+  border-top-right-radius:15px;
+  -webkit-border-bottom-right-radius:0px;
+  -moz-border-radius-bottomright:0px;
+  border-bottom-right-radius:0px;
+  -webkit-border-bottom-left-radius:0px;
+  -moz-border-radius-bottomleft:0px;
+  border-bottom-left-radius:0px;
+  text-indent:0px;
+  display:inline-block;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  font-style:normal;
+  height: 30px;
+  line-height: 30px;
+  text-decoration:none;
+  text-align:center;
+}
+.outerContainer .containerRight .chooseUnit:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #f68742) );
+  background:-moz-linear-gradient( center top, #fb9e25 5%, #f68742 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#f68742');
+  background-color:#fb9e25;
+}
+.outerContainer .containerRight .crewMemberName:not(:first-child){
+  border-right: 1px solid #ffffff;
+}
+.outerContainer .containerRight .crewMemberName{
+	position: absolute;
+	width: 184px;
+  transform: translate(-48px, 75px) rotate(-90deg);
+	-webkit-transform: translate(-48px, 75px) rotate(-90deg);
+	-moz-transform: translate(-48px, 75px) rotate(-90deg);
+	-o-transform: translate(-48px, 75px) rotate(-90deg);
+	-ms-transform: translate(-48px, 75px) rotate(-90deg);
+	text-indent:0px;
+  display:inline-block;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  font-style:normal;
+  height: 30px;
+  line-height: 30px;
+  text-decoration:none;
+  text-align:center;
+  background: #333333;
+  background: -moz-linear-gradient(top,  #333333 0%, #646464 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#646464));
+  background: -webkit-linear-gradient(top,  #333333 0%,#646464 100%);
+  background: -o-linear-gradient(top,  #333333 0%,#646464 100%);
+  background: -ms-linear-gradient(top,  #333333 0%,#646464 100%);
+  background: linear-gradient(to bottom,  #333333 0%,#646464 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#646464',GradientType=0 );
+
+}
+.hideToggle{
+	display: none;
+}
+
+.outerContainer .containerRight .crewMemberAbilities{
+	position: absolute;
+	width: 184px;
+  transform: translate(-77px, 75px) rotate(-90deg);
+	-webkit-transform: translate(-77px, 75px) rotate(-90deg);
+	-moz-transform: translate(-77px, 75px) rotate(-90deg);
+	-o-transform: translate(-77px, 75px) rotate(-90deg);
+	-ms-transform: translate(-77px, 75px) rotate(-90deg);
+	text-indent:0px;
+  display: inline-block;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  font-style:normal;
+  height: 30px;
+  line-height: 30px;
+  text-decoration:none;
+  text-align:center;
+
+  background: #333333;
+  background: -moz-linear-gradient(top,  #333333 0%, #646464 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#646464));
+  background: -webkit-linear-gradient(top,  #333333 0%,#646464 100%);
+  background: -o-linear-gradient(top,  #333333 0%,#646464 100%);
+  background: -ms-linear-gradient(top,  #333333 0%,#646464 100%);
+  background: linear-gradient(to bottom,  #333333 0%,#646464 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#646464',GradientType=0 );
+
+}
+
+.outerContainer .containerRight .crewMember .crewMemberData{
+	margin-left: 59px;
+}
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable{
+	float: left;
+	width: auto;
+	display: none;
+}
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberAvatar{
+	position: absolute;
+	right: 0px;
+	height: 181px;
+	width: 130px;
+}
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberAvatar img{
+	height: 100%;
+}
+
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: auto;
+  height:100%;
+  margin:0px;
+  padding:0px;
+  float: left;
+}
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable .unitData{
+}
+.visibilityToggle{
+	visibility: hidden;
+}
+
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr div{
+  padding: 5px;
+}
+
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:not(:last-child) {
+  border-bottom: 1px solid #000000;
+}
+
+
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:last-child td:last-child {
+  -moz-border-radius-bottomright:2px;
+  -webkit-border-bottom-right-radius:2px;
+  border-bottom-right-radius:2px;
+}
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:first-child td:first-child {
+  -moz-border-radius-topleft:2px;
+  -webkit-border-top-left-radius:2px;
+  border-top-left-radius:2px;
+}
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:first-child td:last-child {
+  -moz-border-radius-topright:2px;
+  -webkit-border-top-right-radius:2px;
+  border-top-right-radius:2px;
+}.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:last-child td:first-child{
+  -moz-border-radius-bottomleft:2px;
+  -webkit-border-bottom-left-radius:2px;
+  border-bottom-left-radius:2px;
+}
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table.abilityTable{
+	margin-left: 30px;
+}
+
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:nth-child(odd){ background-color:#a0a0a0; }
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:nth-child(even){ background-color:#ffffff; }
+
+.outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table td{
+  vertical-align:middle;
+  text-align: center;
+  border-width:0px 1px 1px 0px;
+  font-size:10px;
+  font-family:Arial;
+  font-weight:normal;
+  color:#000000;
+}
 
 .btnReady{
 	border: none;
