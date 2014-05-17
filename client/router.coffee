@@ -28,6 +28,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
+      Meteor.subscribe 'allGameTeams'
       Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allTeams'
       Meteor.subscribe 'allUnits'
@@ -41,7 +42,7 @@ Router.map ->
       @subscribe('allUnits').wait()
       @subscribe('allTeams').wait()
       @subscribe('allSpecialAbilities').wait()
-      @subscribe('allGameTeams', @params._id).wait()
+      @subscribe('gameGameTeams', @params._id).wait()
       @subscribe('allGamePlayers').wait()
       @subscribe('priorityLists').wait()
 
@@ -66,7 +67,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
-      Meteor.subscribe 'allGameTeams', @params._id
+      Meteor.subscribe 'gameGameTeams', @params._id
       Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
