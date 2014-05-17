@@ -104,7 +104,9 @@ Router.map ->
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'allTerms'
     data: ->
-      units: Unit.find()
+      units: Unit.find({}).map (unit) ->
+        unit.abilities = unit.specialAbilities()
+        unit
       teams: Team.find({hero: {$exists: false}})
       hero: Team.findOne({userId: Meteor.userId(), hero: true})
   @route 'summary',
