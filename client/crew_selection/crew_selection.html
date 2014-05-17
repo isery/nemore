@@ -13,11 +13,33 @@
   <div class="selectedContainer">
     <div class="selectedHeroContainer">
       <div class="selectedHero">
-        <!--
         <div class="heroText">
-          <div>Selected Hero</div>
+          <div class="currentStatsTable">
+          <table>
+            <tr>
+                <td colspan=2>
+                    <div>
+                      Current Selections
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><div>
+                    Selected hero<span>&nbsp;</span>
+                </div></td>
+                <td><div>
+                    <span>{{heroImage}}</span>
+                </div></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <div>
+                      <span>{{numberSelectedMembers}} / 4</span> &nbsp;&nbsp;Crew members selected
+                    </div>
+                </td>
+            </tr>
+          </table></div>
         </div>
-        -->
         <img src="/clientImgs/hero_view_without_background/{{toLowerCase heroImage}}.png" alt="image01" title="{{heroImage}}">
         <div style="clear:both;"></div>
       </div>
