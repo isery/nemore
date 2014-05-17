@@ -1,6 +1,6 @@
 <template name="crewSelection">
   <div class="containerLeft">
-    <!--{{> showSelectedCrewLeft}}-->
+    {{> showSelectedCrewLeft}}
   </div>
 
   <div class="containerRight">
@@ -10,23 +10,39 @@
 </template>
 
 <template name="showSelectedCrewLeft">
-  <div class="selectedContainer" style="position: relative">
-    <div class="innerContainer">
-      <div class="selectedHeroContainer">
-        <div class="selectedHero" style="background:url('/img/{{heroImage}}.png') no-repeat 50% 50%;background-size: auto 100%;"></div>
+  <div class="selectedContainer">
+    <div class="selectedHeroContainer">
+      <div class="selectedHero">
+        <!--
+        <div class="heroText">
+          <div>Selected Hero</div>
+        </div>
+        -->
+        <img src="/clientImgs/hero_view_without_background/{{toLowerCase heroImage}}.png" alt="image01" title="{{heroImage}}">
+        <div style="clear:both;"></div>
       </div>
+    </div>
+    <div class="selectedCrewMemberContainer">
       {{#each teams}}
-      <div class="selectedCrewMember" style="background:url('/img/{{unit.name}}.png') no-repeat 50% 50%;background-size: auto 100%;">
-        <div class="removeCrewMember" id="{{_id}}">
-          <div class="fa fa-times fa-2x"></div>
+      <div class="selectedCrewMember">
+        <div class="selectedCrewMemberName">{{unit.name}}</div>
+        <div class="selectedCrewMemberImg">
+          <img src="/clientImgs/hero_view_without_background/{{toLowerCase unit.name}}.png" alt="image01" title="{{unit.name}}">
+        </div>
+        <div class="overlay" data-removeid={{_id}}>
+          <div class="overlayInner">
+            <div class="removeCrewMember fa fa-times fa-5x"></div>
+            <div class="overlayInnerText">
+              <b>Click to remove</b>
+            </div>
+          </div>
         </div>
       </div>
       {{/each}}
     </div>
-      <button class="btnReady" id="ready">Continue</button>
+    <div class="readyButton">Continue</div>
   </div>
 </template>
-
 
 <template name="showCrewSelectionRight">
 {{#each units}}
@@ -66,7 +82,7 @@
                   Critical hit chance
               </div></td>
               <td><div>
-                  {{crit}}
+                  {{formatPercent crit}}
               </div></td>
           </tr>
           <tr>
@@ -74,7 +90,7 @@
                   Accuracy
               </div></td>
               <td><div>
-                  {{accuracy}}
+                  {{formatPercent accuracy}}
               </div></td>
           </tr>
           <tr>
@@ -82,7 +98,7 @@
                   Armor
               </div></td>
               <td><div>
-                  {{armor}}
+                  {{formatPercent armor}}
               </div></td>
           </tr>
         </table>
@@ -126,7 +142,7 @@
           {{/each}}
         </table>
       </div>
-      <div class="crewMemberAvatar" style="background:url('/clientImgs/hero_view_without_background/sniper.png') no-repeat 70% 50%; background-size: auto 100%;">
+      <div class="crewMemberAvatar" style="background:url('/clientImgs/hero_view_without_background/{{toLowerCase name}}.png') no-repeat 70% 50%; background-size: auto 100%;">
       </div>
     </div>
     <div style="clear:both;"></div>
