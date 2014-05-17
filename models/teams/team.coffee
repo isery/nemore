@@ -42,6 +42,9 @@ class @Team
           hero: @hero
           priority: _priorityIndex
       _priorityIndex++
+      oldAbilities = AbilityPriority.find({teamId:@_id})
+      AbilityPriority.delete(abilityPriority._id) for abilityPriority in oldAbilities
+      new AbilityPriority({team: @}).init()
     else
       @_id = Teams.insert
         userId: @userId

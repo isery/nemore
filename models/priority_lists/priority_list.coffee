@@ -40,6 +40,9 @@ class @AbilityPriority
     ,
       $set:
         options
+  @delete = (_id) ->
+    AbilityPriorities.remove
+      _id: _id
 
 class @TargetPriority
   constructor: (options) ->

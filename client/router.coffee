@@ -89,6 +89,7 @@ Router.map ->
       Meteor.subscribe 'allTeams'
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'allTerms'
+      Meteor.subscribe 'priorityLists'
     data: ->
       units: Unit.find({}).map (unit) ->
         unit.abilities = unit.specialAbilities()
