@@ -13,7 +13,10 @@ Meteor.publish "allUnits", ->
 Meteor.publish "allTeams", ->
   Team.all(this.userId)
 
-Meteor.publish "allGameTeams", (gameId)->
+Meteor.publish "allGameTeams", ->
+  GameTeams.find({})
+
+Meteor.publish "gameGameTeams", (gameId)->
   GameTeam.all(gameId)
 
 Meteor.publish "allGamePlayers", ->

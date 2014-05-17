@@ -10,64 +10,175 @@
 </template>
 
 <template name="showSelectedCrewLeft">
-  <div class="selectedContainer" style="position: relative">
-    <div class="innerContainer">
-      <div class="selectedHeroContainer">
-        <div class="selectedHero" style="background:url('/img/{{heroImage}}.png') no-repeat 50% 50%;background-size: auto 100%;"></div>
+  <div class="selectedContainer">
+    <div class="selectedHeroContainer">
+      <div class="selectedHero">
+        <div class="heroText">
+          <div class="currentStatsTable">
+          <table>
+            <tr>
+                <td colspan=2>
+                    <div>
+                      Current Selections
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><div>
+                    Selected hero<span>&nbsp;</span>
+                </div></td>
+                <td><div>
+                    <span>{{heroImage}}</span>
+                </div></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <div>
+                      <span>{{numberSelectedMembers}} / 4</span> &nbsp;&nbsp;Crew members selected
+                    </div>
+                </td>
+            </tr>
+          </table></div>
+        </div>
+        <img src="/clientImgs/hero_view_without_background/{{toLowerCase heroImage}}.png" alt="image01" title="{{heroImage}}">
+        <div style="clear:both;"></div>
       </div>
+    </div>
+    <div class="selectedCrewMemberContainer">
       {{#each teams}}
-      <div class="selectedCrewMember" style="background:url('/img/{{unit.name}}.png') no-repeat 50% 50%;background-size: auto 100%;">
-        <div class="removeCrewMember" id="{{_id}}">
-          <div class="fa fa-times fa-2x"></div>
+      <div class="selectedCrewMember">
+        <div class="selectedCrewMemberName">{{unit.name}}</div>
+        <div class="selectedCrewMemberImg">
+          <img src="/clientImgs/hero_view_without_background/{{toLowerCase unit.name}}.png" alt="image01" title="{{unit.name}}">
+        </div>
+        <div class="overlay" data-removeid={{_id}}>
+          <div class="overlayInner">
+            <div class="removeCrewMember fa fa-times fa-5x"></div>
+            <div class="overlayInnerText">
+              <b>Click to remove</b>
+            </div>
+          </div>
         </div>
       </div>
       {{/each}}
     </div>
-      <!--<input type="button" value="Done" id="ready" class="btn btn-default btn-lg btn-block">-->
-      <button class="btnReady" id="ready">Continue</button>
+    <div class="readyButton">Continue</div>
   </div>
 </template>
 
-
 <template name="showCrewSelectionRight">
-  <div class="containerCrewMember">
-    {{#each units}}
-    <div class="crewMember">
-      <div class="crewMemberData">
-        <table class="table">
-          <tr><th colspan="2">Name</th></tr>
+{{#each units}}
+<div class="crewMember">
+  <div class="innerContainerMember">
+    <div class="chooseUnit" data-chooseid={{_id}}>Choose</div>
+    <div class="crewMemberName">{{name}}</div>
+    <div class="crewMemberData">
+      <div class="crewMemberTable">
+        <table class="unitData">
           <tr>
-            <td>Fraction</td>
-            <td>{{fraction}}</td>
+              <td><div>
+                  Fraction
+              </div></td>
+              <td><div>
+                  {{fraction}}
+              </div></td>
           </tr>
           <tr>
-            <td>Live</td>
-            <td>{{live}}</td>
+              <td><div>
+                  Life
+              </div></td>
+              <td><div>
+                  {{life}}
+              </div></td>
           </tr>
           <tr>
-            <td>Damage</td>
-            <td>{{damage}}</td>
+              <td><div>
+                  Damage
+              </div></td>
+              <td><div>
+                  {{damage}}
+              </div></td>
+          </tr>
+          <tr>
+              <td><div>
+                  Critical hit chance
+              </div></td>
+              <td><div>
+                  {{formatPercent crit}}
+              </div></td>
+          </tr>
+          <tr>
+              <td><div>
+                  Accuracy
+              </div></td>
+              <td><div>
+                  {{formatPercent accuracy}}
+              </div></td>
+          </tr>
+          <tr>
+              <td><div>
+                  Armor
+              </div></td>
+              <td><div>
+                  {{formatPercent armor}}
+              </div></td>
           </tr>
         </table>
-        <table class="table">
-          <tr><th colspan="2">{{name}}</th></tr>
-          <tr>
-            <td>Critical</td>
-            <td>{{crit}}</td>
+        <div class="crewMemberAbilities hideToggle">Abilities</div>
+        <table class="abilityTable">
+          <tr class="visibilityToggle">
+            <td>
+              <div>
+                ABILITY NAME
+              </div>
+            </td>
+            <td>
+              <div>
+                ABILITY DESCRIPTION
+              </div>
+            </td>
+            <td>
+              <div>
+                TARGETS
+              </div>
+            </td>
+            <td>
+              <div>
+                COOLDOWN (ROUNDS)
+              </div>
+            </td>
           </tr>
-          <tr>
-            <td>Accuracy</td>
-            <td>{{accuracy}}</td>
+          {{#each abilities}}
+          <tr class="visibilityToggle">
+            <td>
+              <div>
+                {{specialName}}
+              </div>
+            </td>
+            <td>
+              <div>
+                {{description}}
+              </div>
+            </td>
+            <td>
+              <div>
+                {{target_count}}
+              </div>
+            </td>
+            <td>
+              <div>
+                {{cooldown}}
+              </div>
+            </td>
           </tr>
-          <tr>
-            <td>Armor</td>
-            <td>{{armor}}</td>
-          </tr>
+          {{/each}}
         </table>
       </div>
-      <div id="{{_id}}" class="crewMemberAvatar"></div>
-      <div style="clear:both;"></div>
+      <div class="crewMemberAvatar" style="background:url('/clientImgs/hero_view_without_background/{{toLowerCase name}}.png') no-repeat 70% 50%; background-size: auto 100%; background-color: #333333;">
+      </div>
     </div>
-    {{/each}}
+    <div style="clear:both;"></div>
   </div>
+</div>
+{{/each}}
 </template>

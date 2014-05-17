@@ -1,7 +1,6 @@
 Router.configure
   layoutTemplate: 'layout',
 	notFoundTemplate: 'templateNotFound'
-	#loadingTemplate: 'loading'
 
 Router.map ->
   @isLoggedIn = (that)->
@@ -28,6 +27,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
+      Meteor.subscribe 'allGameTeams'
       Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allTeams'
       Meteor.subscribe 'allUnits'
@@ -41,7 +41,7 @@ Router.map ->
       @subscribe('allUnits').wait()
       @subscribe('allTeams').wait()
       @subscribe('allSpecialAbilities').wait()
-      @subscribe('allGameTeams', @params._id).wait()
+      @subscribe('gameGameTeams', @params._id).wait()
       @subscribe('allGamePlayers').wait()
       @subscribe('priorityLists').wait()
 
@@ -66,7 +66,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
-      Meteor.subscribe 'allGameTeams', @params._id
+      Meteor.subscribe 'gameGameTeams', @params._id
       Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
@@ -104,7 +104,9 @@ Router.map ->
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'allTerms'
     data: ->
-      units: Unit.find()
+      units: Unit.find({}).map (unit) ->
+        unit.abilities = unit.specialAbilities()
+        unit
       teams: Team.find({hero: {$exists: false}})
       hero: Team.findOne({userId: Meteor.userId(), hero: true})
   @route 'summary',
