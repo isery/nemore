@@ -24,6 +24,105 @@
   height: 100%;
   width: auto;
 }
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText{
+  position: absolute;
+  height: 100%;
+  width: 75%;
+  display: table;
+}
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText .currentStatsTable{
+  display: table-cell;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  padding: 20px;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table{
+  width: 100%;
+  border: 3px solid #FFFFFF
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr div{
+  padding: 5px;
+}
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr div span{
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:not(:first-child) div,
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:not(:last-child) div {
+  border-bottom: 1px solid #000000;
+}
+
+
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:last-child td:last-child {
+  -moz-border-radius-bottomright:2px;
+  -webkit-border-bottom-right-radius:2px;
+  border-bottom-right-radius:2px;
+}
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:first-child td:first-child {
+  -moz-border-radius-topleft:2px;
+  -webkit-border-top-left-radius:2px;
+  border-top-left-radius:2px;
+}
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:first-child td:last-child {
+  -moz-border-radius-topright:2px;
+  -webkit-border-top-right-radius:2px;
+  border-top-right-radius:2px;
+}.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:last-child td:first-child{
+  -moz-border-radius-bottomleft:2px;
+  -webkit-border-bottom-left-radius:2px;
+  border-bottom-left-radius:2px;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:nth-child(odd){ background-color:#a0a0a0; }
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:nth-child(even){ background-color:#ffffff; }
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table td{
+  vertical-align:middle;
+  text-align: center;
+  border-width:0px 1px 1px 0px;
+  font-size:15px;
+  font-family:Arial;
+  font-weight:normal;
+  color:#000000;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:last-child td{
+  border-width:0px 1px 0px 0px;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr td:last-child{
+  border-width:0px 0px 1px 0px;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:last-child td:last-child{
+  border-width:0px 0px 0px 0px;
+}
+
+.outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:first-child td{
+  background: #333333; /* Old browsers */
+  background: -moz-linear-gradient(top,  #333333 0%, #646464 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#646464)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #333333 0%,#646464 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #333333 0%,#646464 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #333333 0%,#646464 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #333333 0%,#646464 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#646464',GradientType=0 ); /* IE6-9 */
+
+  border:0px solid #000000;
+  text-align:center;
+  font-size:20px;
+  font-family:Arial;
+  font-weight:bold;
+  color:#ffffff;
+}
+
+
 .outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero img{
   width: auto;
   height: 100%;
@@ -200,7 +299,6 @@
 	float: right;
 	height: 25%;
 	width: 100%;
-  margin-right: 100px;
 }
 
 .outerContainer .containerRight .crewMember .innerContainerMember{
@@ -209,12 +307,13 @@
 
 .outerContainer .containerRight .chooseUnit {
 	position: absolute;
+  right: 0px;
   width: 164px;
-  transform: translate(-69px, 68px) rotate(-90deg);
-	-webkit-transform: translate(-69px, 68px) rotate(-90deg);
-	-moz-transform: translate(-69px, 68px) rotate(-90deg);
-	-o-transform: translate(-69px, 68px) rotate(-90deg);
-	-ms-transform: translate(-69px, 68px) rotate(-90deg);
+  transform: translate(-67px, 67px) rotate(-90deg);
+	-webkit-transform: translate(-67px, 67px) rotate(-90deg);
+	-moz-transform: translate(-67px, 67px) rotate(-90deg);
+	-o-transform: translate(-67px, 67px) rotate(-90deg);
+	-ms-transform: translate(-67px, 67px) rotate(-90deg);
 
   cursor: pointer;
 
@@ -252,9 +351,12 @@
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#f68742');
   background-color:#fb9e25;
 }
+
 .outerContainer .containerRight .crewMemberName{
   position: absolute;
+  right: 0px;
   width: 164px;
+  z-index: 5;
   transform: translate(-39px, 67px) rotate(-90deg);
   -webkit-transform: translate(-39px, 67px) rotate(-90deg);
   -moz-transform: translate(-39px, 67px) rotate(-90deg);
@@ -282,6 +384,7 @@
   border-right: 1px solid #ffffff;
 
 }
+
 .hideToggle{
   display: none;
 }
@@ -318,12 +421,14 @@
 }
 
 .outerContainer .containerRight .crewMember .crewMemberData{
-	margin-left: 59px;
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable{
-	float: left;
-	width: auto;
-	display: none;
+  position: absolute;
+  width: auto;
+  height: 25%;
+  overflow: hidden;
+  right: 0px;
+  /*display: none;*/
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberAvatar{
 	position: absolute;
@@ -346,6 +451,7 @@
   float: left;
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable .unitData{
+  width: 137px;
 }
 .visibilityToggle{
 	visibility: hidden;
@@ -394,4 +500,14 @@
   font-family:Arial;
   font-weight:normal;
   color:#000000;
+}
+.chooseUnit:nth-of-type(1), .crewMemberName:nth-of-type(1), .crewMemberTable:nth-of-type(1){
+}
+.chooseUnit:nth-of-type(2), .crewMemberName:nth-of-type(2), .crewMemberTable:nth-of-type(2){
+}
+.chooseUnit:nth-of-type(3), .crewMemberName:nth-of-type(3), .crewMemberTable:nth-of-type(3){
+  top: 50%;
+}
+.chooseUnit:nth-of-type(4), .crewMemberName:nth-of-type(4), .crewMemberTable:nth-of-type(4){
+ top: 75%;
 }
