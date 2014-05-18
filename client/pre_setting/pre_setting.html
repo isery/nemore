@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <ul class="list-group list" role="menu">
       {{#each gameTeams}}
-        <li class="list-group-item dropdown item" data-id={{_id}} data-prio={{priority}} data-model="GameTeam">
+        <li class="list-group-item dropdown item outerList" data-id={{_id}} data-prio={{priority}} data-model="GameTeam">
           <div class="row">
             <div class="col-md-6">
             Unit: {{unit.name}} : {{priority}}
@@ -11,10 +11,8 @@
               {{#each team.abilityPriorities}}
                   <li class="list-group-item dropdown item open-sub dropdown-toggle parentList" data-id={{_id}} data-prio={{priority}} data-model="AbilityPriority" data-toggle="dropdown" >
                   ability: {{specialAbility.name}} : {{priority}}
-                  <a href="#" class="" ><span class="caret"></span></a>
                   <div class="panel-body dropdown-menu middleList">
                     <ul class="list-group list " role="menu">
-
                     {{#each targetPriority}}
                       {{#if checkHeroOrRandom}}
                       <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{this.unitId}}</li>

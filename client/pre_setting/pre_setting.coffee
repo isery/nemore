@@ -26,7 +26,7 @@ Template.preSetting.events
     posX = offset.left - $(window).scrollLeft()
     elemWidth = $(element).width()
     $(".selectBar").css "visibility", "hidden"
-    $(e.target.children[2]).css "visibility", "visible"
+    $(e.target.children[1]).css "visibility", "visible"
     elem2Width = $(".middleList").width()
     $(".middleList").attr "style", "top: 20px; left: "+parseInt(elemWidth+20)+"px !important;"
     $(".selectBar").css "top", 80

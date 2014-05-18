@@ -10,14 +10,20 @@
   box-shadow: none;
   padding:5px;
 }
+.outerList {
+  padding:6px;
+  margin:2px;
+}
+
 
 .parentList {
   position:static;
-
+  padding:6px;
 }
 
 .middleList>ul>li {
- padding:2px;
+ padding:1px;
+ font-size:12px;
 }
 
 .selectBar {
