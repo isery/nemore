@@ -13,10 +13,24 @@ Template.preSetting.events
     GameTeam.update(gameTeamId, {specialAbilityId: specialAbilityId})
 
   'click .open-sub': (e) ->
+    if $(e.target).hasClass("selectBar")
+      return
     $('li.dropdown').removeClass('open')
     specialAbilityId = $(e.target).data('id')
     Session.set "open-sub", specialAbilityId
     $(e.target).addClass("open")
+
+    element = e.target.parentNode
+    offset = $(element).offset()
+    posY = offset.top - $(window).scrollTop()
+    posX = offset.left - $(window).scrollLeft()
+    elemWidth = $(element).width()
+    $(".selectBar").css "visibility", "hidden"
+    $(e.target.children[2]).css "visibility", "visible"
+    elem2Width = $(".middleList").width()
+    $(".middleList").attr "style", "top: 20px; left: "+parseInt(elemWidth+20)+"px !important;"
+    $(".selectBar").css "top", 80
+    $(".selectBar").css "left", elemWidth + 80 + elem2Width
 
 Template.preSetting.created = ->
   Deps.autorun (deps) ->

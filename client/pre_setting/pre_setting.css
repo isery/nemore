@@ -2,10 +2,26 @@
   cursor: pointer;
 }
 
-.left {
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 100%;
+
+.middleList {
+  position:absolute;
+  width:250px;
+  border:none;
+  box-shadow: none;
+  padding:5px;
+}
+
+.parentList {
+  position:static;
+
+}
+
+.middleList>ul>li {
+ padding:2px;
+}
+
+.selectBar {
+  visibility: hidden;
+  position:absolute;
+  width:200px;
 }

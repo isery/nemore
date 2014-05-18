@@ -9,10 +9,10 @@
             Unit: {{unit.name}} : {{priority}}
               <ul class="list-group list" role="menu">
               {{#each team.abilityPriorities}}
-                  <li class="list-group-item dropdown item open-sub dropdown-toggle" data-id={{_id}} data-prio={{priority}} data-model="AbilityPriority" data-toggle="dropdown" >
+                  <li class="list-group-item dropdown item open-sub dropdown-toggle parentList" data-id={{_id}} data-prio={{priority}} data-model="AbilityPriority" data-toggle="dropdown" >
                   ability: {{specialAbility.name}} : {{priority}}
                   <a href="#" class="" ><span class="caret"></span></a>
-                  <div class="panel-body dropdown-menu left">
+                  <div class="panel-body dropdown-menu middleList">
                     <ul class="list-group list " role="menu">
 
                     {{#each targetPriority}}
@@ -24,7 +24,7 @@
                     {{/each}}
                     </ul>
                   </div>
-                  <select class="form-control">
+                  <select class="form-control selectBar">
                     {{#each abilityTerm.term}}
                       <option>{{name}}</option>
                     {{/each}}
