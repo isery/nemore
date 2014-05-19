@@ -20,8 +20,8 @@ Router.map ->
       Router.hasHero(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'userData'
-      Meteor.subscribe 'allTeams'
-      Meteor.subscribe 'colorKeys'
+      # Meteor.subscribe 'allTeams'
+      # Meteor.subscribe 'colorKeys'
   @route 'gamerooms',
     onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
@@ -57,7 +57,6 @@ Router.map ->
             newTeam = new GameTeam({gameId: currentGame._id}).init()
 
     data: ->
-      gamePlayers: GamePlayer.find({userId: Meteor.userId()})
       currentGame: Game.findById(@params._id),
       gameTeams: GameTeam.find({userId: Meteor.userId()}, {sort: {priority: 1}})
   @route 'games',
