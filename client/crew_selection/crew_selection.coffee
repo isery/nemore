@@ -30,7 +30,7 @@ Template.crewSelection.events
     else
       $(e.currentTarget).prev().add($(e.currentTarget).prev().prev()).each (index, element) =>
         $(element).stop().animate
-          right: 0
+          right: 0 - ($(element).height()*index)
 
       $(e.currentTarget).find(".crewMemberTable").css
         "z-index": 0
