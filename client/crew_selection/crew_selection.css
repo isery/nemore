@@ -55,6 +55,7 @@
 .outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:not(:first-child) div,
 .outerContainer .containerLeft .selectedContainer .selectedHeroContainer .selectedHero .heroText table tr:not(:last-child) div {
   border-bottom: 1px solid #000000;
+  white-space: nowrap;
 }
 
 
@@ -242,18 +243,6 @@
   background:-moz-linear-gradient( center top, #f68642 5%, #bf5f00 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#f68642", endColorstr="#bf5f00");  background: -o-linear-gradient(top,#f68642,bf5f00);
   background-color:#f68642;
-  -webkit-border-top-left-radius:10px;
-  -moz-border-radius-topleft:10px;
-  border-top-left-radius:10px;
-  -webkit-border-top-right-radius:10px;
-  -moz-border-radius-topright:10px;
-  border-top-right-radius:10px;
-  -webkit-border-bottom-right-radius:10px;
-  -moz-border-radius-bottomright:10px;
-  border-bottom-right-radius:10px;
-  -webkit-border-bottom-left-radius:10px;
-  -moz-border-radius-bottomleft:10px;
-  border-bottom-left-radius:10px;
   text-indent:0;
   border:1px solid #eeb44f;
   display:inline-block;
@@ -264,15 +253,11 @@
   font-style:normal;
   height:35px;
   line-height:35px;
-  width:130px;
+  width:100%;
   text-decoration:none;
   text-align:center;
 
-  position: absolute;
-  z-index: 10;
-  top: calc(100% - 35px);
-  left: 50%;
-  margin-left: -65px;
+  position: relative;
   cursor: pointer;
 }
 .readyButton:hover {
@@ -299,6 +284,7 @@
 	float: right;
 	height: 25%;
 	width: 100%;
+  min-height: 150px;
 }
 
 .outerContainer .containerRight .crewMember .innerContainerMember{
@@ -309,12 +295,13 @@
 	position: absolute;
   right: 0px;
   width: 164px;
-  transform: translate(-67px, 67px) rotate(-90deg);
-	-webkit-transform: translate(-67px, 67px) rotate(-90deg);
-	-moz-transform: translate(-67px, 67px) rotate(-90deg);
-	-o-transform: translate(-67px, 67px) rotate(-90deg);
-	-ms-transform: translate(-67px, 67px) rotate(-90deg);
-
+  z-index: 25;
+  /*transform: translate(-67px, 70px) rotate(-90deg);
+	-webkit-transform: translate(-67px, 70px) rotate(-90deg);
+	-moz-transform: translate(-67px, 70px) rotate(-90deg);
+	-o-transform: translate(-67px, 70px) rotate(-90deg);
+	-ms-transform: translate(-67px, 70px) rotate(-90deg);*/
+  -webkit-transform-origin: 0% 0%;
   cursor: pointer;
 
   background:-o-linear-gradient(bottom, #f68642 5%, #bf5f00 100%);    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f68642), color-stop(1, #bf5f00) );
@@ -354,14 +341,15 @@
 
 .outerContainer .containerRight .crewMemberName{
   position: absolute;
-  right: 0px;
+  right: -30px;
   width: 164px;
-  z-index: 5;
-  transform: translate(-39px, 67px) rotate(-90deg);
-  -webkit-transform: translate(-39px, 67px) rotate(-90deg);
-  -moz-transform: translate(-39px, 67px) rotate(-90deg);
-  -o-transform: translate(-39px, 67px) rotate(-90deg);
-  -ms-transform: translate(-39px, 67px) rotate(-90deg);
+  z-index: 25;
+  /*transform: translate(-39px, 70px) rotate(-90deg);
+  -webkit-transform: translate(-39px, 70px) rotate(-90deg);
+  -moz-transform: translate(-39px, 70px) rotate(-90deg);
+  -o-transform: translate(-39px, 70px) rotate(-90deg);
+  -ms-transform: translate(-39px, 70px) rotate(-90deg);*/
+  -webkit-transform-origin: 0% 0%;
   text-indent:0px;
   display:inline-block;
   color:#ffffff;
@@ -392,11 +380,13 @@
 .outerContainer .containerRight .crewMemberAbilities{
 	position: absolute;
 	width: 164px;
-  transform: translate(-67px, 68px) rotate(-90deg);
-	-webkit-transform: translate(-67px, 68px) rotate(-90deg);
-	-moz-transform: translate(-67px, 68px) rotate(-90deg);
-	-o-transform: translate(-67px, 68px) rotate(-90deg);
-	-ms-transform: translate(-67px, 68px) rotate(-90deg);
+  /*transform: translate(-70px, 70px) rotate(-90deg);
+	-webkit-transform: translate(-70px, 70px) rotate(-90deg);
+	-moz-transform: translate(-70px, 70px) rotate(-90deg);
+	-o-transform: translate(-70px, 70px) rotate(-90deg);
+	-ms-transform: translate(-70px, 70px) rotate(-90deg);*/
+  -webkit-transform-origin: 0% 0%;
+  border-right: 1px solid #ffffff;
 	text-indent:0px;
   display: inline-block;
   color:#ffffff;
@@ -424,17 +414,19 @@
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable{
   position: absolute;
-  width: auto;
+  width: calc(100% - 90px - 20%);
+  min-width: 575px;
   height: 25%;
+  min-height: 150px;
   overflow: hidden;
   right: 0px;
-  /*display: none;*/
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberAvatar{
 	position: absolute;
 	right: 0px;
 	height: 181px;
-	width: 130px;
+	/*width: 130px;*/
+  width: 20%;
   cursor: pointer;
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberAvatar img{
@@ -451,7 +443,8 @@
   float: left;
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable .unitData{
-  width: 137px;
+  /*width: 137px;*/
+  width: 30%;
 }
 .visibilityToggle{
 	visibility: hidden;
@@ -487,6 +480,8 @@
 }
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table.abilityTable{
 	margin-left: 30px;
+  /*width: 440px;*/
+  width: calc(100% - 30% - 30px);
 }
 
 .outerContainer .containerRight .crewMember .crewMemberData .crewMemberTable table tr:nth-child(odd){ background-color:#a0a0a0; }

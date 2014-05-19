@@ -1,5 +1,5 @@
 <template name="summary">
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-6">
             <div class="thumbnail">
                 <img src="img/{{heroImage}}.png" alt="..." class="hero-selection" id="{{hero.unitId}}">
@@ -19,8 +19,64 @@
                 <input type="button" value="Ready to Play" id="ready" class="btn btn-success btn-lg btn-block">
             </div>
          </div>
+    </div>-->
+<div class="summaryContainer">
+  <div class="selectedHeroContainer">
+    <div class="selectedHero">
+      <img src="/clientImgs/hero_view_without_background/{{toLowerCase heroImage}}.png" alt="{{heroImage}}" title="{{heroImage}}">
+      <div class="heroText">
+        <div class="currentStatsTable">
+          <table>
+            <tr>
+                <td colspan=2>
+                    <div>
+                      Current Selections
+                    </div>
+                </td>
+            </tr>
+            <tr>
+              <td><div>
+                  Selected hero<span>&nbsp;</span>
+              </div></td>
+              <td><div>
+                  <span>{{heroImage}}</span>
+              </div></td>
+            </tr>
+            {{#each teams}}
+            <tr>
+              <td><div>
+                Crew member <span>&nbsp;</span>
+              </div></td>
+              <td>
+                <div>
+                  <span>{{unit.name}}</span>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </table>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
     </div>
+  </div>
+  <div class="selectedCrewMemberContainer">
+    {{#each teams}}
+    <div class="selectedCrewMember">
+      <div class="selectedCrewMemberName">{{unit.name}}</div>
+      <div class="selectedCrewMemberImg">
+        <img src="/clientImgs/hero_view_without_background/{{toLowerCase unit.name}}.png" alt="{{unit.name}}" title="{{unit.name}}">
+      </div>
+    </div>
+    {{/each}}
+  </div>
 
+  <div class="buttonContainer">
+    <div class="readyButton summary continue">READY TO PLAY</div>
+    <div class="readyButton summary heroSelection">BACK TO HERO SELECTION</div>
+    <div class="readyButton summary crewSelection">BACK TO CREW SELECTION</div>
+  </div>
+</div>
 </template>
 
 
