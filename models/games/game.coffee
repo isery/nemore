@@ -52,6 +52,15 @@ class @Game
       $set:
         state: "finished"
 
+  destroy: ->
+    Games.remove({_id: @_id})
+
+    gameTeamId = GameTeams.findOne({gameId: @_id})._id
+    GameTeams.remove({_id: gameTeamId})
+
+    gamePlayerId = GamePlayers.findOne({gameId: @_id})._id
+    GamePlayers.remove({_id: gamePlayerId})
+
   @all = ->
     games = Games.find({})
 

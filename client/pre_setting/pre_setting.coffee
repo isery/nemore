@@ -34,8 +34,9 @@ Template.preSetting.events
 
 Template.preSetting.created = ->
   Deps.autorun (deps) ->
+    Session.set 'currentGameId', Router.getData()?.currentGame?._id
     game = Games.findOne
-      _id: Router.getData().currentGame?._id
+      _id: Router.getData()?.currentGame?._id
       state:
         $in: ["ready", "playing"]
 
@@ -90,3 +91,7 @@ SimpleRationalRanks =
     return parseFloat(lastRank)+1
 
 
+Template.preSetting.destroyed = ->
+  gameId = Session.get('currentGameId')
+  playerCount = GamePlayer.find({gameId: gameId}).length
+  Game.findOne({_id: gameId}).destroy() if playerCount <= 1
