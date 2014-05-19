@@ -15,30 +15,32 @@
       <div class="selectedHero">
         <div class="heroText">
           <div class="currentStatsTable">
-          <table>
-            <tr>
-                <td colspan=2>
-                    <div>
-                      Current Selections
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><div>
-                    Selected hero<span>&nbsp;</span>
-                </div></td>
-                <td><div>
-                    <span>{{heroImage}}</span>
-                </div></td>
-            </tr>
-            <tr>
-                <td colspan=2>
-                    <div>
-                      <span>{{numberSelectedMembers}} / 4</span> &nbsp;&nbsp;Crew members selected
-                    </div>
-                </td>
-            </tr>
-          </table></div>
+            <table>
+              <tr>
+                  <td colspan=2>
+                      <div>
+                        Current Selections
+                      </div>
+                  </td>
+              </tr>
+              <tr>
+                  <td><div>
+                      Selected hero<span>&nbsp;</span>
+                  </div></td>
+                  <td><div>
+                      <span>{{heroImage}}</span>
+                  </div></td>
+              </tr>
+              <tr>
+                  <td colspan=2>
+                      <div>
+                        <span>{{numberSelectedMembers}} / 4</span> &nbsp;&nbsp;Crew members selected
+                      </div>
+                  </td>
+              </tr>
+            </table>
+            <div class="readyButton">Continue</div>
+          </div>
         </div>
         <img src="/clientImgs/hero_view_without_background/{{toLowerCase heroImage}}.png" alt="image01" title="{{heroImage}}">
         <div style="clear:both;"></div>
@@ -62,7 +64,6 @@
       </div>
       {{/each}}
     </div>
-    <div class="readyButton">Continue</div>
   </div>
 </template>
 
@@ -144,7 +145,7 @@
             </td>
             <td>
               <div>
-                COOLDOWN (ROUNDS)
+                COOLDOWN
               </div>
             </td>
           </tr>
@@ -174,7 +175,7 @@
           {{/each}}
         </table>
       </div>
-      <div class="crewMemberAvatar" style="background:url('/clientImgs/hero_view_without_background/{{toLowerCase name}}.png') no-repeat 70% 50%; background-size: auto 100%; background-color: #333333;">
+      <div class="crewMemberAvatar" style="background:url('/clientImgs/hero_view_without_background/{{toLowerCase name}}.png') no-repeat 100% 50%; background-size: auto 100%; background-color: #333333;">
       </div>
     </div>
     <div style="clear:both;"></div>
