@@ -111,13 +111,21 @@ class @BaseAbility
       a1 = 40 unless @_baseGame.playerOne.hero.userId == Meteor.userId()
       tween = @_game.add.tween(ability).to({x: target.gameTeam._posX + a1, y: target.gameTeam._posY + 60 }, 500, Phaser.Easing.Quadratic.In, true, 0, false, false)
 
+      @_baseGame.sound_shot.play()
+
       tween.onComplete.add (tween)->
         this.scope.displayText(this.target, this.target.damage.toString())
         if this.target.hit
           if this.target.life <= 0
             target.gameTeam._unit.events.onAnimationComplete.removeAll()
+
+            this.scope._baseGame.sound_death.play()
+
             target.gameTeam._unit.animations.play "death", 5, false
           else
+
+            this.scope._baseGame.sound_hit.play()
+
             target.gameTeam._unit.animations.play "hit", 5, false
             target.gameTeam._unit.events.onAnimationComplete.add (anim) ->
               target.gameTeam._unit.animations.play "idle"
@@ -125,6 +133,9 @@ class @BaseAbility
 
           this.target.gameTeam.setLifeLine(this.target.life)
         else
+
+          this.scope._baseGame.sound_miss.play()
+
           target.gameTeam._unit.animations.play "miss", 5, false
           target.gameTeam._unit.events.onAnimationComplete.add (anim) ->
             target.gameTeam._unit.animations.play "idle"
@@ -153,6 +164,8 @@ class @BaseAbility
       ability.animations.add("buffing")
       ability.animations.play("buffing", 30, false)
 
+      @_baseGame.sound_buff.play()
+
       ability.events.onAnimationComplete.add (anim) ->
         conditionName = Conditions.findOne({_id: this.scope._abilityData.conditionId}).name
         this.target.gameTeam._conditions.add(conditionName)
@@ -167,6 +180,9 @@ class @BaseAbility
       ability = @_game.add.sprite(@_baseUnit._posX - 20, @_baseUnit._posY, "heal")
       ability.animations.add("healing")
       ability.animations.play("healing", 30, false)
+
+      @_baseGame.sound_heal.play()
+
       ability.events.onAnimationComplete.add (anim) ->
         this.scope.displayText(this.target, this.target.heal.toString())
         if this.target.hit
