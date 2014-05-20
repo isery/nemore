@@ -21,7 +21,6 @@ Router.map ->
     waitOn: ->
       Meteor.subscribe 'userData'
       Meteor.subscribe 'userTeams'
-      # Meteor.subscribe 'colorKeys'
   @route 'gamerooms',
     onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
