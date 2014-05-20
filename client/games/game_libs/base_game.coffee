@@ -102,14 +102,26 @@ class @BaseGame
     @game.load.image "ball", "/sprites/aqua_ball.png"
     @game.load.image "smoke", "/sprites/smoke.png"
     @game.load.image "spark", "/sprites/spark.png"
-    @game.load.image "healthbar", "/sprites/healthbar.png"
 
     @game.load.spritesheet "heal", "/sprites/heal.png", 128, 128, 28
     @game.load.spritesheet "buff", "/sprites/buff.png", 128, 128, 28
     @game.load.spritesheet "explode", "/sprites/explode1.png", 128, 128, 16
 
+    @game.load.image "sound", "/sprites/sound.png"
+    @game.load.image "mute", "/sprites/mute.png"
+
+    @game.load.audio("background", ['/sounds/bodenstaendig_2000_in_rock_4bit.mp3', '/sounds/bodenstaendig_2000_in_rock_4bit.ogg'])
+    @game.load.audio("shot", '/sounds/shot.wav')
+    @game.load.audio("miss", '/sounds/miss.ogg')
+    @game.load.audio("hit", '/sounds/hit.wav')
+    @game.load.audio("death", '/sounds/death.wav')
+    @game.load.audio("heal", '/sounds/buff.wav')
+    @game.load.audio("buff", '/sounds/buff.wav')
+
+
   create: ->
     background =  @game.add.sprite(0, 0, 'background')
+    @initAudio()
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
 
@@ -120,6 +132,37 @@ class @BaseGame
     @initSmoke(@game.world.centerX + 525, 500, 0.3, 0.5, -30, -10)
 
     @initSparks()
+
+  initAudio: ->
+    @sound_background = @game.add.audio('background')
+    @sound_background.play('', 0.2, true)
+
+    @sound_shot = @game.add.audio('shot')
+    @sound_miss = @game.add.audio('miss')
+    @sound_hit = @game.add.audio('hit')
+    @sound_death = @game.add.audio('death')
+    @sound_heal = @game.add.audio('heal')
+    @sound_buff = @game.add.audio('buff')
+
+    @addSoundButton()
+
+  addSoundButton: ->
+    @soundButton = @game.add.button(@canvasSize.x * 0.9, @canvasSize.y * 0.05, 'sound', @click, @, 0, 1, 2)
+    @soundButton.scale.set(0.4, 0.4)
+
+  addMuteButton: ->
+    @soundButton = @game.add.button(@canvasSize.x * 0.9, @canvasSize.y * 0.05, 'mute', @click, @, 0, 1, 2)
+    @soundButton.scale.set(0.4, 0.4)
+
+  click: ->
+    @soundButton.kill()
+    volume = @game.sound.volume
+    if volume
+      @game.sound.volume = 0
+      @addMuteButton()
+    else
+      @game.sound.volume = 1
+      @addSoundButton()
 
 
   initSmoke: (posX, posY, scaleFrom, scaleTo, xSpeedFrom, xSpeedTo) ->

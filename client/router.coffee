@@ -20,8 +20,7 @@ Router.map ->
       Router.hasHero(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'userData'
-      Meteor.subscribe 'allTeams'
-      # Meteor.subscribe 'colorKeys'
+      Meteor.subscribe 'userTeams'
   @route 'gamerooms',
     onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
@@ -29,7 +28,7 @@ Router.map ->
       Meteor.subscribe 'allGames'
       Meteor.subscribe 'allGameTeams'
       Meteor.subscribe 'allGamePlayers'
-      Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'userTeams'
       Meteor.subscribe 'allUnits'
     data: ->
       currentOpenGames: Games.find({state: 'createdGame'}).fetch()
@@ -39,10 +38,10 @@ Router.map ->
     onBeforeAction: ->
       @subscribe('currentGame', @params._id).wait()
       @subscribe('allUnits').wait()
-      @subscribe('allTeams').wait()
+      @subscribe('userTeams').wait()
       @subscribe('allSpecialAbilities').wait()
-      @subscribe('gameGameTeams', @params._id).wait()
-      @subscribe('allGamePlayers').wait()
+      @subscribe('currentGameTeams', @params._id).wait()
+      @subscribe('allGamePlayers', @params._id).wait()
       @subscribe('priorityLists').wait()
 
       if @data().currentGame
@@ -65,7 +64,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
-      Meteor.subscribe 'gameGameTeams', @params._id
+      Meteor.subscribe 'currentGameTeams', @params._id
       Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
@@ -85,7 +84,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allUnits'
-      Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'userTeams'
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'allTerms'
       Meteor.subscribe 'priorityLists'
@@ -99,7 +98,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allUnits'
-      Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'userTeams'
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'allTerms'
     data: ->
@@ -113,7 +112,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allUnits'
-      Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'userTeams'
       Meteor.subscribe 'userData'
     data: ->
       hero: Team.findOne({userId: Meteor.userId(), hero: true})

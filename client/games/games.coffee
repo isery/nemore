@@ -2,7 +2,8 @@ Template.games.created = ->
   new BaseGame(@data)
 
 Template.games.destroyed = ->
-  delete @game
+  BaseGame._instance.game.sound.setMute(true)
+  delete BaseGame._instance
   $("canvas")?.hide()
 
 Template.games.events

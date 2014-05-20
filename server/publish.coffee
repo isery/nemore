@@ -7,17 +7,20 @@ Meteor.publish "currentGame", (_id) ->
 Meteor.publish "currentActions", (gameId) ->
   Actions.find({gameId: gameId})
 
+Meteor.publish "currentGamePlayers", (gameId) ->
+  GamePlayers.find({gameId: gameId})
+
+Meteor.publish "currentGameTeams", (gameId)->
+  GameTeam.all(gameId)
+
 Meteor.publish "allUnits", ->
   Unit.all()
 
-Meteor.publish "allTeams", ->
+Meteor.publish "userTeams", ->
   Team.all(this.userId)
 
 Meteor.publish "allGameTeams", ->
   GameTeams.find({})
-
-Meteor.publish "gameGameTeams", (gameId)->
-  GameTeam.all(gameId)
 
 Meteor.publish "allGamePlayers", ->
   GamePlayers.find({})
