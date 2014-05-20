@@ -65,7 +65,7 @@ Router.map ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
-      Meteor.subscribe 'gameGameTeams', @params._id
+      Meteor.subscribe 'currentGameTeams', @params._id
       Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
