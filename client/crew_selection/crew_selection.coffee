@@ -81,4 +81,4 @@ Template.crewSelection.rendered = ->
       "-ms-transform": "translateY("+($(element).width()+1)+"px) rotate(-90deg)"
 
 Template.showSelectedCrewLeft.heroImage = ->
-  Router.getData().hero?.unit().name
+  Router.getData()?.hero?.unit().name
