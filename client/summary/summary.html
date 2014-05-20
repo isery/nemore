@@ -1,82 +1,31 @@
 <template name="summary">
-    <!--<div class="row">
-        <div class="col-md-6">
-            <div class="thumbnail">
-                <img src="img/{{heroImage}}.png" alt="..." class="hero-selection" id="{{hero.unitId}}">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row">
-                {{#each teams}}
-                <div class="col-md-3">
-                <div class="thumbnail">
-                    <img src="img/{{unit.name}}.png" alt="..." class="hero-selection" id="{{unit._id}}">
-                </div>
-                 </div>
-                {{/each}}
-             </div>
-            <div class="row">
-                <input type="button" value="Ready to Play" id="ready" class="btn btn-success btn-lg btn-block">
-            </div>
-         </div>
-    </div>-->
-<div class="summaryContainer">
-  <div class="selectedHeroContainer">
-    <div class="selectedHero">
-      <img src="/clientImgs/hero_view_without_background/{{toLowerCase heroImage}}.png" alt="{{heroImage}}" title="{{heroImage}}">
-      <div class="heroText">
-        <div class="currentStatsTable">
-          <table>
-            <tr>
-                <td colspan=2>
-                    <div>
-                      Current Selections
-                    </div>
-                </td>
-            </tr>
-            <tr>
-              <td><div>
-                  Selected hero<span>&nbsp;</span>
-              </div></td>
-              <td><div>
-                  <span>{{heroImage}}</span>
-              </div></td>
-            </tr>
-            {{#each teams}}
-            <tr>
-              <td><div>
-                Crew member <span>&nbsp;</span>
-              </div></td>
-              <td>
-                <div>
-                  <span>{{unit.name}}</span>
-                </div>
-              </td>
-            </tr>
-            {{/each}}
-          </table>
+  <div class="summaryContainer">
+    <div class="heroContainer">
+      <div class="crewMemberName">{{toUpperCase heroImage}}</div>
+      <div class="heroImg hero{{heroImage}}" style="background-image:url('/clientImgs/hero_view_without_background/{{toLowerCase heroImage}}.png')"></div>
+    </div>
+    <div class="infoContainer">
+      <div class="heading">
+        <div class="headingText">
+          <div>CURRENT SELECTION</div>
         </div>
       </div>
-      <div style="clear:both;"></div>
     </div>
-  </div>
-  <div class="selectedCrewMemberContainer">
-    {{#each teams}}
-    <div class="selectedCrewMember">
-      <div class="selectedCrewMemberName">{{unit.name}}</div>
-      <div class="selectedCrewMemberImg">
-        <img src="/clientImgs/hero_view_without_background/{{toLowerCase unit.name}}.png" alt="{{unit.name}}" title="{{unit.name}}">
-      </div>
+    <div class="crewContainer">
+      {{#each teams}}
+        <div class="crewMember">
+          <div class="crewMemberName">{{toUpperCase unit.name}}</div>
+          <img class="{{toLowerCase unit.name}}" src="/clientImgs/hero_view_without_background/{{toLowerCase unit.name}}.png" alt="{{unit.name}}" title="{{unit.name}}">
+        </div>
+      {{/each}}
     </div>
-    {{/each}}
+    <div class="buttonContainer">
+      <div class="readyButton summary continue">READY TO PLAY</div>
+      <div class="readyButton summary heroSelection">BACK TO HERO SELECTION</div>
+      <div class="readyButton summary crewSelection">BACK TO CREW SELECTION</div>
+    </div>
+    <div style="clear:both;"></div>
   </div>
-
-  <div class="buttonContainer">
-    <div class="readyButton summary continue">READY TO PLAY</div>
-    <div class="readyButton summary heroSelection">BACK TO HERO SELECTION</div>
-    <div class="readyButton summary crewSelection">BACK TO CREW SELECTION</div>
-  </div>
-</div>
 </template>
 
 
