@@ -20,7 +20,7 @@ Router.map ->
       Router.hasHero(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'userData'
-      # Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'allTeams'
       # Meteor.subscribe 'colorKeys'
   @route 'gamerooms',
     onBeforeAction: ->
