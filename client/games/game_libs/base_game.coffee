@@ -72,6 +72,9 @@ class @BaseGame
 
 
   preload: ->
+    # Prepreload stuff
+
+  startLoadingAssets: ->
     @preloadTeam(@playerOne)
     @preloadTeam(@playerTwo)
 
@@ -118,20 +121,65 @@ class @BaseGame
     @game.load.audio("heal", '/sounds/buff.wav')
     @game.load.audio("buff", '/sounds/buff.wav')
 
+    @game.load.start()
 
   create: ->
+    @game.load.onLoadStart.add(@loadStart, @);
+    @game.load.onFileComplete.add(@fileComplete, @);
+    @game.load.onLoadComplete.add(@loadComplete, @);
+
+    @text = @game.add.text(@canvasSize.x * 0.40, @canvasSize.y * 0.40, 'Loading...', { fill: '#ffffff' });
+
+    @startLoadingAssets()
+
+  loadStart: ->
+    color = 0xffffff
+    @_progressBackgroundBig
+    @_progressBackgroundBig = @game.add.graphics(0, 0)
+    @_progressBackgroundBig.beginFill(color)
+    @_progressBackgroundBig.lineStyle(22, color, 1)
+    @_progressBackgroundBig.moveTo(@canvasSize.x * 0.35 - 2, @canvasSize.y * 0.45)
+    @_progressBackgroundBig.lineTo(@canvasSize.x * 0.35 + 2 + 100 * @canvasSize.x * 0.003, @canvasSize.y * 0.45)
+    @_progressBackgroundBig.endFill()
+
+
+    color = 0x000000
+    @_progressBackgroundSmall
+    @_progressBackgroundSmall = @game.add.graphics(0, 0)
+    @_progressBackgroundSmall.beginFill(color)
+    @_progressBackgroundSmall.lineStyle(20, color, 1)
+    @_progressBackgroundSmall.moveTo(@canvasSize.x * 0.35, @canvasSize.y * 0.45)
+    @_progressBackgroundSmall.lineTo(@canvasSize.x * 0.35 + 100 * @canvasSize.x * 0.003, @canvasSize.y * 0.45)
+    @_progressBackgroundSmall.endFill()
+
+  fileComplete: (progress, cacheKey, success, totalLoaded, totalFiles)->
+    @text.setText("Loading: " + progress + "%");
+
+    color = 0xffffff
+
+    @_progressBar.destroy() if @_progressBar
+    @_progressBar = @game.add.graphics(0, 0)
+    @_progressBar.beginFill(color)
+    @_progressBar.lineStyle(20, color, 1)
+    @_progressBar.moveTo(@canvasSize.x * 0.35, @canvasSize.y * 0.45)
+    @_progressBar.lineTo(@canvasSize.x * 0.35 + progress * @canvasSize.x * 0.003, @canvasSize.y * 0.45)
+    @_progressBar.endFill()
+
+  loadComplete: ->
     background =  @game.add.sprite(0, 0, 'background')
     @initAudio()
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
 
-    @initObserver()
     @createKeyboardListener()
 
     @initSmoke(@game.world.centerX + 200, 380, 0.3, 0.5, -50, -20)
     @initSmoke(@game.world.centerX + 525, 500, 0.3, 0.5, -30, -10)
 
     @initSparks()
+
+    @initObserver()
+
 
   initAudio: ->
     @sound_background = @game.add.audio('background')
