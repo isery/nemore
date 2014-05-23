@@ -1,43 +1,71 @@
 <template name="preSetting">
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="list-group list" role="menu">
+ <div class="preSettingsContainer">
+    <ul class="list" role="menu">
       {{#each gameTeams}}
-        <li class="list-group-item dropdown item outerList" data-id={{_id}} data-prio={{priority}} data-model="GameTeam">
-          <div class="row">
-            <div class="col-md-6">
-            Unit: {{unit.name}} : {{priority}}
-              <ul class="list-group list" role="menu">
-              {{#each team.abilityPriorities}}
-                  <li class="list-group-item dropdown item open-sub dropdown-toggle parentList" data-id={{_id}} data-prio={{priority}} data-model="AbilityPriority" data-toggle="dropdown" >
-                  ability: {{specialAbility.name}} : {{priority}}
-                  <div class="panel-body dropdown-menu middleList">
-                    <ul class="list-group list " role="menu">
-                    {{#each targetPriority}}
-                      {{#if checkHeroOrRandom}}
-                      <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{this.unitId}}</li>
-                      {{else}}
-                        <li class="list-group-item item" data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">{{priority}} -> {{unit.name}}</li>
-                      {{/if}}
-                    {{/each}}
-                    </ul>
+      <li data-id={{_id}} data-prio={{priority}} data-model="GameTeam">
+        <div class="oneUnitContainer">
+          <div class="unitData">
+            <div class="unitDataName">{{unit.name}} : {{priority}}</div>
+            <div class="unitDataAbilities">
+              <ul class="list" role="menu">
+                {{#each team.abilityPriorities}}
+                <li data-id={{_id}} data-prio={{priority}} data-model="AbilityPriority" data-toggle="dropdown">
+                  <div>
+                    <div>
+                      <span>{{specialAbility.specialName}} : {{priority}}</span>
+                    </div>
+                    <div class="arrow"></div>
                   </div>
-                  <select class="form-control selectBar">
-                    {{#each abilityTerm.term}}
-                      <option>{{name}}</option>
-                    {{/each}}
-                  </select>
                 </li>
                 {{/each}}
               </ul>
             </div>
           </div>
-        </li>
-        {{/each}}
-      </ul>
+          <div class="unitAbilityContainer">
+            <div class="unitDataName">TARGETPRIORITY</div>
+            <div class="unitAbilityTargets">
+              <ul class="list" role="menu">
+              </ul>
+            </div>
+          </div>
+          <div class="unitAbilityCondition">
+            <div class="unitDataName">ABILITYCONDITION</div>
+            <div class="unitAbilityConditionContainer">
+              <div>
+                <div>
+                  <label>
+                      <select class="selectAbilityTerm">
+                      </select>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    <div class="readyButtonContainer">
+      <div id="ready" class="readyButton">Start</div>
     </div>
-  </div>
-  <div class="row">
-    <input class="btnReady" type="button" id="ready" value="Ready">
-  </div>
+ </div>
+
+ </template>
+
+<template name="preSettingTargetList">
+   <li data-id={{_id}} data-prio={{priority}} data-model="TargetPriority">
+    <div>
+      <div>
+        {{#if checkHeroOrRandom}}
+          <span>{{this.unitId}} : {{priority}}</span>
+        {{else}}
+          <span>{{unit.name}} : {{priority}}</span>
+        {{/if}}
+      </div>
+    </div>
+  </li>
+</template>
+
+<template name="preSettingAbilityConditions">
+  <option>{{name}}</option>
 </template>
