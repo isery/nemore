@@ -5,8 +5,13 @@ Template.gamerooms.events
 
   'click #create-game': ->
     _id = new Game({userId: Meteor.userId(),gameName: Meteor.userId(), state: "createdGame"}).save()
-    newTeam = new GameTeam({gameId: _id}).init()
+    newTeam = new GameTeam({gameId: _id}).init(Meteor.userId())
     Router.go 'preSetting', _id: _id
+
+  'click #create-ki-game': ->
+    _id = new Game({userId: Meteor.userId(),gameName: Meteor.userId(), state: "createdGame"}).save()
+    newTeam = new GameTeam({gameId: _id}).init(Meteor.userId())
+    Router.go 'preSetting', _id: _id, ki: 'ki'
 
 Template.gamerooms.gameTeam = ->
   GameTeam.find({gameId: @_id})

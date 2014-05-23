@@ -2,6 +2,7 @@ class @BaseGame
   @_instance: undefined
 
   constructor: (data) ->
+    console.log data
     BaseGame._instance = @
     @_playerOneSpriteOffset = 50;
     @_id = data.game._id
@@ -42,32 +43,32 @@ class @BaseGame
 
 
   update: ->
-    @timer--
-    if @timer <= 0
-      @colorHighlight.create()
-      that = @
-      removeColorHighlight = setTimeout(->
-        that.colorHighlight.destroy()
-        that.colorHighlight.setState(false)
-      , that.durationOfColorHighlight)
-      @timer = @frameRate
-    for i of @keyListener
-      if @keyListener[i].isDown
-        if @colorHighlight.colorHighlightState
-          colorId = Color.findOne({hex:@colorHighlight.activeColor})._id
-          keyId = Key.findOne({inputkey:@keyListener[i].keyCode})._id
-          colorKey = ColorKey.findOne({colorId:colorId,keyId:keyId})
-          condition = colorKey.condition()
-          conditionName = condition.name
-          conditionId = condition._id
-          unitId = @colorHighlight.activeUnitId
-          gameTeamId = GameTeam.findOne({_id:unitId})._id
-          @[gameTeamId]._conditions.add(conditionName)
-          Meteor.call "addCondition", @_id,unitId, {conditionId:conditionId,value: colorKey.value, duration: colorKey.duration}
-          clearTimeout removeColorHighlight
-          @colorHighlight.setState(false)
-          @timer = @frameRate
-          @colorHighlight.animateSuccess()
+    # @timer--
+    # if @timer <= 0
+    #   @colorHighlight.create()
+    #   that = @
+    #   removeColorHighlight = setTimeout(->
+    #     that.colorHighlight.destroy()
+    #     that.colorHighlight.setState(false)
+    #   , that.durationOfColorHighlight)
+    #   @timer = @frameRate
+    # for i of @keyListener
+    #   if @keyListener[i].isDown
+    #     if @colorHighlight.colorHighlightState
+    #       colorId = Color.findOne({hex:@colorHighlight.activeColor})._id
+    #       keyId = Key.findOne({inputkey:@keyListener[i].keyCode})._id
+    #       colorKey = ColorKey.findOne({colorId:colorId,keyId:keyId})
+    #       condition = colorKey.condition()
+    #       conditionName = condition.name
+    #       conditionId = condition._id
+    #       unitId = @colorHighlight.activeUnitId
+    #       gameTeamId = GameTeam.findOne({_id:unitId})._id
+    #       @[gameTeamId]._conditions.add(conditionName)
+    #       Meteor.call "addCondition", @_id,unitId, {conditionId:conditionId,value: colorKey.value, duration: colorKey.duration}
+    #       clearTimeout removeColorHighlight
+    #       @colorHighlight.setState(false)
+    #       @timer = @frameRate
+    #       @colorHighlight.animateSuccess()
 
 
 
@@ -170,7 +171,6 @@ class @BaseGame
     @initAudio()
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
-
     @createKeyboardListener()
 
     @initSmoke(@game.world.centerX + 200, 380, 0.3, 0.5, -50, -20)
@@ -253,6 +253,17 @@ class @BaseGame
           ,
             $set:
               state: "animating"
+
+          player2 = GamePlayers.findOne({gameId: action.gameId, player: '2'})
+          player2User = Meteor.users.findOne({_id: player2.userId})
+          if player2User.username == 'morathil'
+            GamePlayers.update
+              _id: player2._id
+            ,
+              $set:
+                state: 'waiting'
+                lastIndex: action.index
+
           new BaseAbility({action: action, baseGame: that}).play()
           BaseCondition.update({action: action, baseGame: that})
     })
@@ -312,7 +323,7 @@ class @BaseGame
       y: @canvasSize.y * 0.65
 
     pArr = if isPlayerOne then p1Positions else p2Positions
-
+    console.log @
     # init units
     for member, i in player.team
       @[member._id].addSprite(pArr[i].x, pArr[i].y)

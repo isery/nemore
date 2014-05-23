@@ -34,7 +34,7 @@ Router.map ->
       currentOpenGames: Games.find({state: 'createdGame'}).fetch()
       users: Meteor.users.find({}).fetch()
   @route 'preSetting',
-    path: '/preSetting/:_id'
+    path: '/preSetting/:_id/:ki'
     onBeforeAction: ->
       @subscribe('currentGame', @params._id).wait()
       @subscribe('allUnits').wait()
@@ -44,39 +44,53 @@ Router.map ->
       @subscribe('allGamePlayers', @params._id).wait()
       @subscribe('priorityLists').wait()
 
+      @subscribe('allGameTeams').wait()
+      @subscribe('allTeams').wait()
+
       if @data().currentGame
         Router.isLoggedIn(@)
         _id = @params._id
         currentGame = @data().currentGame
         userId = Meteor.userId()
         gamePlayers = GamePlayer.find({gameId: currentGame._id})
+
         if gamePlayers.length is 1
+          if @params.ki
+            ki = Meteor.users.findOne({username: 'morathil'})
+            if new GameTeam({gameId: currentGame._id}).init(ki._id)
+              gamePlayerId = currentGame.setPlayer2(ki._id)
+              GamePlayer.update(gamePlayerId, {state: 'waiting'})
+
           unless gamePlayers[0].userId is userId
             currentGame.setPlayer2(userId)
-            newTeam = new GameTeam({gameId: currentGame._id}).init()
+            new GameTeam({gameId: currentGame._id}).init(userId)
 
     data: ->
       currentGame: Game.findById(@params._id),
-      gameTeams: GameTeam.find({userId: Meteor.userId()}, {sort: {priority: 1}})
+      gameTeams: GameTeam.find({gameId: @params._id, userId: Meteor.userId()}, {sort: {priority: 1}})
   @route 'games',
     path: '/games/:_id'
     onBeforeAction: ->
       Router.isLoggedIn(@) if @ready()
     waitOn: ->
       Meteor.subscribe 'allGames'
-      Meteor.subscribe 'currentGameTeams', @params._id
+      # Meteor.subscribe 'currentGameTeams', @params._id
       Meteor.subscribe 'allGamePlayers'
       Meteor.subscribe 'allUnits'
       Meteor.subscribe 'currentActions', @params._id
       Meteor.subscribe 'allSpecialAbilities'
       Meteor.subscribe 'conditions'
       Meteor.subscribe 'colorKeys'
+
+      Meteor.subscribe 'allGameTeams'
+      Meteor.subscribe 'allTeams'
+      Meteor.subscribe 'allUsers'
     data: ->
       game: Game.findOne _id: @params._id
       actions: Action.find()
-      gameTeamOne: GameTeam.find userId: GamePlayers.findOne({gameId: @params._id, player: "1"}).userId, hero: {$exists: false}
+      gameTeamOne: GameTeam.find gameId: @params._id, userId: GamePlayers.findOne({gameId: @params._id, player: "1"}).userId, hero: {$exists: false}
       gameTeamTwo: GameTeam.find userId: GamePlayers.findOne({gameId: @params._id, player: "2"}).userId, gameId: @params._id, hero: {$exists: false}
-      heroOne: GameTeam.findOne userId: GamePlayers.findOne({gameId: @params._id, player: "1"}).userId, hero: true
+      heroOne: GameTeam.findOne gameId: @params._id, userId: GamePlayers.findOne({gameId: @params._id, player: "1"}).userId, hero: true
       heroTwo: GameTeam.findOne userId: GamePlayers.findOne({gameId: @params._id, player: "2"}).userId, gameId: @params._id, hero: true
   @route 'heroSelection',
     path: '/hero_selection'

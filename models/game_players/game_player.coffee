@@ -25,6 +25,7 @@ class @GamePlayer
 
   @bothReady = (gameId) ->
     Players = GamePlayers.find({gameId:gameId}).fetch();
+    console.log Players
     if Players.length < 2
         return false
     else if Players[0].state is "waiting" and Players[1].state is "waiting"
