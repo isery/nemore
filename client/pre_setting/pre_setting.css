@@ -139,6 +139,9 @@
 .preSettingsContainer .oneUnitContainer ul li{
   text-align: center;
 }
+.preSettingsContainer ul li{
+  cursor: pointer;
+}
 
 .preSettingsContainer .oneUnitContainer .unitDataAbilities ul,
 .preSettingsContainer .oneUnitContainer .unitAbilityTargets ul{
