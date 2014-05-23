@@ -89,9 +89,19 @@ Template.preSetting.rendered = ->
       else if model is "AbilityPriority"
         id = window[model].find(modelId)[0].teamId
         modelItems = window[model].find({teamId:id},{sort: {priority: 1}})
+
+      if model is 'TargetPriority'
+        $element = ui.item.parent("ul")
+        $element.empty()
+
       for i of modelItems
         modelId = modelItems[i]._id
         window[model].update(modelId, {priority : parseInt(i)})
+
+        if model is 'TargetPriority'
+          targetPriority = window[model].find(modelId)[0]
+          targetListElement = UI.renderWithData(Template.preSettingTargetList, targetPriority)
+          UI.insert(targetListElement, $element[0])
   )
 
 Template.preSetting.destroyed = ->
