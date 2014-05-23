@@ -7,30 +7,49 @@ Template.preSetting.events
     bothReady = GamePlayer.bothReady(gameId)
     Router.getData().currentGame.setReady(Meteor.userId()) if bothReady
 
-  'click .choose_ability': (e)->
-    specialAbilityId = $(e.target).data('id')
-    gameTeamId = $(e.target).parent().data('id')
-    GameTeam.update(gameTeamId, {specialAbilityId: specialAbilityId})
+  'click .unitDataAbilities > ul > li': (e) ->
+    $this = $(e.currentTarget)
+    $parentContainer = $this.parents(".oneUnitContainer")
+    $unitAbilityTargetsList = $this.parents(".oneUnitContainer").find(".unitAbilityTargets > ul")
+    $abilityConditionOptions = $this.parents(".oneUnitContainer").find(".selectAbilityTerm")
+    $unitAbilityTargetsList.empty()
+    $abilityConditionOptions.empty()
 
-  'click .open-sub': (e) ->
-    if $(e.target).hasClass("selectBar")
-      return
-    $('li.dropdown').removeClass('open')
-    specialAbilityId = $(e.target).data('id')
-    Session.set "open-sub", specialAbilityId
-    $(e.target).addClass("open")
+    if($this.hasClass("active"))
+      $this.find(".arrow").stop().fadeOut()
 
-    element = e.target.parentNode
-    offset = $(element).offset()
-    posY = offset.top - $(window).scrollTop()
-    posX = offset.left - $(window).scrollLeft()
-    elemWidth = $(element).width()
-    $(".selectBar").css "visibility", "hidden"
-    $(e.target.children[1]).css "visibility", "visible"
-    elem2Width = $(".middleList").width()
-    $(".middleList").attr "style", "top: 20px; left: "+parseInt(elemWidth+20)+"px !important;"
-    $(".selectBar").css "top", 80
-    $(".selectBar").css "left", elemWidth + 80 + elem2Width
+      $parentContainer.find(".unitAbilityContainer, .unitAbilityCondition").each (index, element) ->
+        $(element).stop().animate
+          "width": "toggle"
+
+      $this.removeClass("active")
+    else
+      $parentContainer.find(".active").each (index, element) ->
+        $(element).removeClass("active")
+        $parentContainerActive = $(element).parents(".oneUnitContainer")
+        $parentContainerActive.find(".unitAbilityContainer, .unitAbilityCondition").each (index, element) ->
+          $(element).stop(false, true).animate
+            "width": "toggle"
+        $(element).find(".arrow").stop(false, true).fadeOut()
+
+
+      $this.addClass("active")
+
+      $this.find(".arrow").css
+        "border-width" : ""+($this.height() / 2)+"px 0px "+($this.height() / 2)+"px "+ ($parentContainer.width() / 100 * 2)+"px"
+      .stop(false, true).fadeIn()
+
+      for targetPriority in @targetPriority()
+        targetListElement = UI.renderWithData(Template.preSettingTargetList, targetPriority)
+        UI.insert(targetListElement, $unitAbilityTargetsList[0])
+
+      for term in Terms.find().fetch()
+        termOption = UI.renderWithData(Template.preSettingAbilityConditions, term)
+        UI.insert(termOption, $abilityConditionOptions[0])
+
+      $parentContainer.find(".unitAbilityContainer, .unitAbilityCondition").each (index, element) ->
+        $(element).stop(false, true).animate
+          "width": "toggle"
 
 Template.preSetting.created = ->
   Deps.autorun (deps) ->
@@ -44,14 +63,7 @@ Template.preSetting.created = ->
       Router.go 'games', _id: game._id
       deps.stop()
 
-Template.preSetting.checkHeroOrRandom = ->
-  if (@unitId is "Hero") or (@unitId is "Random")
-    return true
-  else
-    return false
-
 Template.preSetting.rendered = ->
-  $('li[data-id='+Session.get("open-sub")+']').addClass("open")
   $('.list').sortable(
     stop: (event,ui) ->
       el = ui.item.get(0)
@@ -82,6 +94,17 @@ Template.preSetting.rendered = ->
         window[model].update(modelId, {priority : parseInt(i)})
   )
 
+Template.preSetting.destroyed = ->
+  gameId = Session.get('currentGameId')
+  playerCount = GamePlayer.find({gameId: gameId}).length
+  Game.findOne({_id: gameId}).destroy() if playerCount <= 1
+
+Template.preSettingTargetList.checkHeroOrRandom = ->
+  if (@unitId is "Hero") or (@unitId is "Random")
+    return true
+  else
+    return false
+
 SimpleRationalRanks =
   beforeFirst: (firstRank) ->
     return parseFloat(firstRank)-1
@@ -89,9 +112,3 @@ SimpleRationalRanks =
     return ( parseFloat(beforeRank) + parseFloat(afterRank) ) / 2
   afterLast: (lastRank) ->
     return parseFloat(lastRank)+1
-
-
-Template.preSetting.destroyed = ->
-  gameId = Session.get('currentGameId')
-  playerCount = GamePlayer.find({gameId: gameId}).length
-  Game.findOne({_id: gameId}).destroy() if playerCount <= 1
