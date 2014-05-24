@@ -1,0 +1,9 @@
+<template name="keycolorboard">
+  {{#each getColorKeys}}
+    <div style="margin-top:2px;">
+      <img src="/clientImgs/key_color_board/key_{{key.name}}.png">
+    + <img src="/clientImgs/key_color_board/color_{{color.name}}.png">
+    = <img src="/clientImgs/key_color_board/condition_{{condition.name}}.png">
+    </div>
+  {{/each}}
+</template>
