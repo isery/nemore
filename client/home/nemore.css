@@ -63,7 +63,7 @@
 	position: absolute;
 	top: 1;
 	left: 1;
-	bottom: -80%;
+	bottom: -60%;
 	transition: 200ms opacity;
 	opacity: 0;
 }
