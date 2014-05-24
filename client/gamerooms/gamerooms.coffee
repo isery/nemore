@@ -1,9 +1,9 @@
 Template.gamerooms.events
-  'click .join-game': (e)->
+  'click .joinOpenGame': (e)->
     _id = $(e.target).data("id")
     Router.go 'preSetting', _id: _id
 
-  'click #create-game': ->
+  'click .createGameAgainstPlayer': ->
     _id = new Game({userId: Meteor.userId(),gameName: Meteor.userId(), state: "createdGame"}).save()
     newTeam = new GameTeam({gameId: _id}).init(Meteor.userId())
     Router.go 'preSetting', _id: _id

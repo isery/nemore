@@ -1,68 +1,42 @@
 <template name="gamerooms">
-    <div class="gameroom-header-container">
-        <div class="gameroom-header-inner-container">
-            <div class="gameroom-header"> Gameroom </div>
-        </div>
-        <div class="gameroom-header-inner-container">
-            <input type="button" class="create-game" id="create-ki-game" value="Create Game">
-        </div>
-    <div style="clear:both;"></div>
+<div class="gameRoomContainer">
+  <div class="headerDataContainer">
+    <div class="headerText">
+      <span>Gameroom</span>
     </div>
-    {{#each currentOpenGames}}
-        <div class="center">
-            <div class="crew-container">
-                <div class="crew-member">
-                    <div class="game-owner">
-                        <span class="game-owner-name">{{findUser}}</span>
-                    </div>
-                    <input type="button" class="join-game" data-id="{{_id}}" value="Join">
-                </div>
-              {{#each gameTeam}}
-              <div class="crew-member">
-                <div class="crew-member-name">
-                    {{unit.name}}
-                </div>
-                <div class="crew-member-image">
-                  <img src="/img/thumb/{{unitThumb}}" title="{{unitName}}">
-                </div>
-              </div>
-              {{/each}}
-            </div>
-        </div>
-    {{/each}}
+    <div class="createGameContainer">
+      <div class="createGameAgainstKi">Play against bots</div>
+      <div class="createGameAgainstPlayer">Play against other players</div>
+    </div>
+  </div>
 
-<!--     <div class="row">
-        <div class="col-md-12">
-            <h1> Gameroom </h1>
-            <hr>
-        </div>
-        <div class="col-md-12">
-            {{#each currentOpenGames}}
-                <div class="row border">
-                    <div class="col-md-1">
-                        {{findUser}}
-                    </div>
-                    {{#each gameTeam}}
-                        <div class="col-md-1 {{heroClass}}">
-                            <img class="thumb" src="/img/thumb/{{unitThumb}}" title="{{unitName}}">
-                            {{unitName}}
-                        </div>
-                    {{/each }}
+  {{#each currentOpenGames}}
+  <div class="openGameRoomsContainer">
 
-
-
-                    <div class="col-md-1">
-                        <input type="button" class="btn btn-lg btn-block btn-default joinGame" data-id="{{_id}}" value="Join">
-                    </div>
-                </div>
-                <hr>
-            {{/each}}
+    <div class="openGameRoomsContainerTextWrapper">
+      <div class="openGameRoomsContainerText">
+        <div class="openGameRoomsCreator">
+          <div>
+            <span>{{findUser}}</span>
+          </div>
         </div>
-        <div class="col-md-12 createGame">
-            <input type="button" class="btn btn-default btn-lg btn-block" id="createGame" value="Create Game">
+        <div class="openGameRoomsJoin">
+          <div>
+            <div class="joinOpenGame" data-id="{{_id}}">JOIN</div>
+          </div>
         </div>
-    </div> -->
+      </div>
+    </div>
+
+    <div class="openGameRoomsCrewContainer">
+      {{#each gameTeam}}
+      <div class="crewMemberImageContainer" style="background-image:url('/img/thumb/{{unitThumb}}');">
+        <div class="crewMemberName">{{unit.name}}</div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+
 </template>
-
-
-
