@@ -56,7 +56,7 @@ Router.map ->
 
         if gamePlayers.length is 1
           if @params.ki
-            ki = Meteor.users.findOne({username: 'morathil'})
+            ki = Meteor.users.findOne({username: @params.ki})
             if new GameTeam({gameId: currentGame._id}).init(ki._id)
               gamePlayerId = currentGame.setPlayer2(ki._id)
               GamePlayer.update(gamePlayerId, {state: 'waiting'})

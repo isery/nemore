@@ -8,10 +8,11 @@ Template.gamerooms.events
     newTeam = new GameTeam({gameId: _id}).init(Meteor.userId())
     Router.go 'preSetting', _id: _id
 
-  'click .createGameAgainstKi': ->
+  'click .kiSteps': (e) ->
+    kiDifficulty = $(e.target).data('difficulty')
     _id = new Game({userId: Meteor.userId(),gameName: Meteor.userId(), state: "createdGame"}).save()
     newTeam = new GameTeam({gameId: _id}).init(Meteor.userId())
-    Router.go 'preSetting', _id: _id, ki: 'ki'
+    Router.go 'preSetting', _id: _id, ki: 'ki_' + kiDifficulty
 
 Template.gamerooms.gameTeam = ->
   GameTeam.find({gameId: @_id})

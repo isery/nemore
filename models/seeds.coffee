@@ -65,3 +65,6 @@ if Meteor.isServer
 					ColorKeys.insert colorId: color, keyId: key, conditionId: conditionArr[i], value: 1, duration: 1
 
 
+		for ki in @Ki
+			unless Meteor.users.findOne({username: ki})
+				Accounts.createUser({username: ki, password: ki})
