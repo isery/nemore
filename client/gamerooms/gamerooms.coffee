@@ -8,7 +8,7 @@ Template.gamerooms.events
     newTeam = new GameTeam({gameId: _id}).init(Meteor.userId())
     Router.go 'preSetting', _id: _id
 
-  'click #create-ki-game': ->
+  'click .createGameAgainstKi': ->
     _id = new Game({userId: Meteor.userId(),gameName: Meteor.userId(), state: "createdGame"}).save()
     newTeam = new GameTeam({gameId: _id}).init(Meteor.userId())
     Router.go 'preSetting', _id: _id, ki: 'ki'
@@ -34,3 +34,6 @@ Template.gamerooms.findUser = () ->
 Template.gamerooms.findImage = () ->
   userId = GamePlayers.findOne({gameId: @_id, player: "1"})?.userId
   Meteor.users.findOne({_id: userId})?.profile?.picture
+
+Template.gamerooms.notFull = ->
+  GamePlayers.find({gameId: @_id}).fetch().length < 2
