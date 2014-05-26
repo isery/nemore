@@ -95,15 +95,10 @@ Template.preSetting.rendered = ->
   )
 
   $('.selectAbilityTerm').change(->
-      console.log "changed"
-      console.log $(this).find(':selected').data('termId')
-      console.log $(this).find(':selected').data('AbilityPriorityId')
-      termId = $(this).find(':selected').data('termId')
-      abilityPriorityId = $(this).find(':selected').data('abilityPriorityId')
-      id = AbilityTerm.find({abilityPriorityId : abilityPriorityId})
-      console.log window
-      console.log id
-      #AbilityTerm.update(id, {termId : termId})
+      termId = $(this).find(':selected').data('term-id')
+      abilityPriorityId = $(this).find(':selected').data('ability-priority-id')
+      abilityTerm = AbilityTerm.findOne({abilityPriorityId : abilityPriorityId})
+      AbilityTerm.update(abilityTerm._id, {termId : termId})
     )
 
 Template.preSetting.destroyed = ->

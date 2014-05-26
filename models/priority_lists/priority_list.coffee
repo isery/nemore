@@ -102,6 +102,13 @@ class @AbilityTerm
     abilityTerm = AbilityTerms.findOne(options)
     new AbilityTerm(abilityTerm)
 
+  @update = (_id, options) ->
+    test = AbilityTerms.update
+      _id: _id
+    ,
+      $set:
+        options
+
 class @Term
   constructor: (options) ->
     for key, value of options
