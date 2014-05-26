@@ -18,7 +18,7 @@ class @BaseGame
 
     @canvasSize =
       x: 1024
-      y: 768
+      y: 724
 
     @game = new Phaser.Game(@canvasSize.x, @canvasSize.y, Phaser.CANVAS, "base-game",
       preload: @preload.bind(@)
