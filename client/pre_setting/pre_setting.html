@@ -1,5 +1,11 @@
 <template name="preSetting">
  <div class="preSettingsContainer">
+    <div class="headerDataContainer">
+      <div class="headerText">
+        <span>Pre-Settings</span>
+      </div>
+    </div>
+
     <ul class="list" role="menu">
       {{#each gameTeams}}
       <li data-id={{_id}} data-prio={{priority}} data-model="GameTeam">
@@ -67,5 +73,5 @@
 </template>
 
 <template name="preSettingAbilityConditions">
-  <option>{{name}}</option>
+  <option data-term-id="{{term._id}}" data-ability-priority-id="{{abilityPriorityId}}">{{term.name}}</option>
 </template>

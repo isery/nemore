@@ -4,10 +4,6 @@ closeMenu = ($menu)->
 openMenu = ($menu)->
   $menu.toggleClass("bt-menu-open")
 
-Template.container.rendered = ->
-  adjustLoginBox()
-
-
 Template.container.events
   'click #bt-menu > .bt-menu-trigger': (e) ->
     $overlay = $('.bt-overlay')
@@ -21,7 +17,11 @@ Template.container.events
       $overlay.one 'click': (e) ->
         closeMenu($menu)
 
-adjustLoginBox = ->
-  $loginBox = $("#login-dropdown-list")
-  $link = $loginBox.find(".dropdown-toggle")
-  $link.empty().addClass('fa fa-gears')
+
+Template._loginButtonsLoggedOutDropdown.rendered = ->
+  $(".dropdown-toggle").text('').addClass("fa fa-sign-in")
+
+Template._loginButtonsLoggedInDropdown.rendered = ->
+  $(".dropdown-toggle").text('').addClass("fa fa-gears")
+
+

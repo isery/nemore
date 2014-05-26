@@ -4,21 +4,14 @@
     <a href="#" class="bt-menu-trigger"><span>Menu</span></a>
 
     <ul>
+      {{#if currentUser}}
       <li><a class="fa fa-home" href="{{pathFor 'home'}}"></a></li>
       <li><a class="fa fa-gamepad" href="{{pathFor 'gamerooms'}}"></a></li>
       <li><a class="fa fa-user" href="{{pathFor 'heroSelection'}}"></a></li>
       <li><a class="fa fa-users" href="{{pathFor 'crewSelection'}}"></a></li>
+      {{/if}}
       <li>{{> loginButtons}}</li>
     </ul>
-
-    <!--
-    <ul>
-      <li><a href="" class="bt-icon fa fa-twitter">Twitter</a></li>
-      <li><a href="" class="bt-icon fa fa-facebook">Facebook</a></li>
-      <li><a href="" class="bt-icon fa fa-github">Github</a></li>
-      <li><a href="" class="bt-icon fa fa-google-plus">Google+</a></li>
-    </ul>
-    -->
 
     <div id="bt-overlay" class="bt-overlay"></div>
   </nav>

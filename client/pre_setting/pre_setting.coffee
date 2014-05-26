@@ -44,8 +44,8 @@ Template.preSetting.events
         UI.insert(targetListElement, $unitAbilityTargetsList[0])
 
       for term in Terms.find().fetch()
-        termOption = UI.renderWithData(Template.preSettingAbilityConditions, term)
-        UI.insert(termOption, $abilityConditionOptions[0])
+        termOption = UI.renderWithData(Template.preSettingAbilityConditions, {term: term, abilityPriorityId: @_id})
+        UI.insert(termOption , $abilityConditionOptions[0])
 
       $parentContainer.find(".unitAbilityContainer, .unitAbilityCondition").each (index, element) ->
         $(element).stop(false, true).animate
@@ -103,6 +103,13 @@ Template.preSetting.rendered = ->
           targetListElement = UI.renderWithData(Template.preSettingTargetList, targetPriority)
           UI.insert(targetListElement, $element[0])
   )
+
+  $('.selectAbilityTerm').change(->
+      termId = $(this).find(':selected').data('term-id')
+      abilityPriorityId = $(this).find(':selected').data('ability-priority-id')
+      abilityTerm = AbilityTerm.findOne({abilityPriorityId : abilityPriorityId})
+      AbilityTerm.update(abilityTerm._id, {termId : termId})
+    )
 
 Template.preSetting.destroyed = ->
   gameId = Session.get('currentGameId')
