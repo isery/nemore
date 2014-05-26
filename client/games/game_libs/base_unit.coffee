@@ -30,7 +30,7 @@ class @BaseUnit
     @_lifeBackground.beginFill(color)
     @_lifeBackground.lineStyle(12, color, 1)
     @_lifeBackground.moveTo(x + 9, y - 10)
-    @_lifeBackground.lineTo(x + 51, y - 10)
+    @_lifeBackground.lineTo(x + 51 + 10, y - 10)
     @_lifeBackground.endFill()
     @_group.add(@_lifeBackground)
 
@@ -59,7 +59,7 @@ class @BaseUnit
       @_unitLife.beginFill(color)
       @_unitLife.lineStyle(10, color, 1)
       @_unitLife.moveTo(@_lifePosX + 10, @_lifePosY - 10)
-      @_unitLife.lineTo(@_lifePosX + (50 * percent), @_lifePosY - 10)
+      @_unitLife.lineTo(@_lifePosX + 10 +(50 * percent), @_lifePosY - 10)
       @_unitLife.endFill()
       @_group.add(@_unitLife)
 

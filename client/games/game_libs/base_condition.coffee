@@ -28,6 +28,11 @@ class @BaseCondition
       @_conditions[key].scale.x *= 0.4
       @_conditions[key].scale.y *= 0.4
 
+  removeAll: (gameTeamId)->
+    gameConditions = GameTeamConditions.find({gameTeamId: gameTeamId}).fetch()
+    for gameCondition in gameConditions
+      GameTeamConditions.remove({_id: gameCondition._id})
+
   @update: (data) ->
     _baseGame = data.baseGame
     _game = data.baseGame.game
