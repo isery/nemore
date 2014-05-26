@@ -34,7 +34,7 @@ Router.map ->
       currentOpenGames: Games.find({state: 'createdGame'}).fetch()
       users: Meteor.users.find({}).fetch()
   @route 'preSetting',
-    path: '/preSetting/:_id/:ki'
+    path: '/preSetting/:_id/:ki?'
     onBeforeAction: ->
       @subscribe('currentGame', @params._id).wait()
       @subscribe('allUnits').wait()
