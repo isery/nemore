@@ -262,7 +262,7 @@
 
 .dropdown-menu{
 	left: 80px !important;
-	top: -382px;
+	/*top: -382px;*/
 }
 
 .dropdown-menu .btn-primary{
