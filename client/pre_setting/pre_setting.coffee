@@ -94,6 +94,18 @@ Template.preSetting.rendered = ->
         window[model].update(modelId, {priority : parseInt(i)})
   )
 
+  $('.selectAbilityTerm').change(->
+      console.log "changed"
+      console.log $(this).find(':selected').data('termId')
+      console.log $(this).find(':selected').data('AbilityPriorityId')
+      termId = $(this).find(':selected').data('termId')
+      abilityPriorityId = $(this).find(':selected').data('abilityPriorityId')
+      id = AbilityTerm.find({abilityPriorityId : abilityPriorityId})
+      console.log window
+      console.log id
+      #AbilityTerm.update(id, {termId : termId})
+    )
+
 Template.preSetting.destroyed = ->
   gameId = Session.get('currentGameId')
   playerCount = GamePlayer.find({gameId: gameId}).length
