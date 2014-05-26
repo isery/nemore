@@ -44,8 +44,8 @@ Template.preSetting.events
         UI.insert(targetListElement, $unitAbilityTargetsList[0])
 
       for term in Terms.find().fetch()
-        termOption = UI.renderWithData(Template.preSettingAbilityConditions, term)
-        UI.insert(termOption, $abilityConditionOptions[0])
+        termOption = UI.renderWithData(Template.preSettingAbilityConditions, {term: term, abilityPriorityId: @_id})
+        UI.insert(termOption , $abilityConditionOptions[0])
 
       $parentContainer.find(".unitAbilityContainer, .unitAbilityCondition").each (index, element) ->
         $(element).stop(false, true).animate
