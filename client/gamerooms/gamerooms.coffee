@@ -16,7 +16,6 @@ Template.gamerooms.unitName = ->
 
 Template.gamerooms.unitThumb = ->
   unitname = @unit().name
-  console.log unitname.toLowerCase() + '.png'
   unitname.toLowerCase() + '.png'
 
 Template.gamerooms.heroClass = ->
