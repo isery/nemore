@@ -27,3 +27,7 @@ Template.battlelog.getValueClass = ->
     return 'heal'
 
   'buff'
+
+Template.battlelog.rendered = ->
+  $(".battlelog").perfectScrollbar
+    suppressScrollX: true
