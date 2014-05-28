@@ -9,3 +9,6 @@ UI.registerHelper 'toUpperCase', (value) ->
 
 UI.registerHelper 'numberSelectedMembers', () ->
   Team.find({userId: Meteor.userId()}).length - 1
+
+UI.registerHelper 'addPercent', (value) ->
+  value + ' %'

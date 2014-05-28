@@ -51,7 +51,7 @@ class @BaseAbility
         text = 'Defeat'
       else
         text = 'Victory'
-      $('#base-game').append('<div id="end-game" class="' + text.toLowerCase() + '"">' + text + '<br> <div id="finish-game">End Game</div> </div>')
+      $('#base-game').append('<div id="end-game" class="' + text.toLowerCase() + '""><div>' + text + '</div><div id="finish-game">Continue</div> </div>')
 
   pullweapon: ->
     @_parts = 1
@@ -118,7 +118,7 @@ class @BaseAbility
         if this.target.hit
           if this.target.life <= 0
             target.gameTeam._unit.events.onAnimationComplete.removeAll()
-            target.gameTeam._conditions.removeAll(target.gameTeamId)
+
             this.scope._baseGame.sound_death.play()
 
             target.gameTeam._unit.animations.play "death", 5, false
