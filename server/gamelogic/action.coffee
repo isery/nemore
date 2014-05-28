@@ -166,8 +166,6 @@ class @Action
             })
 
   checkAbilityTerms: (target, term) ->
-    console.log @_operators
-    console.log term.operator
     @_operators[term.operator](@_game[target._id]._unitLife, @_game[target._id]._unitMaxLife * term.value)
 
   checkTargetHealth: (target) ->

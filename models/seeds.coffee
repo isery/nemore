@@ -42,10 +42,10 @@ if Meteor.isServer
 
 		if Terms.find().count() <= 0
 			Terms.insert name: 'always', operator: '∞'
-			Terms.insert name: '< 100 %', operator: '<', value: 1
-			Terms.insert name: '< 75 %', operator: '<', value: 0.75
-			Terms.insert name: '< 50 %', operator: '<', value: 0.50
-			Terms.insert name: '< 25 %', operator: '<', value: 0.25
+			Terms.insert name: '< 100', operator: '<', value: 1
+			Terms.insert name: '< 75', operator: '<', value: 0.75
+			Terms.insert name: '< 50', operator: '<', value: 0.50
+			Terms.insert name: '< 25', operator: '<', value: 0.25
 
 
 		if Colors.find().count() <= 0

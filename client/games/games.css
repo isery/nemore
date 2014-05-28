@@ -1,12 +1,12 @@
 #end-game{
   position: absolute;
-  top: 30%;
-  left: 40%;
-  font-size: 300%;
-  border: 1px solid;
-  padding: 40px;
+  top: 200px;
+  left: 500px;
+  font-size: 50px;
+  text-shadow: 2px 2px black;
   font-style: italic;
   text-align: center;
+  font-family: Baskerville;
 }
 .fixed {
   position: fixed;
@@ -24,4 +24,5 @@
 
 #finish-game{
   cursor: pointer;
+  font-size: 25px;
 }

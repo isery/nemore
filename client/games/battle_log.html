@@ -1,19 +1,16 @@
 <template name="battlelog">
-  {{#each getActions}}
-    *************************** <br>
-    | index: {{index}} <br>
-    | from: {{getFrom}} <br>
-    | ability: {{getAbility}} <br>
-    | to: <br>
-    {{#each to}}
-      - {{getGameTeam}}
-      (
-        hit: {{hit}},
-        crit: {{crit}},
-        damage: {{damage}},
-        life: {{life}}
-      )
-      <br>
+  <div class="battlelog">
+    {{#each getActions}}
+      <div class="battlelog-entry">
+        {{index}}.) <b>{{getFrom}}</b> used <b>{{getAbility}}</b> on
+
+        {{#each to}}
+          <b>{{getGameTeam}}</b>
+            <label class="{{getValueClass}}">
+              {{getValue}}
+            </label>
+        {{/each}}
+      </div>
     {{/each}}
-  {{/each}}
+  </div>
 </template>
