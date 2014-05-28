@@ -3,6 +3,11 @@
   overflow-y: scroll;
   background-color: #333;
   color: white;
+  position: relative;
+  width: 50%;
+  overflow: hidden;
+  padding-right: 10px;
+  border: 1px solid #ffffff;
 }
 
 .battlelog-entry{
