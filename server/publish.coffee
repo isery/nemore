@@ -22,6 +22,9 @@ Meteor.publish "userTeams", ->
 Meteor.publish "allGameTeams", ->
   GameTeams.find({})
 
+Meteor.publish "allTeams", ->
+  Teams.find()
+
 Meteor.publish "allGamePlayers", ->
   GamePlayers.find({})
 
@@ -55,3 +58,6 @@ Meteor.publish "colorKeys", ->
     Keys.find({}),
     ColorKeys.find({})
   ]
+
+Meteor.publish 'allUsers', ->
+  Meteor.users.find()

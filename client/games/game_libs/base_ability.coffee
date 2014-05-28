@@ -118,7 +118,7 @@ class @BaseAbility
         if this.target.hit
           if this.target.life <= 0
             target.gameTeam._unit.events.onAnimationComplete.removeAll()
-
+            target.gameTeam._conditions.removeAll(target.gameTeamId)
             this.scope._baseGame.sound_death.play()
 
             target.gameTeam._unit.animations.play "death", 5, false

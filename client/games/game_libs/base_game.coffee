@@ -18,15 +18,13 @@ class @BaseGame
 
     @canvasSize =
       x: 1024
-      y: 768
+      y: 724
 
     @game = new Phaser.Game(@canvasSize.x, @canvasSize.y, Phaser.CANVAS, "base-game",
       preload: @preload.bind(@)
       create: @create.bind(@)
       update: @update.bind(@)
     )
-
-    @initColorHighlight()
 
 
   initColorHighlight: ->
@@ -170,13 +168,13 @@ class @BaseGame
     @initAudio()
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
-
     @createKeyboardListener()
 
     @initSmoke(@game.world.centerX + 200, 380, 0.3, 0.5, -50, -20)
     @initSmoke(@game.world.centerX + 525, 500, 0.3, 0.5, -30, -10)
 
     @initSparks()
+    @initColorHighlight()
 
     @initObserver()
 
@@ -253,6 +251,17 @@ class @BaseGame
           ,
             $set:
               state: "animating"
+
+          player2 = GamePlayers.findOne({gameId: action.gameId, player: '2'})
+          player2User = Meteor.users.findOne({_id: player2.userId})
+          if window.Ki.indexOf(player2User.username) >= 0
+            GamePlayers.update
+              _id: player2._id
+            ,
+              $set:
+                state: 'waiting'
+                lastIndex: action.index
+
           new BaseAbility({action: action, baseGame: that}).play()
           BaseCondition.update({action: action, baseGame: that})
     })
@@ -312,7 +321,6 @@ class @BaseGame
       y: @canvasSize.y * 0.65
 
     pArr = if isPlayerOne then p1Positions else p2Positions
-
     # init units
     for member, i in player.team
       @[member._id].addSprite(pArr[i].x, pArr[i].y)
