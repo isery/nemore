@@ -3,6 +3,10 @@ class @Action
     @_game = data
     @_doc = doc
 
+    @_operators =
+      '<': (obj1,obj2) -> obj1 < obj2
+      '>': (obj1,obj2) -> obj1 > obj2
+
     @from() #P1
     @updateConditions()
     @_priorityLists = @getPriorityLists()
@@ -11,9 +15,6 @@ class @Action
     @calculateAbility()
     @save()
 
-    @_operators =
-      '<': (obj1,obj2) -> obj1 < obj2
-      '>': (obj1,obj2) -> obj1 > obj2
 
   from : () ->
     @_game._playerFlag = !@_game._playerFlag

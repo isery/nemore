@@ -5,8 +5,9 @@ class @GameTeam
     for key, value of options
       @[key] = value
 
-  init: ->
-    team = Team.find({userId: Meteor.userId()})
+  init: (userId)->
+    team = Team.find({userId: userId})
+    return false unless team.length > 0
     for member in team
       GameTeams.insert
         gameId: @gameId

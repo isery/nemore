@@ -5,37 +5,43 @@
       <span>Gameroom</span>
     </div>
     <div class="createGameContainer">
-      <div class="createGameAgainstKi">Play against bots</div>
+      <div class="createGameAgainstKi">
+        <div class="kiSteps" data-difficulty="easy">PC-Easy</div>
+        <div class="kiSteps" data-difficulty="medium">PC-Medium</div>
+        <div class="kiSteps" data-difficulty="hard">PC-Hard</div>
+      </div>
       <div class="createGameAgainstPlayer">Play against other players</div>
     </div>
   </div>
 
   {{#each currentOpenGames}}
-  <div class="openGameRoomsContainer">
+    {{#if notFull}}
+      <div class="openGameRoomsContainer">
 
-    <div class="openGameRoomsContainerTextWrapper">
-      <div class="openGameRoomsContainerText">
-        <div class="openGameRoomsCreator">
-          <div>
-            <span>{{findUser}}</span>
+        <div class="openGameRoomsContainerTextWrapper">
+          <div class="openGameRoomsContainerText">
+            <div class="openGameRoomsCreator">
+              <div>
+                <span>{{findUser}}</span>
+              </div>
+            </div>
+            <div class="openGameRoomsJoin">
+              <div>
+                <div class="joinOpenGame" data-id="{{_id}}">JOIN</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="openGameRoomsJoin">
-          <div>
-            <div class="joinOpenGame" data-id="{{_id}}">JOIN</div>
+
+        <div class="openGameRoomsCrewContainer">
+          {{#each gameTeam}}
+          <div class="crewMemberImageContainer" style="background-image:url('/clientImgs/gameroom/{{unitThumb}}');">
+            <div class="crewMemberName">{{unit.name}}</div>
           </div>
+          {{/each}}
         </div>
       </div>
-    </div>
-
-    <div class="openGameRoomsCrewContainer">
-      {{#each gameTeam}}
-      <div class="crewMemberImageContainer" style="background-image:url('/img/thumb/{{unitThumb}}');">
-        <div class="crewMemberName">{{unit.name}}</div>
-      </div>
-      {{/each}}
-    </div>
-  </div>
+    {{/if}}
   {{/each}}
 </div>
 

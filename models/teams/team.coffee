@@ -1,4 +1,4 @@
-Teams = new Meteor.Collection 'teams'
+@Teams = new Meteor.Collection 'teams'
 
 class @Team
   _maxCount: 5

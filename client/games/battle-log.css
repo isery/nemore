@@ -1,0 +1,28 @@
+.battlelog{
+  height: 150px;
+  overflow-y: scroll;
+  background-color: #333;
+  color: white;
+  position: relative;
+  width: 50%;
+  overflow: hidden;
+  padding-right: 10px;
+  border: 1px solid #ffffff;
+}
+
+.battlelog-entry{
+  border-bottom: 1px solid #f68642;
+  padding: 5px 0px 3px 5px;
+}
+
+.damage{
+  color: red;
+}
+
+.heal{
+  color: green;
+}
+
+.buff{
+  color: yellow;
+}

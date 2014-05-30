@@ -43,11 +43,9 @@
 
 .gameRoomContainer .headerDataContainer .createGameContainer{
   height: 35%;
-  background-color: yellow;
 }
 
-.gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstPlayer,
-.gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstKi{
+.gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstPlayer{
   position: relative;
   width: 50%;
   height: 100%;
@@ -71,13 +69,48 @@
 
   cursor: pointer;
 }
-
 .gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstPlayer:hover,
-.gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstKi:hover{
+.gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstKi .kiSteps:hover{
   background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #f68742) );
   background:-moz-linear-gradient( center top, #fb9e25 5%, #f68742 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#f68742');
   background-color:#fb9e25;
+}
+
+.gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstKi{
+  position: relative;
+  width: 50%;
+  height: 100%;
+  float: left;
+  line-height: 49px;
+  text-align: center;
+
+}
+
+.gameRoomContainer .headerDataContainer .createGameContainer .createGameAgainstKi .kiSteps{
+  position: relative;
+  width: calc(100% / 3);
+
+  height: 100%;
+  float: left;
+  line-height: 49px;
+  text-align: center;
+
+  background:-o-linear-gradient(bottom, #f68642 5%, #bf5f00 100%);    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f68642), color-stop(1, #bf5f00) );
+  background:-moz-linear-gradient( center top, #f68642 5%, #bf5f00 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#f68642", endColorstr="#bf5f00");  background: -o-linear-gradient(top,#f68642,bf5f00);
+  background-color:#f68642;
+  text-indent:0;
+  border:1px solid #eeb44f;
+  display:inline-block;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:20px;
+  font-weight:bold;
+  font-style:normal;
+  text-decoration:none;
+
+  cursor: pointer;
 }
 
 .gameRoomContainer .openGameRoomsContainer{
