@@ -12,12 +12,14 @@ if Meteor.isServer
 		specialistId = Units.findOne(name: "Specialist")._id
 
 		if Conditions.find().count() <= 0
-			conditionArr = []
 			critId = Conditions.insert name: 'crit'
 			hitId = Conditions.insert name: 'hit'
 			armorId = Conditions.insert name: 'armor'
 			dmgId = Conditions.insert name: 'dmg'
-			conditionArr.push critId, hitId, armorId, dmgId
+			negativeCritId = Conditions.insert name: 'negative crit'
+			negativeHitId = Conditions.insert name: 'negative hit'
+			negativeArmorId = Conditions.insert name: 'negative armor'
+			negativeDmgId = Conditions.insert name: 'negative dmg'
 		if SpecialAbilities.find().count() <= 0
 			SpecialAbilities.insert unitId: droneId, name: "defenseAll_drone", specialName: "Crystal Armor", description: "Increases defense of allies",target_type: "team", value: 0.4, target_count: 5, duration: 2, cooldown: 11, conditionId: armorId, states: ["pullweapon", "buff", "downweapon"]
 			SpecialAbilities.insert unitId: droneId, name: "damageAll_drone", specialName: "Devastating Blow", description: "Deals damage to all enemies", target_type: "enemies", value: 1.0, target_count: 5, cooldown: 9, states: ["pullweapon", "shoot", "downweapon"]
@@ -49,19 +51,23 @@ if Meteor.isServer
 
 
 		if Colors.find().count() <= 0
-			colorArr = []
-			colorArr.push Colors.insert name: "Red", hex: "#ff0000"
-			colorArr.push Colors.insert name: "Green", hex: "#00ff00"
-			colorArr.push Colors.insert name: "Blue", hex: "#0000ff"
+			colorRedId = Colors.insert name: "Red", hex: "#ff0000"
+			colorGreenId = Colors.insert name: "Green", hex: "#00ff00"
+			colorBlueId = Colors.insert name: "Blue", hex: "#0000ff"
 		if Keys.find().count() <= 0
-			keyArr = []
-			keyArr.push Keys.insert name: "q", inputkey: 81
-			keyArr.push Keys.insert name: "w", inputkey: 87
-			keyArr.push Keys.insert name: "e", inputkey: 69
-			keyArr.push Keys.insert name: "r", inputkey: 82
+			keyQId = Keys.insert name: "q", inputkey: 81
+			keyWId = Keys.insert name: "w", inputkey: 87
+			keyEId = Keys.insert name: "e", inputkey: 69
+			keyRId = Keys.insert name: "r", inputkey: 82
 		if ColorKeys.find().count() <= 0
-			for color in colorArr
-				for key, i in keyArr
-					ColorKeys.insert colorId: color, keyId: key, conditionId: conditionArr[i], value: 1, duration: 1
+			ColorKeys.insert colorId: colorRedId, keyId: keyQId, conditionId: critId, value: 0.1, duration: 2
+			ColorKeys.insert colorId: colorGreenId, keyId: keyWId, conditionId: hitId, value: 0.5, duration: 2
+			ColorKeys.insert colorId: colorBlueId, keyId: keyEId, conditionId: armorId, value: 0.25, duration: 2
+			ColorKeys.insert colorId: colorRedId, keyId: keyRId, conditionId: dmgId, value: 0.5, duration: 2
+			ColorKeys.insert colorId: colorGreenId, keyId: keyQId, conditionId: negativeCritId, value: -0.1, duration: 2
+			ColorKeys.insert colorId: colorBlueId, keyId: keyWId, conditionId: negativeHitId, value: -0.5, duration: 2
+			ColorKeys.insert colorId: colorRedId, keyId: keyEId, conditionId: negativeArmorId, value: -0.25, duration: 2
+			ColorKeys.insert colorId: colorGreenId, keyId: keyRId, conditionId: negativeDmgId, value: -0.5, duration: 2
+			#usw
 
 
