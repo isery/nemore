@@ -99,6 +99,10 @@ class @BaseGame
     @game.load.image "hit", "/sprites/hit.png"
     @game.load.image "armor", "/sprites/armor.png"
     @game.load.image "dmg", "/sprites/dmg.png"
+    @game.load.image "negative_crit", "/sprites/negative_crit.png"
+    @game.load.image "negative_hit", "/sprites/negative_hit.png"
+    @game.load.image "negative_armor", "/sprites/negative_armor.png"
+    @game.load.image "negative_dmg", "/sprites/negative_dmg.png"
 
     @game.load.image "ball", "/sprites/aqua_ball.png"
     @game.load.image "smoke", "/sprites/smoke.png"
@@ -168,13 +172,14 @@ class @BaseGame
     @initAudio()
     @createTeam(@playerOne)
     @createTeam(@playerTwo)
-    @createKeyboardListener()
+
 
     @initSmoke(@game.world.centerX + 200, 380, 0.3, 0.5, -50, -20)
     @initSmoke(@game.world.centerX + 525, 500, 0.3, 0.5, -30, -10)
 
     @initSparks()
     @initColorHighlight()
+    @createKeyboardListener()
 
     @initObserver()
 
